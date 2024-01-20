@@ -10,7 +10,11 @@ module.exports = withBundleAnalyzer({
     baseUrl: "src",
   },
   images: {
-    domains: ["panel.craftyartapp.com", "beta.craftyartapp.com"],
+    domains: [
+      "panel.craftyartapp.com",
+      "beta.craftyartapp.com",
+      "new-craft.vercel.app",
+    ],
     formats: ["image/webp"],
   },
 });
