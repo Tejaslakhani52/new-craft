@@ -106,29 +106,16 @@ export default function ImageBox({
                   key={index}
                   style={{ display: "flex", justifyContent: "center" }}
                 >
-                  <Image
-                    src={`${image}`}
-                    alt={image}
-                    width={150}
-                    height={150}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-            {/* 
-            <img
+                  <img
                     src={image}
                     alt={image}
                     className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
                     style={{ transition: "0.5s all" }}
                     onLoad={(e: any) => e.target.classList.remove("opacity-0")}
-                  /> */}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
 
           {isHovered && templates?.thumbArray?.length > 1 && (

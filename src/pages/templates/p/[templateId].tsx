@@ -483,7 +483,7 @@ export default function templateId({ templateData }: serverProps) {
                             </span>
                           )}
 
-                          {/* <img
+                          <img
                             src={templates?.template_thumb}
                             alt={templates?.category_name}
                             className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
@@ -493,9 +493,9 @@ export default function templateId({ templateData }: serverProps) {
                             onLoad={(e: any) =>
                               e.target.classList.remove("opacity-0")
                             }
-                          /> */}
+                          />
 
-                          <Image
+                          {/* <Image
                             src={templates?.template_thumb}
                             alt={templates?.category_name}
                             width={150}
@@ -506,7 +506,7 @@ export default function templateId({ templateData }: serverProps) {
                               borderRadius: "5px",
                               cursor: "pointer",
                             }}
-                          />
+                          /> */}
                         </div>
                       </div>
                     </div>

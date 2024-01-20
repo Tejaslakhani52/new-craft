@@ -96,7 +96,7 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
               >
                 <Link href={`/templates/p/${templates.id_name}`}>
                   <div className="w-full h-full p-[8px]">
-                    {/* <img
+                    <img
                       src={templates?.template_thumb}
                       alt={templates?.category_name}
                       className={`w-full] rounded-[5px] cursor-pointer opacity-0`}
@@ -108,9 +108,9 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
                       onLoad={(e: any) =>
                         e.target.classList.remove("opacity-0")
                       }
-                    /> */}
+                    />
 
-                    <Image
+                    {/* <Image
                       src={templates?.template_thumb}
                       alt={templates?.category_name}
                       width={150}
@@ -122,7 +122,7 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
                         cursor: "pointer",
                         border: "1px solid #80808082",
                       }}
-                    />
+                    /> */}
 
                     <div className="pt-2">
                       <p className="text-ellipsis w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">

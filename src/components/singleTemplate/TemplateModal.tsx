@@ -533,7 +533,7 @@ export default function TemplateModal({
                                 </span>
                               )}
 
-                              {/* <img
+                              <img
                                 src={templates?.template_thumb}
                                 alt={templates?.category_name}
                                 className={`w-full h-full rounded-[5px] cursor-pointer `}
@@ -541,9 +541,9 @@ export default function TemplateModal({
                                   border: "1px solid #80808082",
                                   transition: "0.5s all",
                                 }}
-                              /> */}
+                              />
 
-                              <Image
+                              {/* <Image
                                 src={templates?.template_thumb}
                                 alt={templates?.category_name}
                                 width={150}
@@ -555,7 +555,7 @@ export default function TemplateModal({
                                   cursor: "pointer",
                                   border: "1px solid #80808082",
                                 }}
-                              />
+                              /> */}
                             </div>
                           </div>
                         </Link>

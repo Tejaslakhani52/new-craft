@@ -10,13 +10,6 @@ module.exports = withBundleAnalyzer({
     baseUrl: "src",
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "**",
-        port: "",
-        pathname: "**",
-      },
-    ],
+    domains: ["panel.craftyartapp.com", "beta.craftyartapp.com"],
   },
 });
