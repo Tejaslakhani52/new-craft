@@ -15,6 +15,5 @@ module.exports = withBundleAnalyzer({
       "beta.craftyartapp.com",
       "new-craft.vercel.app",
     ],
-    formats: ["image/webp"],
   },
 });
