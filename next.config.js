@@ -10,10 +10,13 @@ module.exports = withBundleAnalyzer({
     baseUrl: "src",
   },
   images: {
-    domains: [
-      "panel.craftyartapp.com",
-      "beta.craftyartapp.com",
-      "new-craft.vercel.app",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 });
