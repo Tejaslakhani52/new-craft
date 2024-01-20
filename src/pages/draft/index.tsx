@@ -117,8 +117,7 @@ const DraftBoxes = ({
                 window.open(
                   `https://play.google.com/store/apps/details?id=com.crafty.art`
                 );
-              }
-              window.open(`https://editor.craftyartapp.com/${item?.id}`);
+              } else window.open(`https://editor.craftyartapp.com/${item?.id}`);
             }}
           >
             <div
