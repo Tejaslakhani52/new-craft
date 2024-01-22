@@ -14,6 +14,7 @@ import MenuBox from "./headerComponents/Menu";
 export default function Header({ sidebarOpen, setSidebarOpen }: any) {
   const dispatch = useDispatch();
   const router = useRouter();
+  console.log("router: ", router);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -23,7 +24,6 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
   );
 
   const [openLogin, setOpenLogin] = useState<boolean>(false);
-
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>("");
   const [token, setToken] = React.useState<string | null>("default");
@@ -33,6 +33,12 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
       setToken(authCookiesGet());
     }
   }, []);
+
+  useEffect(() => {
+    if (router.pathname !== "/s/[searchValue]") {
+      setSearchValue("");
+    }
+  }, [router]);
 
   useEffect(() => {
     setOpenLogin(sidebarOpenLogin);
@@ -104,7 +110,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
               const trimmedValue = searchValue?.trim();
               const modifiedValue = trimmedValue?.replace(/ /g, "-");
 
-              if (e.key === "Enter") {
+              if (e.key === "Enter" && searchValue !== "") {
                 router.push(`/s/${modifiedValue}`);
               }
             }}
@@ -155,10 +161,12 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
                 <Button
                   className="text-white bg_linear normal-case"
                   onClick={(e: any) => {
-                    const trimmedValue = searchValue?.trim();
-                    const modifiedValue = trimmedValue?.replace(/ /g, "-");
-                    router.push(`/s/${modifiedValue}`);
-                    setAnchorEl(null);
+                    if (searchValue !== "") {
+                      const trimmedValue = searchValue?.trim();
+                      const modifiedValue = trimmedValue?.replace(/ /g, "-");
+                      router.push(`/s/${modifiedValue}`);
+                      setAnchorEl(null);
+                    }
                   }}
                 >
                   Search

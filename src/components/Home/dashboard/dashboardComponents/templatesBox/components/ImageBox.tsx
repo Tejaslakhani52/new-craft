@@ -48,19 +48,17 @@ export default function ImageBox({
   }, [isHovered, templates?.thumbArray]);
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
+    if (screenWidth > 600) {
+      setIsHovered(true);
+    }
   };
 
   const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCurrentIndex(0);
+    if (screenWidth > 600) {
+      setIsHovered(false);
+      setCurrentIndex(0);
+    }
   };
-
-  useEffect(() => {
-    if (screenWidth < 600) {
-      setIsHovered(true);
-    } else setIsHovered(false);
-  }, [screenWidth]);
 
   return (
     <Link
