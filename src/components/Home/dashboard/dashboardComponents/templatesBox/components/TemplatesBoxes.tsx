@@ -3,7 +3,7 @@ import { DashboardDataType } from "@/src/interface/dashboard";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ImageBox from "./ImageBox";
 
 interface TemplatesBoxesProps {
@@ -19,7 +19,6 @@ export default function TemplatesBoxes({
   setIdName,
   height,
 }: TemplatesBoxesProps) {
-  const router = useRouter();
   const uniqueCat =
     item?.category_name === "Latest" ||
     item?.category_name === "Trending" ||
@@ -36,14 +35,14 @@ export default function TemplatesBoxes({
     );
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     const container = document.getElementById(containerId);
     if (container) {
       container.addEventListener("scroll", handleScroll);
       handleScroll({ target: container } as unknown as Event);
       return () => container.removeEventListener("scroll", handleScroll);
     }
-  }, [containerId]);
+  }, [containerId, handleScroll]);
 
   const handleNextClick = () => {
     const container = document.getElementById(containerId) as HTMLElement;

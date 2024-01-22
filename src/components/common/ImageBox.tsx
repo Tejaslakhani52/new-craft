@@ -51,6 +51,15 @@ export default function ImageBox({
     setCurrentIndex(0);
   };
 
+  useEffect(() => {
+    if (screenWidth < 600) {
+      setIsHovered(true);
+    } else {
+      setIsHovered(false);
+      setCurrentIndex(0);
+    }
+  }, [screenWidth]);
+
   return (
     <div
       className=""

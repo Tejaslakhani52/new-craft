@@ -134,7 +134,7 @@ export default function TemplateModal({
       case screenWidth > 1500:
         return 6.92;
       case screenWidth > 1200:
-        return 6.92;
+        return 5.97;
       case screenWidth > 1023:
         return 6.92;
       case screenWidth > 700:

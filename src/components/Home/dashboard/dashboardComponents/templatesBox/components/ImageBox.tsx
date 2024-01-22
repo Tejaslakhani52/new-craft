@@ -56,6 +56,12 @@ export default function ImageBox({
     setCurrentIndex(0);
   };
 
+  useEffect(() => {
+    if (screenWidth < 600) {
+      setIsHovered(true);
+    } else setIsHovered(false);
+  }, [screenWidth]);
+
   return (
     <Link
       className={`h-auto bg-white cursor-pointer block ${

@@ -112,9 +112,9 @@ export default function sKeyword({ serverData, updatedLines }: any) {
       case screenWidth > 1500:
         return 7.47;
       case screenWidth > 1200:
-        return 6.47;
+        return 6.72;
       case screenWidth > 1023:
-        return 5.47;
+        return 5.72;
       case screenWidth > 700:
         return 3.3;
 

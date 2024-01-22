@@ -12,7 +12,6 @@ import Icons from "@/src/assets";
 
 export default function ResumeStatic() {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
-
   const [showPrevButton, setShowPrevButton] = useState(true);
   const [showNextButton, setShowNextButton] = useState(true);
 
@@ -270,7 +269,7 @@ export default function ResumeStatic() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
-              src={`${assetsUrl}/w_assets/images/category/whyChooseFestival.png`}
+              src={`/images/resumeImage.png`}
               alt={"Resume Portrait Templates"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
             />

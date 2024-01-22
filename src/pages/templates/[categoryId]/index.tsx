@@ -186,12 +186,14 @@ export default function index({ jsonString }: ServerSideProps) {
 
   const multiSizeFixSize = React.useMemo(() => {
     switch (true) {
-      case screenWidth > 1500:
+      case screenWidth > 1600:
         return 7.47;
+      case screenWidth > 1500:
+        return 7.97;
       case screenWidth > 1200:
-        return 6.47;
+        return 7.47;
       case screenWidth > 1023:
-        return 5.47;
+        return 5.72;
       case screenWidth > 700:
         return 3.3;
 
