@@ -13,7 +13,7 @@ export default async function handler(
     const imageBuffer = Buffer.from(response.data);
 
     const compressedImageBuffer = await sharp(imageBuffer)
-      .resize(200)
+      .resize(250)
       .toBuffer();
 
     res.setHeader("Content-Type", "image/jpeg");

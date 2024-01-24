@@ -94,6 +94,7 @@ export default function templateId({ templateData }: serverProps) {
   );
 
   React.useEffect(() => {
+    setShowImage("");
     if (typeof window !== "undefined") {
       setToken(authCookiesGet());
     }
