@@ -96,7 +96,9 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
                 <Link href={`/templates/p/${templates.id_name}`}>
                   <div className="w-full h-full p-[8px]">
                     <img
-                      src={templates?.template_thumb}
+                      src={`/api/image/compress?url=${encodeURIComponent(
+                        templates?.template_thumb
+                      )}`}
                       alt={templates?.category_name}
                       className={`w-full h-full rounded-[5px] cursor-pointer  `}
                       style={{

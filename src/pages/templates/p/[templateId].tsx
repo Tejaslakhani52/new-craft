@@ -486,7 +486,9 @@ export default function templateId({ templateData }: serverProps) {
                           )}
 
                           <img
-                            src={templates?.template_thumb}
+                            src={`/api/image/compress?url=${encodeURIComponent(
+                              templates?.template_thumb
+                            )}`}
                             alt={templates?.category_name}
                             loading="lazy"
                             className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}

@@ -536,7 +536,9 @@ export default function TemplateModal({
                               )}
 
                               <img
-                                src={templates?.template_thumb}
+                                src={`/api/image/compress?url=${encodeURIComponent(
+                                  templates?.template_thumb
+                                )}`}
                                 alt={templates?.category_name}
                                 className={`w-full h-full rounded-[5px] cursor-pointer `}
                                 style={{

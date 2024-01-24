@@ -111,7 +111,7 @@ export default function ImageBox({
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <img
-                    src={image}
+                    src={`/api/image/compress?url=${encodeURIComponent(image)}`}
                     alt={image}
                     loading="lazy"
                     className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}

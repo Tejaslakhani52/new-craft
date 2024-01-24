@@ -129,7 +129,7 @@ export default function ImageBox({
                     src={`/api/image/compress?url=${encodeURIComponent(image)}`}
                     alt={image}
                     loading="lazy"
-                    className={` w-[auto] ${
+                    className={`w-[auto] ${
                       uniqueCat ? "h-[100%]" : ""
                     }  mx-auto rounded-[4px] opacity-0`}
                     style={{
