@@ -3,11 +3,12 @@ import { decryptData } from "../aes-crypto";
 import { DashboardDataType } from "../interface/dashboard";
 
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
+const API_BASE_URL_1 = `${process.env.NEXT_PUBLIC_API_BASE_URL_1}`;
 
 const api = {
   getIp: async () => {
     try {
-      const response = await axios.get(`https://story.craftyartapp.com/get-ip`);
+      const response = await axios.get(`${API_BASE_URL_1}/get-ip`);
       const res = response?.data;
       return res;
     } catch (error) {

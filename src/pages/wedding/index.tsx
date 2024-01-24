@@ -181,9 +181,7 @@ export default function index() {
             <MarkText text="Crafty Art offers elegant, high-quality designs in various file formats. Our templates combine convenience with stunning invitation aesthetics." />
           </Box>
         }
-        buttonName={"Create your Card"}
         alt="wedding Invitation"
-        path="/s/wedding"
         image={`${assetsUrl}/w_assets/images/weddingCard2.png`}
       />
 
@@ -197,9 +195,7 @@ export default function index() {
             <MarkText text="Crafty Art invites you to explore our extensive collection of wedding invitation templates. Let your invitations become a prelude to the beauty and magic of your special day. Celebrate love, individuality, and creativity with invitations that leave a lasting impression." />
           </Box>
         }
-        buttonName={"Choose your Template"}
         alt="wedding Invitation"
-        path="/s/wedding"
         image={`${assetsUrl}/w_assets/images/weddingCard3.png`}
       />
 

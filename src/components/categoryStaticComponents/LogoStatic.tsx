@@ -192,9 +192,7 @@ export default function LogoStatic() {
             </Box>
           </Box>
         }
-        buttonName={"Create a logos"}
         alt={"logo template"}
-        path="/templates/logos"
         image={`${assetsUrl}/w_assets/images/logoC/Img1.png`}
       />
 

@@ -3,7 +3,6 @@ import { calculateHeight } from "@/src/commonFunction/calculateHeight";
 import { consoleShow } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -99,15 +98,10 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
                     <img
                       src={templates?.template_thumb}
                       alt={templates?.category_name}
-                      className={`w-full] rounded-[5px] cursor-pointer opacity-0`}
+                      className={`w-full h-full rounded-[5px] cursor-pointer  `}
                       style={{
                         border: "1px solid #80808082",
-                        height: "100%",
-                        transition: "0.5s all",
                       }}
-                      onLoad={(e: any) =>
-                        e.target.classList.remove("opacity-0")
-                      }
                     />
 
                     {/* <Image

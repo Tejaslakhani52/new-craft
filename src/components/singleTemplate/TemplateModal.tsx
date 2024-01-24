@@ -9,6 +9,7 @@ import {
 import { SingleTempType } from "@/src/interface/getSingleTempType";
 import { DataType, SearchTempType } from "@/src/interface/searchTemplateType";
 import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
+import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Skeleton, Typography } from "@mui/material";
 import DialogContent from "@mui/material/DialogContent";
 import Link from "next/link";
@@ -17,8 +18,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
 import ShowPremiumDialog from "../templatePayment/ShowPremiumDialog";
-import { openLogin } from "@/src/redux/reducer/actionDataReducer";
-import Image from "next/image";
 
 interface PropType {
   image: string | any;
@@ -117,7 +116,10 @@ export default function TemplateModal({
 
           api
             .searchTemplate({
-              keywords: response?.tags?.[0],
+              keywords:
+                response?.tags?.[0] === "Poster"
+                  ? response?.tags?.[1]
+                  : response?.tags?.[0],
               page: 1,
             })
             .then((res) => {
@@ -539,7 +541,6 @@ export default function TemplateModal({
                                 className={`w-full h-full rounded-[5px] cursor-pointer `}
                                 style={{
                                   border: "1px solid #80808082",
-                                  transition: "0.5s all",
                                 }}
                               />
 

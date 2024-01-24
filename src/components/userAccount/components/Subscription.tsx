@@ -14,20 +14,22 @@ export default function Subscription({ userSubscription }: any) {
         className="pt-14  justify-center "
         sx={{ display: !userSubscription?.hasCurrentPlan ? "flex" : "none" }}
       >
-        <Box className="w-[350px] mx-auto flex flex-col items-center justify-center">
+        <Box className="w-[600px] mx-auto flex flex-col items-center justify-center">
           <img
             src={`${assetsUrl}/w_assets/images/subcriptionNote.png`}
-            alt="subcriptionNote"
+            alt="subscriptionNote"
             className="w-[300px] mb-5"
           />
           <h3 className="text-[18px] pt-5 pb-5 text-[#1C3048] font-medium">
-            Upgrade your Crafty Art account now !
+            Unlock Premium Benefits: Upgrade Your Crafty Art Account Now!
           </h3>
 
           <Typography className="text-center text-[#ABB2C7] mb-8">
-            With no ads and full access to all new content, features and cutting
-            edge image processing tech, your Crafty Art experience has never
-            been so good!
+            Upgrade your Crafty Art account for an ad-free experience, exclusive
+            templates, and advanced design tools. Gain access to premium
+            features, stay ahead with regular updates, and invest in enhancing
+            your creative workflow. Elevate your design journey with a valuable
+            and cutting-edge upgrade.
           </Typography>
 
           <Button className="bg_linear h-[40px] normal-case px-[50px] text-white">

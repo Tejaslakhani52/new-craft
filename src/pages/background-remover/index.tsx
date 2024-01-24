@@ -1,13 +1,17 @@
 import api from "@/src/clientApi/api";
 import { MarkText } from "@/src/components/Home/landingPage/LandingPage";
+import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
+import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button, Typography } from "@mui/material";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { saveAs } from "file-saver";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import { Router, useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const FaqsBox = dynamic(() => import("@/src/components/common/FAQs"));
@@ -65,19 +69,31 @@ function a11yProps(index: number) {
 }
 
 export default function index() {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const [selectedFile, setSelectedFile] = useState<any>("");
   const [isDragOver, setIsDragOver] = useState(false);
   const [mainLoader, setMainLoader] = useState<any>(false);
   const [imageTab, setImageTab] = useState<any>("after");
   const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
-
+  const [token, setToken] = React.useState<any>(null);
   const [value, setValue] = React.useState(0);
 
   const fileInputRef: React.RefObject<HTMLInputElement> | any = useRef(null);
 
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      setToken(authCookiesGet());
+    }
+  }, []);
+
   const handleButtonClick = () => {
-    fileInputRef.current.click();
+    if (!token) {
+      dispatch(openLogin(true));
+    } else if (!userPremiumGet()) {
+      router.push("/plans");
+    } else fileInputRef.current.click();
   };
 
   const handleFileChange = (event: React.MouseEvent<any> | any) => {

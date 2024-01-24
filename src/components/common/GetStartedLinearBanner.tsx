@@ -40,9 +40,8 @@ export default function GetStartedLinearBanner(props: props) {
             color: "#ffffff",
             width: "100%",
             fontWeight: "600",
-            lineHeight: "48px",
           }}
-          className="max-lg:text-center text-[30px] sm:text-[40px]"
+          className="max-lg:text-center text-[25px]  sm:text-[40px]"
           variant="h1"
         >
           {props?.heading}
@@ -55,7 +54,7 @@ export default function GetStartedLinearBanner(props: props) {
             width: "100%",
             fontWeight: "500",
           }}
-          className="max-lg:text-center"
+          className="max-lg:text-center max-sm:text-[16px]"
         >
           {props?.text}
         </Typography>

@@ -1,4 +1,3 @@
-import { authCookiesGet } from "@/src/redux/action/AuthToken";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -20,10 +19,9 @@ export default function RightImageSection({
   alt,
 }: PropsType) {
   const router = useRouter();
-  const token = authCookiesGet();
 
   return (
-    <Box className="  bg-[#F4F7FE]  ">
+    <Box className="  bg-[#F4F7FE]">
       <Box className="flex py-[30px] sm:py-[50px]  px-[20px] xl:px-[7%] w-full  xl:w-[92%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
         <Box className="flex-1 flex justify-center max-lg:order-2  max-lg:w-[100%]">
           <Box className="w-[90%] flex  flex-col gap-[20px]   max-lg:w-[8 0%] max-sm:w-[100%]">
@@ -49,9 +47,7 @@ export default function RightImageSection({
               }}
               className="bg_linear  ml-[40px] max-lg:mx-auto text-[14px] 2sm:text-[17px]"
               onClick={() => {
-                if (token) {
-                  router.push(path);
-                } else router.push("/login");
+                router.push(path);
               }}
             >
               {buttonName}

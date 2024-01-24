@@ -223,7 +223,6 @@ export default function index({ jsonString }: ServerSideProps) {
               <Breadcrumb
                 data={[
                   { name: "Home", path: "/" },
-                  { name: "Templates", path: "/" },
                   { name: id?.categoryId, current: true },
                 ]}
               />

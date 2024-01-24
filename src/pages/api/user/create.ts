@@ -13,14 +13,16 @@ export default async function handler(
       return;
     }
 
+    const cookieValue = req.cookies;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
+    const userId = decryptData(cookieValue._sdf);
 
     const response = await axios.post<any>(
       `${apiUrl}/templates/api/V3/createUser`,
       {
         key: `${accessKey}`,
-        user_id: req.body.name,
+        user_id: userId,
         name: req.body.name,
         email: req.body.email,
         photo_uri: req.body.photo_uri,

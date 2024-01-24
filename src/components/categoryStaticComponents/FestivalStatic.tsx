@@ -447,10 +447,10 @@ export default function FestivalBanner() {
               <Box
                 className="w-12 h-12 rounded-full overflow-hidden bg-cover bg-center"
                 sx={{
-                  backgroundImage: `url(https://assets.craftyart.in/w_assets/images/comment/girl1.jpg)`,
+                  backgroundImage: `url(${assetsUrl}/w_assets/images/comment/girl1.jpg)`,
                 }}
               ></Box>
-              <Box className="font-medium  ">
+              <Box className="font-medium">
                 <Box>Olivia Davis</Box>
               </Box>
             </Box>
@@ -472,7 +472,7 @@ export default function FestivalBanner() {
               <Box
                 className="w-12 h-12 rounded-full overflow-hidden bg-cover bg-center"
                 sx={{
-                  backgroundImage: `url(https://assets.craftyart.in/w_assets/images/comment/man3.jpg)`,
+                  backgroundImage: `url(${assetsUrl}/w_assets/images/comment/man3.jpg)`,
                 }}
               ></Box>
               <Box className="font-medium  ">
@@ -496,7 +496,7 @@ export default function FestivalBanner() {
               <Box
                 className="w-12 h-12 rounded-full overflow-hidden bg-cover bg-center"
                 sx={{
-                  backgroundImage: `url(https://assets.craftyart.in/w_assets/images/comment/man2.jpg)`,
+                  backgroundImage: `url(${assetsUrl}/w_assets/images/comment/man2.jpg)`,
                 }}
               ></Box>
               <Box className="font-medium  ">

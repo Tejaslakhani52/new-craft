@@ -49,7 +49,6 @@ const sliderTemplate = [
     buttonName: "Baby Shower Invitation",
     path: "/baby-shower-invitation",
   },
-
   {
     img: `${assetsUrl}/w_assets/images/bridalEase.png`,
     buttonName: "Bridal Shower Invitation",
@@ -143,7 +142,7 @@ export default function index() {
         }
         buttonName={"Start Designing"}
         alt="Invitation Maker"
-        image={`${assetsUrl}/w_assets/images/perfactInvitation.png`}
+        image={`${assetsUrl}/w_assets/images/invitationMakerImage.png`}
         path="/templates/invitation"
       />
 

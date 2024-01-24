@@ -21,6 +21,7 @@ import Input from "./Input";
 import LoginPlatform from "./LoginPlatform";
 import Password from "./Password";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
+import Link from "next/link";
 
 export default function SignUpContentBox(props: any) {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ export default function SignUpContentBox(props: any) {
   const [verifiedDone, setVerifiedDone] = useState<boolean>(false);
   const [emailDialogShow, setEmailDialogShow] = useState<boolean>(false);
   const [finalUser, setFinalUser] = useState<any>(null);
+  const [agree, setAgree] = useState<boolean>(false);
   const [createAccount, setCreateAccount] = useState<any>({
     name: "",
     email: "",
@@ -75,6 +77,13 @@ export default function SignUpContentBox(props: any) {
       dispatch(mainLoad(false));
       return;
     }
+
+    if (!agree) {
+      toast.error("Please agree to CraftyArt's");
+      dispatch(mainLoad(false));
+      return;
+    }
+
     if (createAccount?.password !== createAccount?.confirmPassword) {
       setCreateAccount({ ...createAccount, confirmPassword: "" });
       toast.error("Confirm password not match password");
@@ -249,15 +258,27 @@ export default function SignUpContentBox(props: any) {
                 <input
                   id="remember"
                   type="checkbox"
-                  value=""
+                  checked={agree}
                   className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 text-[15px]"
                   required
+                  onClick={() => setAgree(!agree)}
                 />
               </Box>
               <label className="ml-2 text-sm font-medium text-gray-900  max-2sm:text-[12px]">
                 I agree to CraftyArt's
-                <span className="text-[#5961F8]"> Terms of Service </span> and
-                <span className="text-[#5961F8]"> Privacy policy </span>
+                <span className="text-[#5961F8] cursor-pointer">
+                  {" "}
+                  <Link href={"/term-condition"} target="_blank">
+                    Terms of Service
+                  </Link>{" "}
+                </span>
+                and
+                <span className="text-[#5961F8] cursor-pointer">
+                  {" "}
+                  <Link href={"/privacy-policy"} target="_blank">
+                    Privacy policy
+                  </Link>
+                </span>
               </label>
             </Box>
 

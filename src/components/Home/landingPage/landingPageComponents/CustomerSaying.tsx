@@ -99,7 +99,7 @@ interface props {
 export const CustomerBox = ({ text, value, image, name }: props) => {
   return (
     <Box
-      className="w-[32%] bg-white p-8 rounded-[10px] max-lg:w-[100%] min-w-[300px] max-2sm:min-w-[230px]"
+      className="w-[32%] max-sm:mx-3 bg-white p-8 rounded-[10px] max-lg:w-[100%] min-w-[300px] max-sm:min-w-[100%] max-2sm:min-w-[230px]"
       sx={{ boxShadow: "0px 0px 10px 3px rgba(0, 0, 0, 0.1)" }}
     >
       <Box className="flex items-center space-x-4 mb-2">
@@ -174,7 +174,7 @@ export default function CustomerSaying() {
 
       <Box className="flex  justify-center relative w-[100%] overflow-auto ">
         <Box
-          className=" flex  w-full xl:w-[80%] justify-between  z-[1] max-lg:mt-[0]  gap-[30px] overflow-auto scroll_none px-2 sm:px-10 py-5 sm:py-15  mt-5"
+          className=" flex pr-[23px]  w-full xl:w-[80%] justify-between  z-[1] max-lg:mt-[0]  gap-[30px] max-sm:gap-[0px] overflow-auto scroll_none   sm:px-10 py-5 sm:py-15  mt-5"
           id="customer"
         >
           {customerComment?.map((item: any, index: number) => (

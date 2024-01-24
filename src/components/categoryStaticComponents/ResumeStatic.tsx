@@ -209,7 +209,7 @@ export default function ResumeStatic() {
                 minWidth: "auto",
               }}
             >
-              <Icons.leftArrowIcon />
+              <Icons.rightArrowIcon />
             </Button>
           </Box>
 
@@ -269,7 +269,7 @@ export default function ResumeStatic() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
-              src={`/images/resumeImage.png`}
+              src={`${assetsUrl}/w_assets/images/resumeMakerImage.png`}
               alt={"Resume Portrait Templates"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
             />
@@ -368,7 +368,7 @@ export default function ResumeStatic() {
         }
         buttonName={"Create a Resume"}
         alt="Resume Maker"
-        path="/templates/resume-portrait"
+        path="/s/resume"
         image={`${assetsUrl}/w_assets/images/resumeC/img2.png`}
       />
 

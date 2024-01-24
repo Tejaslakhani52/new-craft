@@ -126,7 +126,7 @@ const DraftBoxes = ({
         type: "1",
       })
       .then(() => {
-        toast.success("Moved to your project");
+        toast.success("Moved to your draft");
         setRemoveId(id);
       });
   };

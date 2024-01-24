@@ -14,7 +14,6 @@ import {
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
@@ -78,7 +77,7 @@ export default function templateId({ templateData }: serverProps) {
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
-  const [token, setToken] = React.useState<any>();
+  const [token, setToken] = React.useState<any>(null);
   const [anotherData, setAnotherData] = React.useState<any>([]);
   const screenWidth = useScreenWidth();
   const [idName, setIdName] = React.useState<string>("");
@@ -103,7 +102,10 @@ export default function templateId({ templateData }: serverProps) {
   React.useEffect(() => {
     api
       .searchTemplate({
-        keywords: templateData?.tags?.[0],
+        keywords:
+          templateData?.tags?.[0] === "Poster"
+            ? templateData?.tags?.[1]
+            : templateData?.tags?.[0],
         page: 1,
       })
       .then((res) => {

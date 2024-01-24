@@ -14,7 +14,6 @@ import MenuBox from "./headerComponents/Menu";
 export default function Header({ sidebarOpen, setSidebarOpen }: any) {
   const dispatch = useDispatch();
   const router = useRouter();
-  console.log("router: ", router);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

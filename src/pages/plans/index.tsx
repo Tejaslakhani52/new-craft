@@ -9,6 +9,7 @@ import { RazorpayPage } from "@/src/components/payment/Razorpay";
 import Stripe from "@/src/components/payment/Stripe";
 import { PackageList } from "@/src/interface/currentPlane";
 import { authCookiesGet, setSessionVal } from "@/src/redux/action/AuthToken";
+import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button, Radio, Typography } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -17,6 +18,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const FaqsBox = dynamic(() => import("@/src/components/common/FAQs"));
@@ -86,6 +88,8 @@ export default function index() {
     const valStripe = loadStripe(PUBLIC_KEY);
     setStripeTestPromise(valStripe);
   }, []);
+
+  const dispatch = useDispatch();
 
   const router = useRouter();
   const uId = authCookiesGet();
@@ -280,9 +284,9 @@ export default function index() {
                   fontWeight: "500",
                 }}
                 className="bg_linear py-[10px] px-[20px] max-sm:w-full   text-[14px] 2sm:text-[16px]"
-                onClick={() => router.push("/")}
+                onClick={scrollToTop}
               >
-                Start your FREE trial
+                See Pricing Plan
               </Button>
 
               <Button
@@ -294,9 +298,13 @@ export default function index() {
                   fontWeight: "500",
                 }}
                 className="bg_linear text-[#1C3048] py-[10px] px-[20px] max-sm:w-full   text-[14px] 2sm:text-[16px] "
-                onClick={scrollToTop}
+                onClick={() => {
+                  if (uId) {
+                    router.push("/");
+                  } else dispatch(openLogin(true));
+                }}
               >
-                See Price
+                Start your FREE trial
               </Button>
             </Box>
           </Box>
@@ -533,7 +541,8 @@ export default function index() {
                   }}
                   className="bg_linear max-sm:w-full py-[10px] w-[80%] mb-4 px-[20px]  max-lg:mx-auto text-[14px] 2sm:text-[16px]  "
                   onClick={() => {
-                    router.push("login");
+                    // router.push("login");
+                    dispatch(openLogin(true));
                   }}
                 >
                   Get Started

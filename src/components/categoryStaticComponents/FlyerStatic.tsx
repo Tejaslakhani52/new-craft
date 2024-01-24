@@ -245,7 +245,7 @@ export default function FlyerStatic() {
         }
         buttonName={"Create a flyer"}
         alt="flyer Maker"
-        path="/templates/flyer"
+        path="/s/flyer"
         image={`${assetsUrl}/w_assets/images/category/whyChooseFlyer.png`}
       />
 
@@ -260,9 +260,7 @@ export default function FlyerStatic() {
             </Box>
           </Box>
         }
-        buttonName={"Create a flyer"}
         alt="flyer Maker"
-        path="/templates/flyer"
         image={`${assetsUrl}/w_assets/images/flyerC/img3.png`}
       />
 

@@ -1,17 +1,15 @@
-import { decryptData } from "@/src/aes-crypto";
 import Icons from "@/src/assets";
+import api from "@/src/clientApi/api";
 import { useScreenHeight } from "@/src/commonFunction/screenWidthHeight";
 import { authCookiesGet, userPremium } from "@/src/redux/action/AuthToken";
+import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import PaymentHistory from "./components/PaymentHistory";
 import PersonalInfo from "./components/PersonalInfo";
 import Subscription from "./components/Subscription";
-import api from "@/src/clientApi/api";
-import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
-import { useDispatch } from "react-redux";
 
 interface AccountProps {
   defaultTab: string;

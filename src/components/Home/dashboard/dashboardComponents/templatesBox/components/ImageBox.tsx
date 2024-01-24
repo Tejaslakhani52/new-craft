@@ -4,7 +4,6 @@ import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { DataType } from "@/src/interface/searchTemplateType";
 import { modalClosePath } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Typography } from "@mui/material";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";

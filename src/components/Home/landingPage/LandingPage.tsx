@@ -53,12 +53,10 @@ export default function LandingPage({ post }: any) {
             Customize your Design in just few Clicks!
           </Typography>
           <Box className="flex flex-col items-center gap-2 ">
-            <Typography className="text-[18px] font-medium	text-white text-center">
-              Don't just invite, impress! Get started with our invitation maker
-              now
-            </Typography>
-            <Typography className="text-[18px] font-medium	text-white text-center">
-              Enhance your Designing power
+            <Typography className="text-[18px] font-medium w-[70%] max-sm:w-full mb-3 mx-auto	text-white text-center">
+              Create professional materials with an all-in-one graphic design
+              tool. Design invitations, posters, logos, brochures, flyers, or
+              social media graphics easily with our ready-to-use templates.
             </Typography>
           </Box>
 

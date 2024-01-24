@@ -163,7 +163,7 @@ export default function InvitationStatic() {
         }
         buttonName={"Design your Invitation"}
         alt="calendar design"
-        path="/templates/invitation"
+        path="/k/wedding-invitation-template"
         image={`${assetsUrl}/w_assets/images/InvitationC/img1.png`}
       />
 
@@ -178,7 +178,7 @@ export default function InvitationStatic() {
         }
         buttonName={"Design your Invitation"}
         alt="calendar design"
-        path="/templates/invitation"
+        path="/k/birthday-invitation"
         image={`${assetsUrl}/w_assets/images/InvitationC/img2.png`}
       />
 
@@ -193,7 +193,7 @@ export default function InvitationStatic() {
         }
         buttonName={"Design your Invitation"}
         alt="calendar design"
-        path="/templates/invitation"
+        path="/k/baby-shower-invitations"
         image={`${assetsUrl}/w_assets/images/InvitationC/img3.png`}
       />
 
@@ -208,7 +208,7 @@ export default function InvitationStatic() {
         }
         buttonName={"Design your Invitation"}
         alt="calendar design"
-        path="/templates/invitation"
+        path="/s/event"
         image={`${assetsUrl}/w_assets/images/InvitationC/img4.png`}
       />
 
@@ -222,9 +222,6 @@ export default function InvitationStatic() {
             <MarkText text="Download: Once satisfied, download your customized invitation for printing or digital sharing." />
           </Box>
         }
-        buttonName={"Design your Invitation"}
-        alt="calendar design"
-        path="/templates/invitation"
         image={`${assetsUrl}/w_assets/images/InvitationC/img5.png`}
       />
 
@@ -238,9 +235,6 @@ export default function InvitationStatic() {
             <MarkText text="Details: Double-check all event details, including date, time, venue, and any additional information. Ensure accuracy to avoid confusion and make your invitation informative and clear." />
           </Box>
         }
-        buttonName={"Design your Invitation"}
-        alt="calendar design"
-        path="/templates/invitation"
         image={`${assetsUrl}/w_assets/images/InvitationC/img6.png`}
       />
 

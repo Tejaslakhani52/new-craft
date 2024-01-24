@@ -12,9 +12,16 @@ const brandIcons = [
     image: <Icons.resizeIcon svgProps={{ width: 30 }} />,
     name: "Resize Options",
   },
-  { image: <Icons.postIcon svgProps={{ width: 30 }} />, name: "Schedule Post" },
   {
-    image: <Icons.textEditorIcon svgProps={{ width: 30 }} />,
+    image: (
+      <Icons.schedulePostIcon
+        svgProps={{ width: 30, height: 30, color: "#1C3048" }}
+      />
+    ),
+    name: "Schedule Post",
+  },
+  {
+    image: <Icons.textEditorIcon svgProps={{ width: 27, height: 27 }} />,
     name: "Style kit",
   },
   { image: <Icons.coupleIcon svgProps={{ width: 30 }} />, name: "Caricature" },
@@ -26,7 +33,7 @@ const brandIcons = [
     image: <Icons.processingIcon svgProps={{ width: 30 }} />,
     name: "Custom Order",
   },
-  { image: <Icons.cvIcon svgProps={{ width: 30 }} />, name: "Eprofile" },
+  { image: <Icons.cvIcon svgProps={{ width: 30 }} />, name: "Profile" },
 ];
 
 export default function TrendingFunctionalities() {
