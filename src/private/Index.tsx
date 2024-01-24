@@ -48,6 +48,8 @@ export default function Index() {
             screenWidth > 991 &&
             router?.pathname !== "/your-account" &&
             router?.pathname !== "/subscriptions" &&
+            router?.pathname !== "/about-us" &&
+            router?.pathname !== "/aboutus" &&
             !productPaths.includes(router?.pathname) &&
             !editorToolsPaths.includes(router?.pathname) &&
             !templatesPaths.includes(router?.pathname)
