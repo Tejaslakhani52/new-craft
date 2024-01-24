@@ -488,6 +488,7 @@ export default function templateId({ templateData }: serverProps) {
                           <img
                             src={templates?.template_thumb}
                             alt={templates?.category_name}
+                            loading="lazy"
                             className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
                             style={{
                               transition: "0.5s all",

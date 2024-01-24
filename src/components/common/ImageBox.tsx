@@ -113,10 +113,20 @@ export default function ImageBox({
                   <img
                     src={image}
                     alt={image}
+                    loading="lazy"
                     className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
                     style={{ transition: "0.5s all" }}
                     onLoad={(e: any) => e.target.classList.remove("opacity-0")}
                   />
+
+                  {/* <img
+                    src={image}
+                    alt={image}
+                    loading="lazy"
+                    className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
+                    style={{ transition: "0.5s all" }}
+                    onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+                  /> */}
                 </div>
               ))}
             </div>
