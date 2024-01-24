@@ -41,7 +41,6 @@ export default async function handler(
     const cookieValue = req.cookies;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
-
     const userId = decryptData(cookieValue._sdf);
 
     const formData = new FormData();
@@ -66,8 +65,10 @@ export default async function handler(
       }
     );
 
+    console.log("response: ", response);
     res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
+    console.log("error: ", error);
   }
 }

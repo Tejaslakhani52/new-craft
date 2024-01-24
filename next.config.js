@@ -9,6 +9,9 @@ module.exports = withBundleAnalyzer({
   compilerOptions: {
     baseUrl: "src",
   },
+  // images: {
+  //   domains: ["firebasestorage.googleapis.com"],
+  // },
   images: {
     domains: ["panel.craftyartapp.com", "beta.craftyartapp.com"],
   },

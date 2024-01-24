@@ -4,6 +4,7 @@ import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { DataType } from "@/src/interface/searchTemplateType";
 import { modalClosePath } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Typography } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -125,7 +126,7 @@ export default function ImageBox({
                   className="bg-slate-200 flex justify-center w-full h-full rounded-[4px] carousel-slide"
                   key={index}
                 >
-                  <img
+                  {/* <img
                     src={`${image}?quality=50`}
                     alt={image}
                     className={` w-[auto] ${
@@ -137,8 +138,8 @@ export default function ImageBox({
                       width: "auto",
                     }}
                     onLoad={(e: any) => e.target.classList.remove("opacity-0")}
-                  />
-                  {/* <div
+                  /> */}
+                  <div
                     className={` w-[auto] ${
                       uniqueCat ? "h-[100%]" : ""
                     }  mx-auto rounded-[4px]  `}
@@ -151,7 +152,7 @@ export default function ImageBox({
                       alt={image}
                       decoding="async"
                     />
-                  </div> */}
+                  </div>
                 </div>
               ))}
             </div>
