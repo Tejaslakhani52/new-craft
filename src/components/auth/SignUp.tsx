@@ -27,6 +27,18 @@ export default function SignUp(props: any) {
     setOpen(props.openSignUp);
   }, [props.openSignUp]);
 
+  React.useEffect(() => {
+    const htmlStyleElement = document.getElementById("html_style");
+
+    if (htmlStyleElement) {
+      if (open) {
+        htmlStyleElement.style.overflow = "hidden";
+      } else {
+        htmlStyleElement.style.overflow = "auto";
+      }
+    }
+  }, [open]);
+
   return (
     <div className="w-full">
       <Button

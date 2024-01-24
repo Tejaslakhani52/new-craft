@@ -79,7 +79,7 @@ export default function SignUpContentBox(props: any) {
     }
 
     if (!agree) {
-      toast.error("Please agree to CraftyArt's");
+      toast.error("Please agree to Crafty Art Term and Condition");
       dispatch(mainLoad(false));
       return;
     }

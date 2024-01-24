@@ -31,6 +31,18 @@ export default function Login(props: any) {
     setOpen(props.openLogin);
   }, [props.openLogin]);
 
+  React.useEffect(() => {
+    const htmlStyleElement = document.getElementById("html_style");
+
+    if (htmlStyleElement) {
+      if (open) {
+        htmlStyleElement.style.overflow = "hidden";
+      } else {
+        htmlStyleElement.style.overflow = "auto";
+      }
+    }
+  }, [open]);
+
   return (
     <div className="w-full">
       <Button
