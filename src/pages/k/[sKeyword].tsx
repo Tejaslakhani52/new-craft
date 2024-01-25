@@ -1,15 +1,12 @@
-import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
-import { calculateHeight } from "@/src/commonFunction/calculateHeight";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
+import CustomHead from "@/src/components/common/CustomHead";
 import ImageBox from "@/src/components/common/ImageBox";
-import { DataType } from "@/src/interface/searchTemplateType";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
 
@@ -66,6 +63,7 @@ export async function getServerSideProps(context: any) {
 }
 
 export default function sKeyword({ serverData, updatedLines }: any) {
+  const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const router = useRouter();
   const searchName: any = router?.query?.sKeyword;
   const formattedSearchName = searchName?.replace(/\s+/g, "-").toLowerCase();
@@ -133,10 +131,11 @@ export default function sKeyword({ serverData, updatedLines }: any) {
       {serverData?.datas && (
         <>
           <Box className="bg-[#F4F7FE] px-[10px] sm:px-[16px]">
-            <Head>
-              <title>{serverData?.meta_title}</title>
-              <meta name="description" content={serverData?.meta_desc} />
-            </Head>
+            <CustomHead
+              image={`${assetsUrl}/w_assets/images/categoryBanner.png`}
+              heading={serverData?.meta_title}
+              text={serverData?.meta_desc}
+            />
             <Box className="pt-[15px]">
               <Breadcrumb
                 data={[

@@ -27,7 +27,7 @@ export default function CustomerSayingSmall() {
                 backgroundImage: `url(https://assets.craftyart.in/w_assets/images/comment/girl1.jpg)`,
               }}
             ></Box>
-            <Box className="font-medium  ">
+            <Box className="font-medium">
               <Box>Olivia Davis</Box>
             </Box>
           </Box>

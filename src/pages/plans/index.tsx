@@ -890,6 +890,35 @@ export default function index() {
         />
 
         <FaqsBox
+          heading=" How do I purchase a single template from Crafty Art?"
+          text={
+            <>
+              <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+                Choose the premium template you wish to purchase.
+              </li>
+              <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+                Once you've selected the template, click on the "Customize This
+                Template" button.
+              </li>{" "}
+              <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+                After clicking the button, a pop-up will appear with two
+                options: the first is to buy a subscription, and the second is
+                to buy a single template. Choose the "Buy Single Template"
+                option.
+              </li>{" "}
+              <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+                Selecting "Buy Single Template" will allow you to proceed with
+                the purchase of the individual template{" "}
+              </li>{" "}
+              <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+                After the purchase, customize the template according to your
+                needs.
+              </li>
+            </>
+          }
+        />
+
+        <FaqsBox
           heading="How do I purchase a subscription of Crafty Art?"
           text={
             <>

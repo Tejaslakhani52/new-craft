@@ -10,7 +10,7 @@ export const authCookiesSet = (value: any) => {
     expires: expirationDate,
   });
 
-  Cookies.set("_sdf", encryptData(value), { expires: expirationDate });
+  // Cookies.set("_sdf", encryptData(value), { expires: expirationDate });
 };
 
 export const authCookiesGet = () => {
@@ -23,7 +23,7 @@ export const userPremium = (value: any) => {
     domain: ".craftyartapp.com",
   });
 
-  Cookies.set("_pmf", encryptData(value));
+  // Cookies.set("_pmf", encryptData(value));
 };
 
 export const userPremiumGet = () => {

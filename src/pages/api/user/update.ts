@@ -65,10 +65,8 @@ export default async function handler(
       }
     );
 
-    console.log("response: ", response);
     res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
-    console.log("error: ", error);
   }
 }

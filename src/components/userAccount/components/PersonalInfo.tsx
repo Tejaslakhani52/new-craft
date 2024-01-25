@@ -84,7 +84,6 @@ export default function PersonalInfo() {
     api
       .updateUser(sendData)
       .then((res) => {
-        console.log("res: ", res);
         setTimeout(() => {
           fetchData();
           toast.success("User updated successfully");
@@ -94,7 +93,6 @@ export default function PersonalInfo() {
       })
       .catch((error) => {
         setLoading(false);
-        console.error("Error in updating user data:", error);
       });
   };
 
