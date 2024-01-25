@@ -1,4 +1,6 @@
 import { handleEmailClick } from "@/src/commonFunction/emailCheck";
+import FaqsBox from "@/src/components/common/FAQs";
+import QuestionsTitle from "@/src/components/common/QuestionsTitle";
 import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 
@@ -119,6 +121,106 @@ export default function index() {
             </li>
           </ul>
         </Box>
+      </Box>
+
+      <Box
+        sx={{
+          mx: "auto",
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          maxWidth: "1000px",
+        }}
+        className="w-[100%] sm:w-[80%] lg:w-[60%] px-[20px]  mb-[100px]"
+      >
+        <QuestionsTitle
+          text1={"Some Popular"}
+          text2={"Questions/Answered"}
+          text3=""
+        />
+        <Box sx={{ p: "20px" }}></Box>
+
+        <FaqsBox
+          heading="What is the pricing model for Crafty Art?"
+          text="Crafty Art Pro offers various pricing plans, including free trials, subscriptions, and purchase single templates. With the free trial, users can access a limited set of resources or templates. However, by opting for a subscription plan, customers gain full access to customization features, a broader range of templates, and additional resources. Alternatively, users can choose to purchase a single template, allowing them to acquire a specific template or resource of their choice."
+        />
+
+        <FaqsBox
+          heading="What is the difference between the Subscription Plan and the Single Template Purchase?"
+          text={
+            <>
+              <Typography className="text-black max-sm:text-[15px]  max-2sm:text-[13px] mb-3">
+                Subscription Plan: This plan provides access to all premium
+                features, customization options, regular updates, and exclusive
+                tools like the background remover and many more.. It is billed
+                on a monthly, quarterly, or yearly basis, depending on your
+                preference.
+              </Typography>
+              <Typography className="text-black max-sm:text-[15px] max-2sm:text-[13px]  ">
+                Single Template Purchase: With this plan, you can buy a specific
+                template for a one-time payment. This option grants you lifetime
+                access to the chosen template.
+              </Typography>
+            </>
+          }
+        />
+
+        <FaqsBox
+          heading="How to Contact Crafty Art for any Subscription Related Query or Problems?"
+          text={
+            <>
+              To contact Crafty Art regarding any subscription-related queries
+              or other issues, you can reach out to them at
+              <span
+                className="text-[#5961F8] cursor-pointer"
+                onClick={handleEmailClick}
+              >
+                {" "}
+                craftyartapp@gmail.com
+              </span>
+              .
+            </>
+          }
+        />
+
+        <FaqsBox
+          heading="How do I purchase a subscription of Crafty Art?"
+          text={
+            <>
+              <Typography className="text-black max-sm:text-[15px] font-medium max-2sm:text-[13px] mb-3">
+                There are two convenient ways to purchase a subscription from
+                Crafty Art:
+              </Typography>
+
+              <Typography className="text-black max-sm:text-[15px] max-2sm:text-[13px] mb-3">
+                1. Navigate to the "Pricing" section in the header. Here, you'll
+                find three subscription plans - monthly, quarterly, and yearly.
+                Choose the plan that suits your needs and proceed to purchase
+                the subscription.
+              </Typography>
+
+              <Typography className="text-black max-sm:text-[15px] max-2sm:text-[13px]">
+                2. Alternatively, select a premium template and click on the
+                "Customize This Template" button. A pop-up will appear
+                presenting two options: the first is to buy a subscription, and
+                the second is to buy a single template. Opt for the "Buy a
+                Subscription" option. After completing the subscription
+                purchase, you will gain access to the full range of Crafty Art's
+                offerings.
+              </Typography>
+            </>
+          }
+        />
+
+        <FaqsBox
+          heading="Is there a limit to how many templates I can purchase with the Single Template option?"
+          text="No, there is no limit. You can purchase as many templates as you like, and each template comes with lifetime access."
+        />
+
+        <FaqsBox
+          heading="How does the billing work for the Subscription Plan?"
+          text="The Subscription Plan is billed based on the selected frequency (monthly, quarterly, or yearly). Users enjoy uninterrupted access to premium features as long as their subscription is active."
+        />
       </Box>
     </div>
   );
