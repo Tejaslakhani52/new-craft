@@ -94,7 +94,6 @@ export default function templateId({ templateData }: serverProps) {
   );
 
   React.useEffect(() => {
-    setShowImage("");
     if (typeof window !== "undefined") {
       setToken(authCookiesGet());
     }
@@ -218,10 +217,10 @@ export default function templateId({ templateData }: serverProps) {
       />
 
       <Box>
-        <Box className="flex  my-[20px] gap-[50px] max-2md:flex-col max-2md:h-auto">
+        <Box className="flex  my-[20px] gap-[50px] max-sm:gap-[10px] max-2md:flex-col max-2md:h-auto">
           <Box className="w-[66%]  max-sm:w-full mx-auto">
             <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
-              {imageLoaded ? (
+              {imageLoaded && showImage ? (
                 <img
                   src={showImage}
                   alt={templateData?.template_name}
@@ -437,7 +436,10 @@ export default function templateId({ templateData }: serverProps) {
                   <Link
                     key={index}
                     href={`/templates/p/${templates.id_name}`}
-                    onClick={(e: any) => e.preventDefault()}
+                    onClick={(e: any) => {
+                      setShowImage("");
+                      e.preventDefault();
+                    }}
                   >
                     <div
                       className=""
