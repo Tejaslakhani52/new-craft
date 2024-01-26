@@ -54,6 +54,11 @@ export function RazorpayPage({ setOpen, amount }: any) {
     setOpen(false);
     dispatch(mainLoad(true));
 
+    fbq("track", "Purchase", {
+      value: { amount },
+      currency: "INR",
+    });
+
     api
       .razorpay()
       .then((res) => {
@@ -77,10 +82,7 @@ export function RazorpayPage({ setOpen, amount }: any) {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
-                  fbq("track", "Purchase", {
-                    value: { amount },
-                    currency: "INR",
-                  });
+
                   removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
