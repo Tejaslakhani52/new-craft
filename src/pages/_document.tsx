@@ -50,7 +50,7 @@ export default function Document() {
           }}
         ></script>
 
-        <script
+        {/* <script
           dangerouslySetInnerHTML={{
             __html: ` 
             !function(f,b,e,v,n,t,s)
@@ -65,8 +65,40 @@ export default function Document() {
             fbq('track', 'PageView');
               `,
           }}
-        ></script>
+        ></script> */}
 
+        <script
+          dangerouslySetInnerHTML={{
+            __html: ` 
+            !(function (f, b, e, v, n, t, s) {
+              if (f.fbq) return;
+              n = f.fbq = function () {
+                n.callMethod
+                  ? n.callMethod.apply(n, arguments)
+                  : n.queue.push(arguments);
+              };
+              if (!f._fbq) f._fbq = n;
+              n.push = n;
+              n.loaded = !0;
+              n.version = "2.0";
+              n.queue = [];
+              t = b.createElement(e);
+              t.async = !0;
+              t.src = v;
+              s = b.getElementsByTagName(e)[0];
+              s.parentNode.insertBefore(t, s);
+            })(
+              window,
+              document,
+              "script",
+              "https://connect.facebook.net/en_US/fbevents.js"
+            );
+            fbq("init", "1816666358806650");
+            fbq("track", "PageView");
+              `,
+          }}
+        ></script>
+        {/* 
         <noscript>
           <img
             height="1"
@@ -74,11 +106,16 @@ export default function Document() {
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=920944635897586&ev=PageView&noscript=1"
           />
-        </noscript>
+        </noscript> */}
+
+        {/* <meta
+          name="facebook-domain-verification"
+          content="3nsioq3kz27llryrgqspeuqvw058e5"
+        /> */}
 
         <meta
           name="facebook-domain-verification"
-          content="3nsioq3kz27llryrgqspeuqvw058e5"
+          content="l1o39n6yyzm99dv9av6xq08vn57xzw"
         />
       </Head>
       <body>
