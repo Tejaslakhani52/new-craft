@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { useDispatch } from "react-redux";
+import { authCookiesGet } from "@/src/redux/action/AuthToken";
 
 interface AccountDetailType {
   name: string;
@@ -15,6 +16,7 @@ interface AccountDetailType {
 
 export default function PersonalInfo() {
   const dispatch = useDispatch();
+  const uid = authCookiesGet();
   const [removeImage, setRemoveImage] = useState<any>(false);
   const [userProfile, setUserProfile] = useState<UserProfileType | any>(null);
   const [imageBaseUrl, setImageBaseUrl] = useState<string>("");
@@ -56,7 +58,7 @@ export default function PersonalInfo() {
 
   const fetchData = async () => {
     api
-      .getUserData()
+      .getUserData({ user_id: uid })
       .then(({ user, url, purDatas }) => {
         dispatch(setPurchaseItems(purDatas));
         setImageBaseUrl(url);

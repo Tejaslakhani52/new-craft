@@ -9,7 +9,4 @@ module.exports = withBundleAnalyzer({
   compilerOptions: {
     baseUrl: "src",
   },
-  images: {
-    domains: ["panel.craftyartapp.com", "beta.craftyartapp.com"],
-  },
 });

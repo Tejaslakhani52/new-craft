@@ -48,7 +48,7 @@ export default function Document() {
             }),
           }}
         ></script>
-        {/* 
+
         <script
           dangerouslySetInnerHTML={{
             __html: ` 
@@ -73,7 +73,7 @@ export default function Document() {
             style={{ display: "none" }}
             src="https://www.facebook.com/tr?id=920944635897586&ev=PageView&noscript=1"
           />
-        </noscript> */}
+        </noscript>
 
         <meta
           name="facebook-domain-verification"

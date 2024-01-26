@@ -29,10 +29,11 @@ const api = {
     }
   },
 
-  getUserData: async (): Promise<any> => {
+  getUserData: async (payload: any): Promise<any> => {
     try {
       const response: AxiosResponse = await axios.post(
-        `${API_BASE_URL}/user/getData`
+        `${API_BASE_URL}/user/getData`,
+        payload
       );
       const decryptedData = JSON.parse(decryptData(response.data));
       return decryptedData;

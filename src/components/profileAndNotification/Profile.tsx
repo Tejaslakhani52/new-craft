@@ -1,6 +1,6 @@
 import api from "@/src/clientApi/api";
 import { UserProfileType } from "@/src/interface/commonType";
-import { userPremium } from "@/src/redux/action/AuthToken";
+import { authCookiesGet, userPremium } from "@/src/redux/action/AuthToken";
 import {
   customerId,
   setPurchaseItems,
@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 
 export default function Profile() {
   const router = useRouter();
+  const uid = authCookiesGet();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
@@ -29,7 +30,7 @@ export default function Profile() {
 
   useEffect(() => {
     api
-      .getUserData()
+      .getUserData({ user_id: uid })
       .then(({ user, url, purDatas }) => {
         dispatch(setPurchaseItems(purDatas));
         userPremium(`${user?.is_premium}`);

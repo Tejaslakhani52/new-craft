@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
-import { decryptData, encryptData } from "@/src/aes-crypto";
+import { encryptData } from "@/src/aes-crypto";
 import { isFakeDomain } from "@/src/commonFunction/domain-checker";
 
 export default async function handler(
@@ -13,16 +13,14 @@ export default async function handler(
       return;
     }
 
-    const cookieValue = req.cookies;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
-    const userId = decryptData(cookieValue._sdf);
 
     const response = await axios.post<any>(
       `${apiUrl}/templates/api/V3/createUser`,
       {
         key: `${accessKey}`,
-        user_id: userId,
+        user_id: req.body.user_id,
         name: req.body.name,
         email: req.body.email,
         photo_uri: req.body.photo_uri,

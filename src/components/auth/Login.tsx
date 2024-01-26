@@ -37,7 +37,7 @@ export default function Login(props: any) {
     if (htmlStyleElement) {
       if (open) {
         htmlStyleElement.style.overflow = "hidden";
-      } else {
+      } else if (!props.openSignUp) {
         htmlStyleElement.style.overflow = "auto";
       }
     }

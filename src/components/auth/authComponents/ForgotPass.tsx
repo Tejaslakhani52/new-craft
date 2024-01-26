@@ -6,7 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import { auth } from "@/src/firebase";
 import { authCookiesSet } from "@/src/redux/action/AuthToken";
-import { openSidebar } from "@/src/redux/reducer/actionDataReducer";
+import { mainLoad, openSidebar } from "@/src/redux/reducer/actionDataReducer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import {
   UserCredential,
@@ -19,10 +19,10 @@ import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import Input from "./Input";
 import Password from "./Password";
+import api from "@/src/clientApi/api";
 
 export default function ForgotPass(props: any) {
   const dispatch = useDispatch();
-  const router = useRouter();
   const [enterNewPass, setEnterNewPass] = useState<boolean>(false);
   const [process, setProcess] = useState<boolean>(false);
   const [emailPassword, setEmailPassword] = useState<any>({
@@ -34,23 +34,40 @@ export default function ForgotPass(props: any) {
 
   const handleResetPassSubmit = async (e: any) => {
     e.preventDefault();
-    setProcess(true);
+    dispatch(mainLoad(true));
+
+    if (!emailPassword?.email) {
+      toast.error("Please fill out all required fields.");
+      dispatch(mainLoad(false));
+      return;
+    }
+
+    const data = await api.getUserData({ user_id: emailPassword?.email });
+
+    if (!data?.user) {
+      toast.error("User not found.");
+      dispatch(mainLoad(false));
+      return;
+    }
+
     sendPasswordResetEmail(auth, emailPassword?.email)
       .then((res) => {
         setEnterNewPass(true);
         toast.success("Password reset email sent.");
         setEmailDialogShow(true);
-        setProcess(false);
+        dispatch(mainLoad(false));
       })
       .catch((error: any) => {
         toast.error(error.message);
-        setProcess(false);
+        dispatch(mainLoad(false));
       });
   };
 
   const handleSignIn = async () => {
+    dispatch(mainLoad(true));
     if (!emailPassword?.email || !emailPassword?.password) {
       toast.error("Please fill out all required fields.");
+      dispatch(mainLoad(false));
       return;
     }
 
@@ -63,11 +80,12 @@ export default function ForgotPass(props: any) {
 
       toast.success("Success Login");
       authCookiesSet(userCredential?.user?.uid);
-      router.push("/");
       setTimeout(() => {
         window.location.reload();
       }, 100);
+      dispatch(mainLoad(false));
     } catch (error: any) {
+      dispatch(mainLoad(false));
       toast.error(error?.code.split("auth/")[1]);
     }
   };

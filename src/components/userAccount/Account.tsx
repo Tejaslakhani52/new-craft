@@ -39,6 +39,7 @@ export const sidebarMenu = [
 const Account: React.FC<AccountProps> = ({ defaultTab }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const uid = authCookiesGet();
   const getData = authCookiesGet();
   const [userProfile, setUserProfile] = useState<any>(null);
   const [imageBaseUrl, setImageBaseUrl] = useState<any>(null);
@@ -49,7 +50,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
 
   useEffect(() => {
     api
-      .getUserData()
+      .getUserData({ user_id: uid })
       .then(({ user, url, purDatas }) => {
         dispatch(setPurchaseItems(purDatas));
         userPremium(`${user?.is_premium}`);

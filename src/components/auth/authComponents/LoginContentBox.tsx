@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-
 import Icons from "@/src/assets";
 import { auth } from "@/src/firebase";
 import { authCookiesSet } from "@/src/redux/action/AuthToken";
@@ -17,6 +16,7 @@ import LoginPlatform from "./LoginPlatform";
 import Password from "./Password";
 import { useDispatch } from "react-redux";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
+import api from "@/src/clientApi/api";
 
 export default function LoginContentBox(props: any) {
   const dispatch = useDispatch();
@@ -45,6 +45,17 @@ export default function LoginContentBox(props: any) {
       return;
     }
 
+    const data = await api.getUserData({ user_id: emailPassword?.email });
+
+    if (!data?.user) {
+      toast.error("User not found. Please sign up to create an account.");
+      dispatch(mainLoad(false));
+      props.setOpenLogin(false);
+      props.setOpenSignUp(true);
+      props?.setOpen(false);
+      return;
+    }
+
     try {
       const userCredential: UserCredential = await signInWithEmailAndPassword(
         auth,
@@ -69,11 +80,9 @@ export default function LoginContentBox(props: any) {
         Cookies.remove("rememberMeCredentials");
       }
       dispatch(mainLoad(false));
-
       window.location.reload();
     } catch (error: any) {
       dispatch(mainLoad(false));
-
       toast.error(error?.code.split("auth/")[1]);
     }
   };

@@ -13,9 +13,6 @@ export default async function handler(
       return;
     }
 
-    const cookieValue = req.cookies;
-    const userId = decryptData(cookieValue._sdf);
-
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
@@ -24,7 +21,7 @@ export default async function handler(
       {
         key: `${accessKey}`,
         device_id: "",
-        email: userId,
+        email: req.body.user_id,
         debug: "debug",
       }
     );

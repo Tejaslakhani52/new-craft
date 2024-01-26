@@ -13,12 +13,14 @@ export default function LoginButton({
       <Login
         setOpenSignUp={setOpenSignUp}
         openLogin={openLogin}
+        openSignUp={openSignUp}
         setOpenLogin={setOpenLogin}
       />
       <Box className="max-sm:hidden">
         <SignUp
           setOpenLogin={setOpenLogin}
           openSignUp={openSignUp}
+          openLogin={openLogin}
           setOpenSignUp={setOpenSignUp}
         />
       </Box>

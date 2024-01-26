@@ -22,15 +22,16 @@ import LoginPlatform from "./LoginPlatform";
 import Password from "./Password";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import Link from "next/link";
+import api from "@/src/clientApi/api";
 
 export default function SignUpContentBox(props: any) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState<any>(false);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [verifiedDone, setVerifiedDone] = useState<boolean>(false);
   const [emailDialogShow, setEmailDialogShow] = useState<boolean>(false);
   const [finalUser, setFinalUser] = useState<any>(null);
+
   const [agree, setAgree] = useState<boolean>(false);
   const [createAccount, setCreateAccount] = useState<any>({
     name: "",
@@ -63,10 +64,9 @@ export default function SignUpContentBox(props: any) {
     }
   }, [currentUser]);
 
-  const handleSubmission = () => {
+  const handleSubmission = async () => {
     dispatch(mainLoad(true));
 
-    setIsLoading(true);
     if (
       !createAccount.name ||
       !createAccount.email ||
@@ -90,6 +90,21 @@ export default function SignUpContentBox(props: any) {
       dispatch(mainLoad(false));
       return;
     }
+
+    const data = await api.getUserData({ user_id: createAccount?.email });
+
+    if (data?.user) {
+      toast.error(
+        "User already registered. Please sign in to access your account."
+      );
+      dispatch(mainLoad(false));
+      props.setOpenSignUp(false);
+      props.setOpenLogin(true);
+      props?.setOpen(false);
+
+      return;
+    }
+
     createUserWithEmailAndPassword(
       auth,
       createAccount.email,
@@ -112,7 +127,7 @@ export default function SignUpContentBox(props: any) {
           setEmailDialogShow(true);
         })
       )
-      .catch((error) => {
+      .catch(async (error) => {
         toast.error(error?.code.split("auth/")[1]);
         dispatch(mainLoad(false));
       });

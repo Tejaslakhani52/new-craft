@@ -458,7 +458,7 @@ const DraftBoxesTab2 = ({
 
               <div className="button_tabs" style={{ paddingBottom: "0" }}>
                 <button
-                  className={`${"text_style"} `}
+                  className={`${"text_style"}`}
                   onClick={() => setOpenDeleteBox(false)}
                   style={{ height: "40px" }}
                 >
