@@ -117,7 +117,7 @@ export default function ShowPremiumDialog({
                 Finalize Payment
               </Typography>
               {countryCode === "IN" && (
-                <RazorpayPage setOpen={setOpenPaymentDialog} />
+                <RazorpayPage setOpen={setOpenPaymentDialog} amount={amount} />
               )}
 
               <Elements stripe={stripeTestPromise}>

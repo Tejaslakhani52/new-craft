@@ -31,7 +31,7 @@ const loadScript = (src: string) => {
 
 declare const fbq: Function;
 
-export function RazorpayPage({ setOpen }: any) {
+export function RazorpayPage({ setOpen, amount }: any) {
   const dispatch = useDispatch();
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
 
@@ -53,11 +53,6 @@ export function RazorpayPage({ setOpen }: any) {
     event.preventDefault();
     setOpen(false);
     dispatch(mainLoad(true));
-
-    fbq("track", "Purchase", {
-      value: "10",
-      currency: "INR",
-    });
 
     api
       .razorpay()
@@ -82,6 +77,10 @@ export function RazorpayPage({ setOpen }: any) {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
+                  fbq("track", "Purchase", {
+                    value: { amount },
+                    currency: "INR",
+                  });
                   removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
