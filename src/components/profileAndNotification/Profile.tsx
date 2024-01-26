@@ -155,7 +155,7 @@ export default function Profile() {
           onClick={() => {
             localStorage.clear();
             dispatch(openSidebar(false));
-            Cookies.remove("rememberMeCredentials");
+            // Cookies.remove("rememberMeCredentials");
             Cookies.remove("_sdf", { domain: ".craftyartapp.com" });
             Cookies.remove("premium", { domain: ".craftyartapp.com" });
             Cookies.remove("_sdf");

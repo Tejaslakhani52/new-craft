@@ -17,6 +17,7 @@ import Password from "./Password";
 import { useDispatch } from "react-redux";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import api from "@/src/clientApi/api";
+import { decryptData, encryptData } from "@/src/aes-crypto";
 
 export default function LoginContentBox(props: any) {
   const dispatch = useDispatch();
@@ -28,10 +29,15 @@ export default function LoginContentBox(props: any) {
   });
 
   useEffect(() => {
-    const storedCredentials = Cookies.get("rememberMeCredentials");
-    if (storedCredentials) {
-      const credentials = JSON.parse(storedCredentials);
-      setEmailPassword(credentials);
+    const storedCredentialsEmail = Cookies.get("rememberMeCredentialsEmail");
+    const storedCredentialsPassword = Cookies.get(
+      "rememberMeCredentialsPassword"
+    );
+    if (storedCredentialsEmail && storedCredentialsPassword) {
+      const email = decryptData(storedCredentialsEmail);
+      const password = decryptData(storedCredentialsPassword);
+
+      setEmailPassword({ ...emailPassword, email: email, password: password });
       setRemember(true);
     }
   }, []);
@@ -69,15 +75,18 @@ export default function LoginContentBox(props: any) {
 
       if (remember) {
         Cookies.set(
-          "rememberMeCredentials",
-          JSON.stringify({
-            email: emailPassword.email,
-            password: emailPassword.password,
-          }),
+          "rememberMeCredentialsEmail",
+          encryptData(emailPassword.email),
+          { expires: 30 }
+        );
+        Cookies.set(
+          "rememberMeCredentialsPassword",
+          encryptData(emailPassword.password),
           { expires: 30 }
         );
       } else {
-        Cookies.remove("rememberMeCredentials");
+        Cookies.remove("rememberMeCredentialsEmail");
+        Cookies.remove("rememberMeCredentialsPassword");
       }
       dispatch(mainLoad(false));
       window.location.reload();
@@ -140,6 +149,7 @@ export default function LoginContentBox(props: any) {
           />
           <Password
             label="Password"
+            value={emailPassword?.password}
             onChange={(e: any) =>
               setEmailPassword({
                 ...emailPassword,

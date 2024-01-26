@@ -8,6 +8,7 @@ export default function Document() {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-FV7CT0VRZM"
         ></script>
+
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
