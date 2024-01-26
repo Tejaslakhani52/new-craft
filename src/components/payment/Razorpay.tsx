@@ -90,7 +90,8 @@ export function RazorpayPage({ setOpen, amount }: any) {
                   toast.error(res.msg);
                 }
               })
-              .catch(() => {
+              .catch((error) => {
+                console.log("error: ", error);
                 dispatch(mainLoad(false));
                 toast.error("Payment failed");
               });
@@ -103,7 +104,8 @@ export function RazorpayPage({ setOpen, amount }: any) {
           dispatch(mainLoad(false));
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log("error: ", error);
         dispatch(mainLoad(false));
         toast.error("Payment failed");
       });
