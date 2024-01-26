@@ -125,6 +125,7 @@ export default function Stripe({ countryCode, setOpen }: PropsType) {
                       purDatas.push({ id: _.id, type: _.type });
                     });
                     dispatch(setPurchaseItems(purDatas));
+
                     removeUnusedSessions();
                     toast.success(data.msg);
                     setOpen(false);

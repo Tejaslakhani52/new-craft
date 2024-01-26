@@ -29,6 +29,8 @@ const loadScript = (src: string) => {
   });
 };
 
+declare const fbq: Function;
+
 export function RazorpayPage({ setOpen }: any) {
   const dispatch = useDispatch();
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
@@ -51,6 +53,11 @@ export function RazorpayPage({ setOpen }: any) {
     event.preventDefault();
     setOpen(false);
     dispatch(mainLoad(true));
+
+    fbq("track", "Purchase", {
+      value: "10",
+      currency: "INR",
+    });
 
     api
       .razorpay()
