@@ -54,11 +54,6 @@ export function RazorpayPage({ setOpen, amount }: any) {
     setOpen(false);
     dispatch(mainLoad(true));
 
-    fbq("track", "Purchase", {
-      value: { amount },
-      currency: "INR",
-    });
-
     api
       .razorpay()
       .then((res) => {
@@ -70,6 +65,7 @@ export function RazorpayPage({ setOpen, amount }: any) {
               m: "Razorpay",
             };
             setSessionVal("_pdf", JSON.stringify(datas));
+            console.log("datas: ", datas);
             api
               .webhook()
               .then((res) => {
@@ -78,11 +74,15 @@ export function RazorpayPage({ setOpen, amount }: any) {
                     getSessionVal("_paf", "[]") || "[]"
                   );
                   const purDatas: PurchaseItemProps[] = [];
+                  console.log("purDatas: ", purDatas);
                   val.forEach((_: any) => {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
-
+                  fbq("track", "Purchase", {
+                    value: amount,
+                    currency: "INR",
+                  });
                   removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
