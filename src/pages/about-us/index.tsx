@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import QuestionsTitle from "@/src/components/common/QuestionsTitle";
 import FaqsBox from "@/src/components/common/FAQs";
 import { handleEmailClick } from "@/src/commonFunction/emailCheck";
+import Head from "next/head";
 
 const CustomerSaying = dynamic(
   () =>
@@ -152,6 +153,77 @@ export default function index() {
         heading={"About Us - Who We Are"}
         text="Discover the essence of our story and values. Explore our journey and mission."
       />
+
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: [
+                {
+                  "@type": "Question",
+                  name: "What is the pricing model for Crafty Art?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Crafty Art Pro offers various pricing plans, including free trials, subscriptions, and single template purchases. With the free trial, users can access a limited set of resources or templates. However, by opting for a subscription plan, customers gain full access to customization features, a broader range of templates, and additional resources. Alternatively, users can choose to purchase a single template, allowing them to acquire a specific template or resource of their choice.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "What is the difference between the Subscription Plan and the Single Template Purchase?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Subscription Plan: This plan provides access to all premium features, customization options, regular updates, and exclusive tools like the background remover and many more. It is billed on a monthly, quarterly, or yearly basis, depending on your preference. Single Template Purchase: With this plan, you can buy a specific template for a one-time payment. This option grants you lifetime access to the chosen template.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How to Contact Crafty Art for any Subscription Related Query or Problems?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "To contact Crafty Art regarding any subscription-related queries or other issues, you can reach out to them at craftyartapp@gmail.com.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I purchase a single template from Crafty Art?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "Choose the premium template you wish to purchase. Once you've selected the template, click on the 'Customize This Template' button. After clicking the button, a pop-up will appear with two options: the first is to buy a subscription, and the second is to buy a single template. Choose the 'Buy Single Template' option. Selecting 'Buy Single Template' will allow you to proceed with the purchase of the individual template. After the purchase, customize the template according to your needs.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I purchase a subscription of Crafty Art?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "There are two convenient ways to purchase a subscription from Crafty Art: 1. Navigate to the 'Pricing' section in the header. Here, you'll find three subscription plans - monthly, quarterly, and yearly. Choose the plan that suits your needs and proceed to purchase the subscription. 2. Alternatively, select a premium template and click on the 'Customize This Template' button. A pop-up will appear presenting two options: the first is to buy a subscription, and the second is to buy a single template. Opt for the 'Buy a Subscription' option. After completing the subscription purchase, you will gain access to the full range of Crafty Art's offerings.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Is there a limit to how many templates I can purchase with the Single Template option?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No, there is no limit. You can purchase as many templates as you like, and each template comes with lifetime access.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How does the billing work for the Subscription Plan?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "The Subscription Plan is billed based on the selected frequency (monthly, quarterly, or yearly). Users enjoy uninterrupted access to premium features as long as their subscription is active.",
+                  },
+                },
+              ],
+            }),
+          }}
+        />
+      </Head>
+
       <Box className="text-center pt-14 max-sm:pt-5 pb-12 px-[15px]">
         <Typography className="text-[15px]">ABOUT CRAFTYART</Typography>
 

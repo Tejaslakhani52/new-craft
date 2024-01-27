@@ -31,7 +31,7 @@ export default async function handler(
       );
 
       if (response.status === 200) {
-        const datas = JSON.parse(response.data);
+        const datas = response.data;
         if (!datas.success) {
           res.status(500).json({ error: "Internal Server Error" });
         }

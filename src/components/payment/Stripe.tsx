@@ -60,12 +60,15 @@ export const formatExpiryDate = (expMonth: number, expYear: number): string => {
   return `${formattedMonth}/${formattedYear}`;
 };
 
+declare const fbq: Function;
+
 interface PropsType {
   countryCode: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  amount: string | any;
 }
 
-export default function Stripe({ countryCode, setOpen }: PropsType) {
+export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
@@ -111,7 +114,7 @@ export default function Stripe({ countryCode, setOpen }: PropsType) {
               };
               setSessionVal("_pdf", JSON.stringify(datas));
               getCard();
-
+              dispatch(mainLoad(true));
               api
                 .webhook()
                 .then((data) => {
@@ -125,15 +128,21 @@ export default function Stripe({ countryCode, setOpen }: PropsType) {
                       purDatas.push({ id: _.id, type: _.type });
                     });
                     dispatch(setPurchaseItems(purDatas));
-
+                    fbq("track", "Purchase", {
+                      value: `${amount}`,
+                      currency: countryCode === "IN" ? "INR" : "USD",
+                    });
                     removeUnusedSessions();
                     toast.success(data.msg);
                     setOpen(false);
+                    setOpenEditCard(false);
+                    setSelectedDefaultCard(false);
+                    setOpenDeleteCard(false);
                   } else {
                     toast.error(data.msg);
                   }
                 })
-                .catch(() => {
+                .catch((error) => {
                   toast.error("Payment failed");
                   dispatch(mainLoad(false));
                   setAddNewOpen(false);
@@ -145,13 +154,11 @@ export default function Stripe({ countryCode, setOpen }: PropsType) {
             }
           })
           .catch((err) => {
-            // console.error(err);
             toast.error("Payment failed");
             dispatch(mainLoad(false));
           });
       })
       .catch((err: any) => {
-        // console.error(err);
         toast.error("Payment failed");
         setAddNewOpen(false);
         dispatch(mainLoad(false));

@@ -31,7 +31,12 @@ const loadScript = (src: string) => {
 
 declare const fbq: Function;
 
-export function RazorpayPage({ setOpen, amount }: any) {
+interface PropsType {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  amount: string | any;
+}
+
+export function RazorpayPage({ setOpen, amount }: PropsType) {
   const dispatch = useDispatch();
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
 
@@ -65,7 +70,8 @@ export function RazorpayPage({ setOpen, amount }: any) {
               m: "Razorpay",
             };
             setSessionVal("_pdf", JSON.stringify(datas));
-            console.log("datas: ", datas);
+            dispatch(mainLoad(true));
+
             api
               .webhook()
               .then((res) => {
@@ -74,24 +80,24 @@ export function RazorpayPage({ setOpen, amount }: any) {
                     getSessionVal("_paf", "[]") || "[]"
                   );
                   const purDatas: PurchaseItemProps[] = [];
-                  console.log("purDatas: ", purDatas);
                   val.forEach((_: any) => {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
                   fbq("track", "Purchase", {
-                    value: amount,
+                    value: `${amount}`,
                     currency: "INR",
                   });
                   removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
+                  dispatch(mainLoad(false));
                 } else {
                   toast.error(res.msg);
+                  dispatch(mainLoad(false));
                 }
               })
               .catch((error) => {
-                console.log("error: ", error);
                 dispatch(mainLoad(false));
                 toast.error("Payment failed");
               });
@@ -105,7 +111,6 @@ export function RazorpayPage({ setOpen, amount }: any) {
         }
       })
       .catch((error) => {
-        console.log("error: ", error);
         dispatch(mainLoad(false));
         toast.error("Payment failed");
       });

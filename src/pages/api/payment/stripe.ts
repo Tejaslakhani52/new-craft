@@ -27,7 +27,6 @@ export default async function handler(
       decryptData(cookieValue.CC) === "IN" ? "INR" : "USD"
     );
     form.append("from", "Web");
-    form.append("testMode", "1");
 
     const response = await axios.post(`${apiUrl}/templates/api/stripe`, form);
 

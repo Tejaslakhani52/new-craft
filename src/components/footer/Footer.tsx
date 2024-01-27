@@ -147,8 +147,8 @@ export const Legal = () => {
       <Link href={"/term-condition"}>
         <OptionButton>Terms and condition</OptionButton>
       </Link>
-      <Link href={"/copyright-infringement"}>
-        <OptionButton>Copyright infrigment</OptionButton>
+      <Link href={"/copyright-information"}>
+        <OptionButton>Copyright information</OptionButton>
       </Link>
     </Box>
   );

@@ -99,6 +99,7 @@ export default function index() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [priceShowData, setPriceShowData] = useState<any>();
   const [choosePlan, setChoosePlan] = useState<any>();
+  console.log("choosePlan: ", choosePlan);
   const [endDate, setEndDate] = useState<any>("");
   const [openPriceDialog, setOpenPriceDialog] = useState<boolean>(false);
   const scrollContainerRef: React.RefObject<HTMLInputElement> | any =
@@ -218,34 +219,58 @@ export default function index() {
               mainEntity: [
                 {
                   "@type": "Question",
-                  name: "1. What pricing plans does Crafty Art offer?",
+                  name: "What is the pricing model for Crafty Art?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Crafty Art offers different pricing plans to cater to various needs. These typically include a free plan with basic features and paid plans with additional benefits.",
+                    text: "Crafty Art Pro offers various pricing plans, including free trials, subscriptions, and single template purchases. With the free trial, users can access a limited set of resources or templates. However, by opting for a subscription plan, customers gain full access to customization features, a broader range of templates, and additional resources. Alternatively, users can choose to purchase a single template, allowing them to acquire a specific template or resource of their choice.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "2. What are the benefits of a premium subscription?",
+                  name: "What is the difference between the Subscription Plan and the Single Template Purchase?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "As a premium user, you can download unlimited Crafty Art assets and access various premium services.",
+                    text: "Subscription Plan: This plan provides access to all premium features, customization options, regular updates, and exclusive tools like the background remover and many more. It is billed on a monthly, quarterly, or yearly basis, depending on your preference. Single Template Purchase: With this plan, you can buy a specific template for a one-time payment. This option grants you lifetime access to the chosen template.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "3. Why do I have to purchase Crafty Art Pro?",
+                  name: "How to Contact Crafty Art for any Subscription Related Query or Problems?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "With the Crafty Art Pro subscription, you can unlock unlimited access to premium services and features.",
+                    text: "To contact Crafty Art regarding any subscription-related queries or other issues, you can reach out to them at craftyartapp@gmail.com.",
                   },
                 },
                 {
                   "@type": "Question",
-                  name: "4. Are my downloads unlimited as a premium user?",
+                  name: "How do I purchase a single template from Crafty Art?",
                   acceptedAnswer: {
                     "@type": "Answer",
-                    text: "Yes, as a premium user, you have unlimited downloads. There are no limitations on the use of Crafty Art assets, templates, and the Background Remover Tool.",
+                    text: "Choose the premium template you wish to purchase. Once you've selected the template, click on the 'Customize This Template' button. After clicking the button, a pop-up will appear with two options: the first is to buy a subscription, and the second is to buy a single template. Choose the 'Buy Single Template' option. Selecting 'Buy Single Template' will allow you to proceed with the purchase of the individual template. After the purchase, customize the template according to your needs.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How do I purchase a subscription of Crafty Art?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "There are two convenient ways to purchase a subscription from Crafty Art: 1. Navigate to the 'Pricing' section in the header. Here, you'll find three subscription plans - monthly, quarterly, and yearly. Choose the plan that suits your needs and proceed to purchase the subscription. 2. Alternatively, select a premium template and click on the 'Customize This Template' button. A pop-up will appear presenting two options: the first is to buy a subscription, and the second is to buy a single template. Opt for the 'Buy a Subscription' option. After completing the subscription purchase, you will gain access to the full range of Crafty Art's offerings.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "Is there a limit to how many templates I can purchase with the Single Template option?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "No, there is no limit. You can purchase as many templates as you like, and each template comes with lifetime access.",
+                  },
+                },
+                {
+                  "@type": "Question",
+                  name: "How does the billing work for the Subscription Plan?",
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: "The Subscription Plan is billed based on the selected frequency (monthly, quarterly, or yearly). Users enjoy uninterrupted access to premium features as long as their subscription is active.",
                   },
                 },
               ],
@@ -1023,9 +1048,9 @@ export default function index() {
           <Box
             className="md:w-[50%] p-[30px] max-sm:p-[10px] overflow-auto custom_scroll"
             sx={{
-              maxHeight:
+              minHeight:
                 screenWidth < 600
-                  ? `${screenHeight}px`
+                  ? `${screenHeight - 350}px`
                   : `${screenHeight - 150}px`,
             }}
           >
@@ -1034,8 +1059,8 @@ export default function index() {
             </Typography>
             {userCountryCode === "IN" && (
               <RazorpayPage
-                selectPaln={choosePlan}
                 setOpen={setOpenPriceDialog}
+                amount={choosePlan?.offer_price}
               />
             )}
 
@@ -1043,6 +1068,7 @@ export default function index() {
               <Stripe
                 countryCode={userCountryCode}
                 setOpen={setOpenPriceDialog}
+                amount={choosePlan?.offer_price}
               />
             </Elements>
           </Box>

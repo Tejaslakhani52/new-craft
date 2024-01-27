@@ -35,6 +35,7 @@ export default function ShowPremiumDialog({
     null
   );
   const [amount, setAmount] = useState<string>("");
+  console.log("amount: ", amount);
 
   useEffect(() => {
     if (tempData && open) {
@@ -122,6 +123,7 @@ export default function ShowPremiumDialog({
 
               <Elements stripe={stripeTestPromise}>
                 <Stripe
+                  amount={amount}
                   countryCode={countryCode}
                   setOpen={setOpenPaymentDialog}
                 />
