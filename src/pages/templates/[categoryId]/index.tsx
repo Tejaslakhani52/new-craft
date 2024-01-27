@@ -147,7 +147,7 @@ export default function index({ jsonString }: ServerSideProps) {
         .getCategoryData({
           cat_id:
             id?.categoryId === "invitation"
-              ? "a4-invitation"
+              ? "invitation"
               : (id?.categoryId as any),
           page: page,
         })

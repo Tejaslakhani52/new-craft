@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import PaymentHistory from "./components/PaymentHistory";
 import PersonalInfo from "./components/PersonalInfo";
 import Subscription from "./components/Subscription";
+import TemplateHistory from "./components/TemplateHistory";
 
 interface AccountProps {
   defaultTab: string;
@@ -30,6 +31,12 @@ export const sidebarMenu = [
   },
   {
     name: "Payment History",
+    icons: "/icons/premiumPlans/paymentHistory.svg",
+    activeIcon: "/icons/premiumPlans/paymentHistoryActive.svg",
+    path: "/",
+  },
+  {
+    name: "Template History",
     icons: "/icons/premiumPlans/paymentHistory.svg",
     activeIcon: "/icons/premiumPlans/paymentHistoryActive.svg",
     path: "/",
@@ -109,6 +116,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
     api
       .getCurrentPlan()
       .then((currentPlanData) => {
+        console.log("currentPlanData: ", currentPlanData);
         setLoading(false);
         setCurrentPlan(currentPlanData);
       })
@@ -121,6 +129,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
     "Personal Info": <PersonalInfo />,
     Subscription: <Subscription userSubscription={currentPlan} />,
     "Payment History": <PaymentHistory userSubscription={currentPlan} />,
+    "Template History": <TemplateHistory userSubscription={currentPlan} />,
   };
 
   return (
