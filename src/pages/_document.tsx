@@ -9,13 +9,6 @@ export default function Document() {
           src="https://www.googletagmanager.com/gtag/js?id=G-FV7CT0VRZM"
         ></script>
 
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
-
-        <meta name="HandheldFriendly" content="true" />
-
         <script
           dangerouslySetInnerHTML={{
             __html: ` 
@@ -79,6 +72,12 @@ export default function Document() {
           name="facebook-domain-verification"
           content="3nsioq3kz27llryrgqspeuqvw058e5"
         />
+
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <meta name="HandheldFriendly" content="true" />
       </Head>
       <body>
         <Main />

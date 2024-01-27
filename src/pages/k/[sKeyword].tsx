@@ -155,7 +155,7 @@ export default function sKeyword({ serverData, updatedLines }: any) {
                 backgroundSize: "cover",
                 py: "50px",
               }}
-              className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] rounded-[8px] max-sm:py-[20px ]"
+              className="lg:pl-[80px] max-lg:px-[20px] h-auto max-lg:py-[50px] rounded-[8px] max-sm:py-[20px]"
             >
               <Typography
                 sx={{
@@ -164,7 +164,7 @@ export default function sKeyword({ serverData, updatedLines }: any) {
                   fontWeight: "500",
                   lineHeight: "40px",
                 }}
-                className="text-center text-[25px] sm:text-[35px] "
+                className="text-center text-[20px] sm:text-[35px] "
                 variant="h1"
               >
                 {serverData?.title}
@@ -176,7 +176,7 @@ export default function sKeyword({ serverData, updatedLines }: any) {
                   width: "100%",
                   marginBottom: "10px",
                 }}
-                className="text-center max-sm:text-[15px] py-[10px] w-[95%] sm:w-[70%] mx-auto my-[10px]"
+                className="text-center max-sm:text-[14px] py-[10px] w-[95%] sm:w-[70%] mx-auto my-[10px]"
               >
                 {serverData?.short_desc}
               </Typography>

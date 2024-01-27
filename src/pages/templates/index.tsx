@@ -116,7 +116,7 @@ export default function index() {
                 width: "100%",
                 overflow: "hidden",
               }}
-              className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] rounded-[8px]"
+              className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] max-sm:py-[20px] rounded-[8px]"
             >
               <Box
                 sx={{
@@ -134,7 +134,7 @@ export default function index() {
                     fontWeight: "500",
                     lineHeight: "40px",
                   }}
-                  className="max-lg:text-center text-[30px] sm:text-[40px]"
+                  className="max-lg:text-center text-[20px] sm:text-[40px]"
                   variant="h1"
                 >
                   Latest Templates For You
@@ -147,7 +147,7 @@ export default function index() {
                     width: "100%",
                     marginBottom: "10px",
                   }}
-                  className="max-lg:text-center"
+                  className="max-lg:text-center max-sm:text-[14px]"
                 >
                   Explore graphic design with the latest templates using this
                   powerful tool, unleashing your creativity effortlessly.

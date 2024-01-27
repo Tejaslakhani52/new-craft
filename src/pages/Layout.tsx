@@ -89,7 +89,7 @@ export default function Home(Props: any) {
             marginLeft: sidebarOpen ? "250px" : "0",
             marginTop: "70px",
           }}
-          className="max-lg:ml-0 max-sm:mb-[80px]"
+          className={`max-lg:ml-0 ${token && "max-sm:mb-[80px]"} `}
         >
           <div style={{ zIndex: "5000000000000000", position: "fixed" }}>
             <Toaster />

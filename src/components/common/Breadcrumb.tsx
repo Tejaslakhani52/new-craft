@@ -9,7 +9,7 @@ export default function Breadcrumb({ data }: any) {
       {data?.map((item: any, index: number) => (
         <div key={index} className="flex">
           <button
-            className={`text-[15px] font-medium ${
+            className={`text-[15px] max-sm:text-[14px] font-medium ${
               item?.current ? "opacity-50" : ""
             }`}
             onClick={() => router.push(item?.path)}

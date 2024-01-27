@@ -87,7 +87,7 @@ export default function index() {
 
       <Box className="flex items-center flex-col">
         <Typography
-          className="text_linear max-sm:text-[30px] text-[45px] font-[700] text-center mx-auto sm:mb-10"
+          className="text_linear max-sm:text-[30px] text-[45px] font-[700] text-center mx-auto mb-3 sm:mb-10"
           variant="h1"
         >
           Contact Us
@@ -133,9 +133,12 @@ export default function index() {
 
           <Typography className="mb-2">
             <span className="font-semibold">Mobile Number :</span>{" "}
-            <span className="text-[#5961F8] cursor-pointer">
+            <a
+              href="tel:+919898978207"
+              className="text-[#5961F8] cursor-pointer"
+            >
               +91 9898978207
-            </span>
+            </a>
           </Typography>
 
           <Typography className="mb-2">
@@ -239,14 +242,13 @@ export default function index() {
           flexDirection: "column",
           maxWidth: "1000px",
         }}
-        className="w-[100%] sm:w-[80%] lg:w-[60%] px-[20px] mt-5 mb-[100px]"
+        className="w-[100%] sm:w-[80%] lg:w-[60%] mt-5 mb-[100px]"
       >
         <QuestionsTitle
           text1={"Some Popular"}
           text2={"Questions/Answered"}
           text3=""
         />
-        <Box sx={{ p: "20px" }}></Box>
 
         <FaqsBox
           heading="What is the pricing model for Crafty Art?"

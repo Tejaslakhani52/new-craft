@@ -142,10 +142,10 @@ export default function ImageBox({
           )}
 
           <div className="pt-2">
-            <p className="text-ellipsis w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
+            <p className="text-ellipsis max-sm:text-[14px] w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
               {templates?.template_name}
             </p>
-            <p className="text-[#ABB2C7] text-[13px] pb-1">
+            <p className="text-[#ABB2C7] text-[13px] max-sm:text-[12px] pb-1">
               {templates?.category_name}
             </p>
           </div>

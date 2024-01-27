@@ -238,15 +238,16 @@ export default function index({ jsonString }: ServerSideProps) {
                   width: "100%",
                   overflow: "hidden",
                 }}
-                className="lg:pl-[80px] max-lg:px-[20px] h-auto max-lg:py-[50px] max-sm:py-[20px] rounded-[8px]"
+                className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] max-sm:py-[20px] rounded-[8px]"
               >
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
                     gap: "20px",
+                    padding: "10px 0",
                   }}
-                  className="w-full lg:w-[57%] max-lg:items-center  py-[50px]"
+                  className="w-full lg:w-[57%] max-lg:items-center "
                 >
                   <Typography
                     sx={{
@@ -255,7 +256,7 @@ export default function index({ jsonString }: ServerSideProps) {
                       fontWeight: "500",
                       lineHeight: "40px",
                     }}
-                    className="max-lg:text-center text-[25px] sm:text-[40px]"
+                    className="max-lg:text-center text-[20px] sm:text-[40px]"
                     variant="h1"
                   >
                     {jsonString?.h1_tag}

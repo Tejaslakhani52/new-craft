@@ -134,7 +134,7 @@ export default function searchValue() {
               py: "50px",
               display: data?.length > 0 ? "block" : "none",
             }}
-            className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] rounded-[8px]"
+            className="lg:pl-[80px]  max-lg:px-[20px] h-auto max-lg:py-[50px] max-sm:py-[20px] rounded-[8px]"
           >
             <Typography
               sx={{
@@ -143,7 +143,7 @@ export default function searchValue() {
                 fontWeight: "500",
                 lineHeight: "40px",
               }}
-              className="text-center text-[30px] sm:text-[35px] "
+              className="text-center text-[20px] sm:text-[35px] "
               variant="h1"
             >
               <span className="capitalize"> {formattedSearchName} </span>{" "}
@@ -156,7 +156,7 @@ export default function searchValue() {
                 width: "100%",
                 marginBottom: "10px",
               }}
-              className="text-center py-[10px] w-[70%] mx-auto my-[10px]"
+              className="text-center py-[10px] w-[70%] max-sm:w-full max-sm:text-[14px] mx-auto my-[10px]"
             >
               Explore High-Quality{" "}
               <span className="capitalize"> {formattedSearchName} </span>{" "}

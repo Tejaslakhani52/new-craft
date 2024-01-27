@@ -301,7 +301,7 @@ export default function templateId({ templateData }: serverProps) {
           </Box>
 
           <Box className="w-[33%] max-2md:w-full">
-            <h1 className="text-[#1C3048] text-[24px] font-[500] mb-3">
+            <h1 className="text-[#1C3048] text-[24px] max-sm:text-[20px] font-[500] mb-3">
               {templateData?.template_name}
             </h1>
 
@@ -406,7 +406,7 @@ export default function templateId({ templateData }: serverProps) {
           </Box>
         </Box>
 
-        <h2 className="text-[#1C3048] text-[23px] font-[500] pt-4 my-3">
+        <h2 className="text-[#1C3048] text-[23px] max-sm:text-[20px] font-[500] pt-4 my-3">
           Templates with the same style and concept
         </h2>
         <Box>
