@@ -988,12 +988,7 @@ export default function index() {
         setOpen={setOpenPriceDialog}
         className="w-[100%] lg:w-[80%] xl:w-[1000px]"
       >
-        <Box
-          className="flex max-md:flex-col rounded-[8px] bg-[#F4F7FE] overflow-hidden"
-          style={{
-            minHeight: screenWidth < 600 ? `${screenHeight}px` : `auto`,
-          }}
-        >
+        <Box className="flex max-md:flex-col rounded-[8px] bg-[#F4F7FE] overflow-hidden">
           <Box className="md:w-[50%] p-[30px] max-sm:p-[10px] bg-white">
             <Typography variant="h2" className="font-medium text-[22px] mb-2">
               Choose your plan
@@ -1053,9 +1048,9 @@ export default function index() {
           <Box
             className="md:w-[50%] p-[30px] max-sm:p-[10px] overflow-auto custom_scroll"
             sx={{
-              minHeight:
+              maxHeight:
                 screenWidth < 600
-                  ? `${screenHeight - 350}px`
+                  ? `${screenHeight}px`
                   : `${screenHeight - 150}px`,
             }}
           >
