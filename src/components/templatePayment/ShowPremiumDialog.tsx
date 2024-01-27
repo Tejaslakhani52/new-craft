@@ -7,6 +7,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import Stripe from "../payment/Stripe";
 import { RazorpayPage } from "../payment/Razorpay";
+import Link from "next/link";
 
 interface TemplateData {
   id: string;
@@ -85,12 +86,15 @@ export default function ShowPremiumDialog({
 
           <Box className="mt-10 flex justify-end items-center">
             <Box className="flex justify-between items-center gap-3">
-              <Button
-                className="bg_linear text-white normal-case px-[30px] text-[16px]"
-                onClick={() => router.push("/plans")}
+              <Link
+                href="/plans"
+                target="_blank"
+                onClick={() => setOpen(false)}
               >
-                Subscribe
-              </Button>
+                <Button className="bg_linear text-white normal-case px-[30px] text-[16px]">
+                  Subscription
+                </Button>
+              </Link>
               <Button
                 className="bg_linear text-white normal-case px-[30px] text-[16px]"
                 onClick={() => {

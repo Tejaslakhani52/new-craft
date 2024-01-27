@@ -32,9 +32,12 @@ export default function Subscription({ userSubscription }: any) {
             and cutting-edge upgrade.
           </Typography>
 
-          <Button className="bg_linear h-[40px] normal-case px-[50px] text-white">
-            <Link href={"/plans"}>Buy Now</Link>
-          </Button>
+          <Link href={"/plans"}>
+            {" "}
+            <Button className="bg_linear h-[40px] normal-case px-[50px] text-white">
+              Buy Now
+            </Button>
+          </Link>
         </Box>
       </Box>
 
