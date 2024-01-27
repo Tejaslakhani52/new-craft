@@ -1061,6 +1061,7 @@ export default function index() {
               <RazorpayPage
                 setOpen={setOpenPriceDialog}
                 amount={choosePlan?.offer_price}
+                action={"Purchase Subscription"}
               />
             )}
 
@@ -1069,6 +1070,7 @@ export default function index() {
                 countryCode={userCountryCode}
                 setOpen={setOpenPriceDialog}
                 amount={choosePlan?.offer_price}
+                action={"Purchase Subscription"}
               />
             </Elements>
           </Box>

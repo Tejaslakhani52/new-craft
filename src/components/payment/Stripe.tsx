@@ -66,9 +66,15 @@ interface PropsType {
   countryCode: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   amount: string | any;
+  action: string;
 }
 
-export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
+export default function Stripe({
+  countryCode,
+  setOpen,
+  amount,
+  action,
+}: PropsType) {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
@@ -79,6 +85,7 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
   const [openDeleteCard, setOpenDeleteCard] = useState<boolean>(false);
   const userData = useSelector((state: any) => state.auth.userData);
   const saveCard = useSelector((state: any) => state.auth.saveCardData);
+  const [mainLoading, setMainLoading] = useState<boolean>(false);
 
   const getCard = () => {
     api.cardList().then((res) => {
@@ -97,16 +104,18 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
   }, [openEditCard]);
 
   const ProcessPay = (id: string) => {
+    // setMainLoading(false)
+
     api
       .stripe({ pi: id })
       .then((c) => {
-        dispatch(mainLoad(false));
         stripe
           ?.confirmCardPayment(c.client_secret)
           .then((data) => {
-            dispatch(mainLoad(false));
+            setMainLoading(false);
             if (data.error) {
-              toast.error(data.error.message!);
+              toast.error(`${data?.error?.message}`);
+              setMainLoading(false);
             } else if (data.paymentIntent) {
               const datas = {
                 id: data.paymentIntent.id,
@@ -114,11 +123,12 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
               };
               setSessionVal("_pdf", JSON.stringify(datas));
               getCard();
-              dispatch(mainLoad(true));
+
+              setMainLoading(true);
               api
                 .webhook()
                 .then((data) => {
-                  dispatch(mainLoad(false));
+                  setMainLoading(false);
                   if (data.success) {
                     const val: PaymentProps[] = JSON.parse(
                       getSessionVal("_paf", "[]") || "[]"
@@ -128,7 +138,7 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
                       purDatas.push({ id: _.id, type: _.type });
                     });
                     dispatch(setPurchaseItems(purDatas));
-                    fbq("track", "Purchase", {
+                    fbq("track", action, {
                       value: `${amount}`,
                       currency: countryCode === "IN" ? "INR" : "USD",
                     });
@@ -139,42 +149,41 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
                     setSelectedDefaultCard(false);
                     setOpenDeleteCard(false);
                   } else {
-                    toast.error(data.msg);
+                    toast.error("Payment failed");
                   }
                 })
                 .catch((error) => {
                   toast.error("Payment failed");
-                  dispatch(mainLoad(false));
+                  setMainLoading(false);
                   setAddNewOpen(false);
                 });
             } else {
               toast.error("Payment failed");
-              dispatch(mainLoad(false));
+              setMainLoading(false);
               setAddNewOpen(false);
             }
           })
           .catch((err) => {
             toast.error("Payment failed");
-            dispatch(mainLoad(false));
+            setMainLoading(false);
           });
       })
       .catch((err: any) => {
         toast.error("Payment failed");
         setAddNewOpen(false);
-        dispatch(mainLoad(false));
+        setMainLoading(false);
       });
   };
 
   const handleSubmit = async (e: any) => {
-    dispatch(mainLoad(true));
+    setMainLoading(true);
     if (selectedDefaultCard?.id) {
       try {
         const id = selectedDefaultCard?.id;
-
         ProcessPay(id);
       } catch (error) {
         toast.error("Payment failed");
-        dispatch(mainLoad(false));
+        setMainLoading(false);
       }
     } else {
       const billing_details: {
@@ -199,7 +208,7 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
           billing_details.phone = addressElement.value.phone;
         } else {
           toast.error("Please provide details.");
-          dispatch(mainLoad(false));
+          setMainLoading(false);
           return;
         }
       }
@@ -212,8 +221,7 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
 
       if (error) {
         toast.error(error.message);
-        dispatch(mainLoad(false));
-
+        setMainLoading(false);
         return;
       }
 
@@ -223,13 +231,13 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
         ProcessPay(paymentMethodId);
       } else {
         toast.error(error.message);
-        dispatch(mainLoad(false));
+        setMainLoading(false);
       }
     }
   };
 
   const handleDeletePaymentMethod = () => {
-    dispatch(mainLoad(true));
+    setMainLoading(true);
 
     api
       .detach({
@@ -237,13 +245,13 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
       })
       .then(() => {
         toast.success("Payment method delete successfully");
-        dispatch(mainLoad(false));
+        setMainLoading(false);
         getCard();
         setOpenDeleteCard(false);
       })
       .catch(() => {
         toast.error("Failed to delete payment method.");
-        dispatch(mainLoad(false));
+        setMainLoading(false);
       });
   };
 
@@ -544,6 +552,12 @@ export default function Stripe({ countryCode, setOpen, amount }: PropsType) {
             Process to Pay
           </Button>
         </Box>
+      )}
+
+      {mainLoading && (
+        <main className="main">
+          <span className="loader"></span>
+        </main>
       )}
     </>
   );

@@ -36,7 +36,6 @@ export default function ShowPremiumDialog({
     null
   );
   const [amount, setAmount] = useState<string>("");
-  console.log("amount: ", amount);
 
   useEffect(() => {
     if (tempData && open) {
@@ -122,7 +121,11 @@ export default function ShowPremiumDialog({
                 Finalize Payment
               </Typography>
               {countryCode === "IN" && (
-                <RazorpayPage setOpen={setOpenPaymentDialog} amount={amount} />
+                <RazorpayPage
+                  setOpen={setOpenPaymentDialog}
+                  amount={amount}
+                  action={"Purchase Templates"}
+                />
               )}
 
               <Elements stripe={stripeTestPromise}>
@@ -130,6 +133,7 @@ export default function ShowPremiumDialog({
                   amount={amount}
                   countryCode={countryCode}
                   setOpen={setOpenPaymentDialog}
+                  action={"Purchase Templates"}
                 />
               </Elements>
             </Box>

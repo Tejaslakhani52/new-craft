@@ -34,9 +34,10 @@ declare const fbq: Function;
 interface PropsType {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   amount: string | any;
+  action: string;
 }
 
-export function RazorpayPage({ setOpen, amount }: PropsType) {
+export function RazorpayPage({ setOpen, amount, action }: PropsType) {
   const dispatch = useDispatch();
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
 
@@ -58,7 +59,6 @@ export function RazorpayPage({ setOpen, amount }: PropsType) {
     event.preventDefault();
     setOpen(false);
     dispatch(mainLoad(true));
-
     api
       .razorpay()
       .then((res) => {
@@ -71,7 +71,6 @@ export function RazorpayPage({ setOpen, amount }: PropsType) {
             };
             setSessionVal("_pdf", JSON.stringify(datas));
             dispatch(mainLoad(true));
-
             api
               .webhook()
               .then((res) => {
@@ -84,7 +83,7 @@ export function RazorpayPage({ setOpen, amount }: PropsType) {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
-                  fbq("track", "Purchase", {
+                  fbq("track", action, {
                     value: `${amount}`,
                     currency: "INR",
                   });
@@ -107,7 +106,7 @@ export function RazorpayPage({ setOpen, amount }: PropsType) {
         const rzp = new (window as any).Razorpay(options);
         rzp.open();
         if (rzp) {
-          dispatch(mainLoad(false));
+          // dispatch(mainLoad(false));
         }
       })
       .catch((error) => {

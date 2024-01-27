@@ -70,6 +70,10 @@ input:focus {
   );
 }
 
+.LightboxModalPosition {
+  z-index: 4454545454545454454545454545445454545 !important;
+}
+
 .custom_scroll::-webkit-scrollbar {
   width: 10px;
 }
