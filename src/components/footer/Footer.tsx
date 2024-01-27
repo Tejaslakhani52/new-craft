@@ -142,13 +142,17 @@ export const Legal = () => {
         <OptionButton>Privacy policy</OptionButton>
       </Link>
       <Link href={"/referral-program"}>
-        <OptionButton>referral program</OptionButton>
+        <OptionButton>Referral program</OptionButton>
       </Link>
       <Link href={"/term-condition"}>
         <OptionButton>Terms and condition</OptionButton>
       </Link>
       <Link href={"/copyright-information"}>
         <OptionButton>Copyright information</OptionButton>
+      </Link>
+
+      <Link href={"/faqs"}>
+        <OptionButton>FAQs</OptionButton>
       </Link>
     </Box>
   );
@@ -235,7 +239,7 @@ export default function Footer() {
               </Box>
               <Box className="flex items-center gap-5 my-8 max-sm:justify-center">
                 <span className="cursor-pointer">
-                  <a href="https://www.facebook.com/people/Crafty-Art/100087508073608/">
+                  <a href="https://www.facebook.com/people/Crafty-Art/">
                     <Icons.facebookIcon svgProps={{ width: 25, height: 25 }} />
                   </a>
                 </span>
