@@ -41,7 +41,6 @@ export const IconsText = ({ image, text }: PropType) => {
 };
 
 export async function getServerSideProps(context: any) {
-  console.log("context: ", context);
   try {
     const { params } = context;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
@@ -57,12 +56,11 @@ export async function getServerSideProps(context: any) {
       { withCredentials: false }
     );
 
-    const templateDatas = response.data;
-    console.log("templateDatasddsv: ", templateDatas);
+    const templateData = response.data;
 
     return {
       props: {
-        templateDatas,
+        templateData,
       },
     };
   } catch (error) {
@@ -72,15 +70,15 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default function templateId({ templateDatas }: any) {
+export default function templateId({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
   const id = router?.query?.templateId;
   console.log("router: ", router);
   const dispatch = useDispatch();
-  const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
-    {}
-  );
+  // const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
+  //   {}
+  // );
   const [token, setToken] = React.useState<any>(null);
   const [anotherData, setAnotherData] = React.useState<any>([]);
   const screenWidth = useScreenWidth();
@@ -103,53 +101,53 @@ export default function templateId({ templateDatas }: any) {
     }
   }, []);
 
-  React.useEffect(() => {
-    setLoading(true);
-
-    if (id !== "") {
-      api
-        .getSingleTemplate({
-          id_name: id,
-        })
-        .then((response) => {
-          setTemplateData(response);
-
-          api
-            .searchTemplate({
-              keywords:
-                response?.tags?.[0] === "Poster"
-                  ? response?.tags?.[1]
-                  : response?.tags?.[0],
-              page: 1,
-            })
-            .then((res) => {
-              setAnotherData(res.datas);
-              setLoading(false);
-            });
-        })
-        .catch((error) => {
-          consoleLog("getSingleTemplate", error);
-        });
-    }
-  }, [id]);
-
   // React.useEffect(() => {
-  //   api
-  //     .searchTemplate({
-  //       keywords:
-  //         templateData?.tags?.[0] === "Poster"
-  //           ? templateData?.tags?.[1]
-  //           : templateData?.tags?.[0],
-  //       page: 1,
-  //     })
-  //     .then((res) => {
-  //       setAnotherData(res.datas);
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       consoleLog("searchTemplate: ", err);
-  //     });
-  // }, [templateData]);
+  //   setLoading(true);
+
+  //   if (id !== "") {
+  //     api
+  //       .getSingleTemplate({
+  //         id_name: id,
+  //       })
+  //       .then((response) => {
+  //         setTemplateData(response);
+
+  //         api
+  //           .searchTemplate({
+  //             keywords:
+  //               response?.tags?.[0] === "Poster"
+  //                 ? response?.tags?.[1]
+  //                 : response?.tags?.[0],
+  //             page: 1,
+  //           })
+  //           .then((res) => {
+  //             setAnotherData(res.datas);
+  //             setLoading(false);
+  //           });
+  //       })
+  //       .catch((error) => {
+  //         consoleLog("getSingleTemplate", error);
+  //       });
+  //   }
+  // }, [id]);
+
+  React.useEffect(() => {
+    api
+      .searchTemplate({
+        keywords:
+          templateData?.tags?.[0] === "Poster"
+            ? templateData?.tags?.[1]
+            : templateData?.tags?.[0],
+        page: 1,
+      })
+      .then((res) => {
+        setAnotherData(res.datas);
+        setLoading(false);
+      })
+      .catch((err) => {
+        consoleLog("searchTemplate: ", err);
+      });
+  }, [templateData]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
