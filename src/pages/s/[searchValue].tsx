@@ -38,7 +38,7 @@ export default function searchValue() {
         page: pages,
       })
       .then((response: any) => {
-        if (response?.datas.length > 0) {
+        if (response?.datas?.length > 0) {
           setData((prevData: any) => [
             ...(prevData || []),
             ...(Array.isArray(response?.datas) ? response?.datas : []),
@@ -89,7 +89,7 @@ export default function searchValue() {
   }, [formattedSearchName]);
 
   const debouncedHandleScroll = debounce(() => {
-    const scrollOffset = 500;
+    const scrollOffset = 200;
 
     if (
       window.innerHeight + document.documentElement.scrollTop >=
