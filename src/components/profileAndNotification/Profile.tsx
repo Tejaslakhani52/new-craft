@@ -1,6 +1,10 @@
 import api from "@/src/clientApi/api";
 import { UserProfileType } from "@/src/interface/commonType";
-import { authCookiesGet, userPremium } from "@/src/redux/action/AuthToken";
+import {
+  authCookiesGet,
+  removeUnusedSessions,
+  userPremium,
+} from "@/src/redux/action/AuthToken";
 import {
   customerId,
   setPurchaseItems,
@@ -160,6 +164,7 @@ export default function Profile() {
             Cookies.remove("premium", { domain: ".craftyartapp.com" });
             Cookies.remove("_sdf");
             Cookies.remove("premium");
+            removeUnusedSessions();
             window.location.reload();
           }}
           className="text-[14px] mb-3"

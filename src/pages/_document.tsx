@@ -73,11 +73,7 @@ export default function Document() {
           content="3nsioq3kz27llryrgqspeuqvw058e5"
         />
 
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-        />
-        <meta name="HandheldFriendly" content="true" />
+      
       </Head>
       <body>
         <Main />

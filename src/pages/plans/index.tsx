@@ -425,7 +425,7 @@ export default function index() {
             <span className="text-[30px] text-[#1C3048] font-[700]">
               {userCountryCode === "IN" ? "₹" : "$"}0
             </span>{" "}
-            /year
+            /Lifetime
           </Typography>
 
           <Typography className="text-[#1C3048] font-[600] mt-4 mb-4 ">

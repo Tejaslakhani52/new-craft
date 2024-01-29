@@ -40,44 +40,45 @@ export const IconsText = ({ image, text }: PropType) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
-  try {
-    const { params } = context;
-    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
-    const accessKey = process.env.NEXT_PUBLIC_KEY;
+// export async function getServerSideProps(context: any) {
+//   try {
+//     const { params } = context;
+//     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
+//     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
-    const response = await axios.post(
-      `${apiUrl}/templates/api/V4/getPosterPage`,
-      {
-        key: `${accessKey}`,
-        id_name: params?.templateId,
-        fromFabric: "1",
-      },
-      { withCredentials: false }
-    );
+//     const response = await axios.post(
+//       `${apiUrl}/templates/api/V4/getPosterPage`,
+//       {
+//         key: `${accessKey}`,
+//         id_name: params?.templateId,
+//         fromFabric: "1",
+//       },
+//       { withCredentials: false }
+//     );
 
-    const templateData = response.data;
+//     const templateData = response.data;
 
-    return {
-      props: {
-        templateData,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
-}
+//     return {
+//       props: {
+//         templateData,
+//       },
+//     };
+//   } catch (error) {
+//     return {
+//       notFound: true,
+//     };
+//   }
+// }
 
-interface serverProps {
-  templateData: SingleTempType | any;
-}
-
-export default function templateId({ templateData }: serverProps) {
+export default function templateId() {
   const containerId = `slider`;
   const router = useRouter();
+  const id = router?.query?.templateId;
+  console.log("router: ", router);
   const dispatch = useDispatch();
+  const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
+    {}
+  );
   const [token, setToken] = React.useState<any>(null);
   const [anotherData, setAnotherData] = React.useState<any>([]);
   const screenWidth = useScreenWidth();
@@ -101,22 +102,52 @@ export default function templateId({ templateData }: serverProps) {
   }, []);
 
   React.useEffect(() => {
-    api
-      .searchTemplate({
-        keywords:
-          templateData?.tags?.[0] === "Poster"
-            ? templateData?.tags?.[1]
-            : templateData?.tags?.[0],
-        page: 1,
-      })
-      .then((res) => {
-        setAnotherData(res.datas);
-        setLoading(false);
-      })
-      .catch((err) => {
-        consoleLog("searchTemplate: ", err);
-      });
-  }, [templateData]);
+    setLoading(true);
+
+    if (id !== "") {
+      api
+        .getSingleTemplate({
+          id_name: id,
+        })
+        .then((response) => {
+          setTemplateData(response);
+
+          api
+            .searchTemplate({
+              keywords:
+                response?.tags?.[0] === "Poster"
+                  ? response?.tags?.[1]
+                  : response?.tags?.[0],
+              page: 1,
+            })
+            .then((res) => {
+              setAnotherData(res.datas);
+              setLoading(false);
+            });
+        })
+        .catch((error) => {
+          consoleLog("getSingleTemplate", error);
+        });
+    }
+  }, [id]);
+
+  // React.useEffect(() => {
+  //   api
+  //     .searchTemplate({
+  //       keywords:
+  //         templateData?.tags?.[0] === "Poster"
+  //           ? templateData?.tags?.[1]
+  //           : templateData?.tags?.[0],
+  //       page: 1,
+  //     })
+  //     .then((res) => {
+  //       setAnotherData(res.datas);
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       consoleLog("searchTemplate: ", err);
+  //     });
+  // }, [templateData]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
@@ -279,7 +310,7 @@ export default function templateId({ templateData }: serverProps) {
                   >
                     <Box className="w-[80px]">
                       <img
-                        src={image}
+                        src={`/api/image/compress?url=${encodeURIComponent(image)}`}
                         alt={templateData?.template_name}
                         className="h-auto rounded-[4px]"
                       />
@@ -354,7 +385,7 @@ export default function templateId({ templateData }: serverProps) {
                         templateData?.is_premium &&
                         !userPremiumGet() &&
                         !isPurchased(purchaseItems, {
-                          id: templateData.string_id,
+                          id: templateData?.string_id,
                           type: 0,
                         })
                       ) {
@@ -386,7 +417,7 @@ export default function templateId({ templateData }: serverProps) {
             <div className="py-4">
               <IconsText
                 image={<Icons.tModalCustomizeIcon svgProps={{ width: 20 }} />}
-                text={`Customize ${templateData.category_name} with our online editing tool`}
+                text={`Customize ${templateData?.category_name} with our online editing tool`}
               />
               <IconsText
                 image={<Icons.tModalSmartphoneIcon svgProps={{ width: 20 }} />}
@@ -545,12 +576,12 @@ export default function templateId({ templateData }: serverProps) {
         open={showPremiumBox}
         setOpen={setShowPremiumBox}
         tempData={{
-          id: templateData.string_id,
+          id: templateData?.string_id,
           type: 0,
-          usdAmount: templateData.usdAmount,
-          usdVal: templateData.usdVal,
-          inrAmount: templateData.inrAmount,
-          inrVal: templateData.inrVal,
+          usdAmount: templateData?.usdAmount,
+          usdVal: templateData?.usdVal,
+          inrAmount: templateData?.inrAmount,
+          inrVal: templateData?.inrVal,
         }}
       />
     </Box>

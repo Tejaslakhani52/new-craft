@@ -104,6 +104,14 @@ export function RazorpayPage({ setOpen, amount, action }: PropsType) {
         };
 
         const rzp = new (window as any).Razorpay(options);
+        console.log("rzp: ", rzp);
+
+        rzp.on("payment.failed", function (response: any) {
+          toast.error("Razorpay modal closed:");
+          console.log("Razorpay modal closed:", response);
+
+          // Handle the event here
+        });
         rzp.open();
         if (rzp) {
           // dispatch(mainLoad(false));

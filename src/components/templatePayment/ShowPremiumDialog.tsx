@@ -113,7 +113,7 @@ export default function ShowPremiumDialog({
           open={openPaymentDialog}
           setOpen={setOpenPaymentDialog}
           className="w-[100%] sm:w-[500px]"
-          scroll_none={true}
+          // scroll_none={true}
         >
           <Box className="flex max-md:flex-col rounded-[8px] bg-[#F4F7FE] overflow-hidden">
             <Box className="md:w-[100%] p-[30px] ">

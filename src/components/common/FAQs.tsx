@@ -4,7 +4,7 @@ import { AccordionDetails, Box, Button, Typography } from "@mui/material";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import { styled } from "@mui/material/styles";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const AccordionSummaryComponent = dynamic(
   () => import("@mui/material/AccordionSummary"),
@@ -24,12 +24,12 @@ const Accordion = styled((props: AccordionProps) => (
 
 export default function FaqsBox(props: any) {
   const [open, setOpen] = useState<boolean>(false);
-  const [expanded, setExpanded] = React.useState<string | false>("panel1");
+  const [expanded, setExpanded] = React.useState<string | false>(false);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
-      setExpanded(newExpanded ? panel : false);
       setOpen(!open);
+      setExpanded(newExpanded ? panel : false);
     };
 
   return (
@@ -43,7 +43,7 @@ export default function FaqsBox(props: any) {
           aria-controls="panel1d-content "
           id="panel1d-header"
           sx={{
-            borderBottom: open ? "1px solid #D9D9D9" : "",
+            borderBottom: !open ? "1px solid #D9D9D9" : "",
             maxlg: { px: "[0px]" },
           }}
         >
@@ -71,9 +71,7 @@ export default function FaqsBox(props: any) {
             </Button>
           </Box>
         </AccordionSummaryComponent>
-        <AccordionDetails
-          sx={{ borderBottom: open ? "" : "1px solid #D9D9D9" }}
-        >
+        <AccordionDetails sx={{ borderBottom: "1px solid #D9D9D9" }}>
           <Typography className="text-black max-sm:text-[15px] max-2sm:text-[13px]">
             {props?.text}
           </Typography>

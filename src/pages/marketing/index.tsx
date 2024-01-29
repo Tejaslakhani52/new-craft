@@ -123,6 +123,7 @@ export default function index() {
               created in minutes. Choose from a variety of design templates to
               create professional and impactful business cards, flyers, logos,
               posters, brochures, menus, and infographics."
+        path="/s/marketing"
       />
 
       <RightDetail

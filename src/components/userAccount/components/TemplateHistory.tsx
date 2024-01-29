@@ -1,6 +1,7 @@
 import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 import { dateFormate } from "@/src/commonFunction/dateFormate";
+import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { Product, PurchaseTemplate } from "@/src/interface/purchaseTemplates";
 import { Box, Button, Typography } from "@mui/material";
 import Head from "next/head";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function TemplateHistory() {
+  const screenWidth = useScreenWidth();
   const [loadMoreTemplate, setLoadMoreTemplate] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const [templateData, setTemplateData] = useState<Product[]>([]);
@@ -110,14 +112,25 @@ export default function TemplateHistory() {
                     </td>
 
                     <td className="px-4 py-4  whitespace-nowrap">
-                      <Link
-                        href={`https://editor.craftyartapp.com/${item?.product_id}`}
-                        target="_blank"
-                      >
-                        <button className="bg_linear px-[30px] py-[5px] text-white rounded-[4px]">
-                          Edit
-                        </button>
-                      </Link>
+                      {screenWidth < 800 ? (
+                        <Link
+                          href={`https://play.google.com/store/apps/details?id=com.crafty.art`}
+                          target="_blank"
+                        >
+                          <button className="bg_linear px-[30px] py-[5px] text-white rounded-[4px]">
+                            Edit
+                          </button>
+                        </Link>
+                      ) : (
+                        <Link
+                          href={`https://editor.craftyartapp.com/${item?.product_id}`}
+                          target="_blank"
+                        >
+                          <button className="bg_linear px-[30px] py-[5px] text-white rounded-[4px]">
+                            Edit
+                          </button>
+                        </Link>
+                      )}
                     </td>
                   </tr>
                 ))

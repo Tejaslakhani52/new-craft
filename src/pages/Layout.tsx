@@ -16,7 +16,6 @@ const MobileBottomBarImport = dynamic(
 );
 
 export async function getInitialProps(context: any) {
-  const router = useRouter();
   const cookiesString = context.req.headers.cookie || "";
   const sessionId = extractCookieValue(cookiesString, "_sdf");
 
