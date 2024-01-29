@@ -99,7 +99,6 @@ export default function index() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [priceShowData, setPriceShowData] = useState<any>();
   const [choosePlan, setChoosePlan] = useState<any>();
-  console.log("choosePlan: ", choosePlan);
   const [endDate, setEndDate] = useState<any>("");
   const [openPriceDialog, setOpenPriceDialog] = useState<boolean>(false);
   const scrollContainerRef: React.RefObject<HTMLInputElement> | any =

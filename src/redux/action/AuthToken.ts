@@ -5,12 +5,12 @@ export const authCookiesSet = (value: any) => {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 30);
 
-  // Cookies.set("_sdf", encryptData(value), {
-  //   domain: ".craftyartapp.com",
-  //   expires: expirationDate,
-  // });
+  Cookies.set("_sdf", encryptData(value), {
+    domain: ".craftyartapp.com",
+    expires: expirationDate,
+  });
 
-  Cookies.set("_sdf", encryptData(value), { expires: expirationDate });
+  // Cookies.set("_sdf", encryptData(value), { expires: expirationDate });
 };
 
 export const authCookiesGet = () => {
@@ -19,11 +19,11 @@ export const authCookiesGet = () => {
 };
 
 export const userPremium = (value: any) => {
-  // Cookies.set("_pmf", encryptData(value), {
-  //   domain: ".craftyartapp.com",
-  // });
+  Cookies.set("_pmf", encryptData(value), {
+    domain: ".craftyartapp.com",
+  });
 
-  Cookies.set("_pmf", encryptData(value));
+  // Cookies.set("_pmf", encryptData(value));
 };
 
 export const userPremiumGet = () => {

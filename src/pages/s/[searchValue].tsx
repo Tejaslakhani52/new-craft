@@ -89,7 +89,7 @@ export default function searchValue() {
   }, [formattedSearchName]);
 
   const debouncedHandleScroll = debounce(() => {
-    const scrollOffset = 200;
+    const scrollOffset = 500;
 
     if (
       window.innerHeight + document.documentElement.scrollTop >=

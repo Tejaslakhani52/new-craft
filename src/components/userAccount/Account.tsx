@@ -37,8 +37,8 @@ export const sidebarMenu = [
   },
   {
     name: "Template History",
-    icons: "/icons/premiumPlans/paymentHistory.svg",
-    activeIcon: "/icons/premiumPlans/paymentHistoryActive.svg",
+    icons: "/icons/premiumPlans/templateIcon.svg",
+    activeIcon: "/icons/premiumPlans/templateIconActive.svg",
     path: "/",
   },
 ];
@@ -116,7 +116,6 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
     api
       .getCurrentPlan()
       .then((currentPlanData) => {
-        console.log("currentPlanData: ", currentPlanData);
         setLoading(false);
         setCurrentPlan(currentPlanData);
       })
