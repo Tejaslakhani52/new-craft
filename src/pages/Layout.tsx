@@ -41,7 +41,6 @@ export default function Home(Props: any) {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>("default");
   const router = useRouter();
-  console.log("router: ", router);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

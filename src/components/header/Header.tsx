@@ -14,17 +14,15 @@ import MenuBox from "./headerComponents/Menu";
 export default function Header({ sidebarOpen, setSidebarOpen }: any) {
   const dispatch = useDispatch();
   const router = useRouter();
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
   const sidebarOpenLogin = useSelector(
     (state: any) => state?.actions?.openLogin
   );
-
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
-  const [searchValue, setSearchValue] = useState<any>("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const [token, setToken] = React.useState<string | null>("default");
 
   React.useEffect(() => {
@@ -159,7 +157,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
               <Box>
                 <Button
                   className="text-white bg_linear normal-case"
-                  onClick={(e: any) => {
+                  onClick={(e: React.MouseEvent<any> | any) => {
                     if (searchValue !== "") {
                       const trimmedValue = searchValue?.trim();
                       const modifiedValue = trimmedValue?.replace(/ /g, "-");

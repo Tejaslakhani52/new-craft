@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import StackGrid from "react-stack-grid";
 import { debounce } from "lodash";
+import { consoleLog } from "@/src/commonFunction/console";
 
 const TemplateModal = dynamic(
   () => import("@/src/components/singleTemplate/TemplateModal")
@@ -38,22 +39,24 @@ export default function searchValue() {
         page: pages,
       })
       .then((response: any) => {
-        if (response?.datas?.length > 0) {
-          setData((prevData: any) => [
-            ...(prevData || []),
-            ...(Array.isArray(response?.datas) ? response?.datas : []),
-          ]);
-          setNotFound(false);
-        } else {
-          setData([]);
-          setNotFound(true);
+        if (response?.datas) {
+          if (response?.datas?.length > 0) {
+            setData((prevData: any) => [
+              ...(prevData || []),
+              ...(Array.isArray(response?.datas) ? response?.datas : []),
+            ]);
+            setNotFound(false);
+          } else {
+            setData([]);
+            setNotFound(true);
+          }
         }
-
         setIsLastPage(response?.isLastPage);
         setLoading(false);
       })
       .catch((error: any) => {
-        // console.log("error: ", error);
+        consoleLog("searchTemplate: ", error);
+        setNotFound(true);
       });
   };
 

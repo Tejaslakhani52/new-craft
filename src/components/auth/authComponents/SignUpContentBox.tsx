@@ -23,6 +23,7 @@ import Password from "./Password";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import Link from "next/link";
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 
 export default function SignUpContentBox(props: any) {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ export default function SignUpContentBox(props: any) {
             }
           })
           .catch((err: any) => {
-            // console.log("err: ", err);
+            consoleLog("emailVerified", err);
           });
       }, 1000);
     }

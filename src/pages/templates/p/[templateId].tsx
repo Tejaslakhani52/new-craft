@@ -1,6 +1,7 @@
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
 import { calculateHeight } from "@/src/commonFunction/calculateHeight";
+import { consoleLog } from "@/src/commonFunction/console";
 import { isPurchased } from "@/src/commonFunction/isPurchased";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
@@ -113,7 +114,7 @@ export default function templateId({ templateData }: serverProps) {
         setLoading(false);
       })
       .catch((err) => {
-        // console.log("err: ", err);
+        consoleLog("searchTemplate: ", err);
       });
   }, [templateData]);
 

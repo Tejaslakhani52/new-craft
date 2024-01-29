@@ -1,5 +1,6 @@
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { handleEmailClick } from "@/src/commonFunction/emailCheck";
 import {
   useScreenHeight,
@@ -136,7 +137,7 @@ export default function index() {
         });
       })
       .then((error) => {
-        // console.log("error: ", error);
+        consoleLog("getCountryCode: ", error);
       });
   }, []);
 

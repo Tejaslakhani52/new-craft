@@ -1,4 +1,5 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import ImageBox from "@/src/components/common/ImageBox";
 import { CategoryApiData } from "@/src/interface/categoryType";
@@ -52,7 +53,8 @@ export default function index() {
         }
       })
       .catch((err: any) => {
-        // console.log("err: ", err);
+        setLoadMore(false);
+        consoleLog("getCategoryData: ", err);
       });
   }, [page]);
 

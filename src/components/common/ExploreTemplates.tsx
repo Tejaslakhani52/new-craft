@@ -1,6 +1,6 @@
 import api from "@/src/clientApi/api";
 import { calculateHeight } from "@/src/commonFunction/calculateHeight";
-import { consoleShow } from "@/src/commonFunction/console";
+import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
@@ -25,7 +25,7 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
       .then((res) => {
         setData(res.datas);
       })
-      .catch((err) => consoleShow("err", err));
+      .catch((err) => consoleLog("err", err));
   }, []);
   const multiSizeFixSize = React.useMemo(() => {
     switch (true) {

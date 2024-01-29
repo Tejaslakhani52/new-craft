@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { useDispatch } from "react-redux";
 import { authCookiesGet } from "@/src/redux/action/AuthToken";
+import { consoleLog } from "@/src/commonFunction/console";
 
 interface AccountDetailType {
   name: string;
@@ -65,7 +66,7 @@ export default function PersonalInfo() {
         setUserProfile(user);
       })
       .catch((error) => {
-        // console.log("error: ", error);
+        consoleLog("getUserData", error);
       });
   };
 

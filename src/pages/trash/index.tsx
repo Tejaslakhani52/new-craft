@@ -1,6 +1,7 @@
 import { decryptData } from "@/src/aes-crypto";
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import {
   useScreenHeight,
   useScreenWidth,
@@ -540,7 +541,7 @@ export default function index() {
         } else setDesignTrash(null);
       })
       .catch((err: any) => {
-        // console.log("err: ", err);
+        consoleLog("getDraftData: ", err);
       });
   }, [designPage]);
 
@@ -566,7 +567,8 @@ export default function index() {
         } else setImagesTrash(null);
       })
       .catch((err: any) => {
-        // console.log("err: ", err);
+        setLoadMore2(false);
+        consoleLog("getUploadData: ", err);
       });
   }, [imagesPage]);
 

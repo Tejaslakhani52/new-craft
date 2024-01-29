@@ -1,4 +1,5 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import ImageBox from "@/src/components/common/ImageBox";
 import { CategoryApiData, ServerSideProps } from "@/src/interface/categoryType";
@@ -119,7 +120,7 @@ export async function getServerSideProps(context: any) {
       },
     };
   } catch (error) {
-    // console.error("Error in getStaticProps:", error);
+    consoleLog("Error in getStaticProps:", error);
     return {
       notFound: true,
     };
@@ -170,7 +171,8 @@ export default function index({ jsonString }: ServerSideProps) {
           }
         })
         .catch((err: any) => {
-          // console.log("err: ", err);
+          setLoadMore(false);
+          consoleLog("getCategoryData: ", err);
         });
     }
   }, [id, page]);

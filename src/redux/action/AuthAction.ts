@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { Dispatch } from "redux";
 import { mainLoad, openSidebar } from "../reducer/actionDataReducer";
 import { authCookiesSet } from "./AuthToken";
+import { consoleLog } from "@/src/commonFunction/console";
 
 export const createUserApi =
   (props: any, router: any): any =>
@@ -26,6 +27,6 @@ export const createUserApi =
         }, 100);
       })
       .catch((err) => {
-        // console.log("err: ", err);
+        consoleLog("createUser: ", err);
       });
   };

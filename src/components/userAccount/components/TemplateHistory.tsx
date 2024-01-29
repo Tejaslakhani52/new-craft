@@ -1,4 +1,5 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { dateFormate } from "@/src/commonFunction/dateFormate";
 import { Product, PurchaseTemplate } from "@/src/interface/purchaseTemplates";
 import { Box, Button, Typography } from "@mui/material";
@@ -28,8 +29,8 @@ export default function TemplateHistory() {
         }
       })
       .catch((error) => {
+        consoleLog("getUserTemplate", error);
         setLoadMoreTemplate(false);
-        // console.log("error: ", error);
       });
   }, [page]);
   return (

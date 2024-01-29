@@ -1,4 +1,5 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { MarkText } from "@/src/components/Home/landingPage/LandingPage";
 import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
 import { openLogin } from "@/src/redux/reducer/actionDataReducer";
@@ -138,8 +139,7 @@ export default function index() {
         .catch((error) => {
           toast.error("Error in background removal");
           setMainLoader(false);
-
-          // console.error("Error in background removal:", error);
+          consoleLog("Error in background removal:", error);
         });
     }
   }, [selectedFile]);

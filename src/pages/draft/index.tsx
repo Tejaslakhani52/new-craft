@@ -1,5 +1,6 @@
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import {
   useScreenHeight,
   useScreenWidth,
@@ -252,7 +253,8 @@ export default function index() {
         } else setDraftData(null);
       })
       .catch((err: any) => {
-        // console.log("err: ", err);
+        setLoadMore(false);
+        consoleLog("getDraftData: ", err);
       });
   }, [page]);
 

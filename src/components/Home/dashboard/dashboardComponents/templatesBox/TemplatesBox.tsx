@@ -1,5 +1,5 @@
 import api from "@/src/clientApi/api";
-import { consoleShow } from "@/src/commonFunction/console";
+import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
 import { DashboardDataType } from "@/src/interface/dashboard";
@@ -26,7 +26,7 @@ export default function TemplatesBox() {
       .then((res: any) => {
         dispatch(templatesData(res));
       })
-      .catch((err: any) => consoleShow("err", err));
+      .catch((err: any) => consoleLog("err", err));
   }, []);
 
   const height = useMemo(() => {
