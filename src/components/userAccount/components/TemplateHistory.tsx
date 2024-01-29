@@ -1,9 +1,36 @@
+import api from "@/src/clientApi/api";
 import { dateFormate } from "@/src/commonFunction/dateFormate";
-import { Box, Typography } from "@mui/material";
+import { Product, PurchaseTemplate } from "@/src/interface/purchaseTemplates";
+import { Box, Button, Typography } from "@mui/material";
 import Head from "next/head";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-export default function TemplateHistory({ userSubscription }: any) {
+export default function TemplateHistory() {
+  const [loadMoreTemplate, setLoadMoreTemplate] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [templateData, setTemplateData] = useState<Product[]>([]);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+
+  useEffect(() => {
+    setLoadMoreTemplate(true);
+    api
+      .getUserTemplate({ page: page })
+      .then((templateData: PurchaseTemplate) => {
+        setLoadMoreTemplate(false);
+        setIsLastPage(!templateData?.hasNextPage);
+
+        if (templateData?.data) {
+          setTemplateData((prevData: Product[]) => [
+            ...(prevData || []),
+            ...(templateData?.data || []),
+          ]);
+        }
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  }, [page]);
   return (
     <>
       <Head>
@@ -34,68 +61,87 @@ export default function TemplateHistory({ userSubscription }: any) {
               </tr>
             </thead>
             <tbody>
-              {userSubscription?.purchaseHistory === "No History exist." ? (
+              {!loadMoreTemplate &&
+              (!templateData?.length || templateData.length === 0) ? (
                 <div className=" w-full p-[24px] text-[16px]">
                   No History Exist.
                 </div>
               ) : (
-                userSubscription?.purchaseHistory &&
-                userSubscription?.purchaseHistory?.map(
-                  (item: any, index: any) => (
-                    <tr key={index} className="bg-[#F4F7FE] border-b ">
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        <div className="w-[100px] border h-[100px] flex justify-center items-center p-[5px] bg-white rounded-[5px]">
-                          <img
-                            src={`/api/image/compress?url=${encodeURIComponent(
-                              item?.product_image
-                            )}`}
-                            alt=""
-                            className="max-w-full max-h-full w-auto h-auto"
-                          />
-                        </div>
-                      </td>
-                      <td className="px-4  max-w-[150px] py-4">
-                        {item?.product_name}
-                      </td>
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        {item?.transaction_id}
-                      </td>
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        {dateFormate(item?.purchase_date)}
-                      </td>
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        {item?.amount}
-                      </td>
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        {item?.status === "Active" ? (
-                          <i
-                            className="fa-solid fa-check"
-                            style={{ color: "green", fontSize: "20px" }}
-                          />
-                        ) : (
-                          <i
-                            className="fa-solid fa-xmark"
-                            style={{ color: "red", fontSize: "20px" }}
-                          ></i>
-                        )}
-                      </td>
+                templateData &&
+                templateData?.map((item: any, index: any) => (
+                  <tr key={index} className="bg-[#F4F7FE] border-b ">
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      <div className="w-[100px] border h-[100px] flex justify-center items-center p-[5px] bg-white rounded-[5px]">
+                        <img
+                          src={`/api/image/compress?url=${encodeURIComponent(
+                            item?.product_image
+                          )}`}
+                          alt=""
+                          className="max-w-full max-h-full w-auto h-auto"
+                        />
+                      </div>
+                    </td>
+                    <td className="px-4  max-w-[150px] py-4">
+                      {item?.product_name}
+                    </td>
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      {item?.transaction_id}
+                    </td>
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      {dateFormate(item?.purchase_date)}
+                    </td>
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      {item?.amount}
+                    </td>
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      {item?.status === "Active" ? (
+                        <i
+                          className="fa-solid fa-check"
+                          style={{ color: "green", fontSize: "20px" }}
+                        />
+                      ) : (
+                        <i
+                          className="fa-solid fa-xmark"
+                          style={{ color: "red", fontSize: "20px" }}
+                        ></i>
+                      )}
+                    </td>
 
-                      <td className="px-4 py-4  whitespace-nowrap">
-                        <Link
-                          href={`https://editor.craftyartapp.com/${item?.product_id}`}
-                          target="_blank"
-                        >
-                          <button className="bg_linear px-[30px] py-[5px] text-white rounded-[4px]">
-                            Edit
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  )
-                )
+                    <td className="px-4 py-4  whitespace-nowrap">
+                      <Link
+                        href={`https://editor.craftyartapp.com/${item?.product_id}`}
+                        target="_blank"
+                      >
+                        <button className="bg_linear px-[30px] py-[5px] text-white rounded-[4px]">
+                          Edit
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
               )}
             </tbody>
           </table>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: "40px 0",
+          }}
+        >
+          {loadMoreTemplate ? (
+            <Box className="text_linear font-[700 text-[20px]">Loading....</Box>
+          ) : (
+            <Button
+              className="bg_linear px-[80px] py-[10px] rounded-[7px] text-[15px] text-white font-semibold"
+              sx={{ display: isLastPage ? "none" : "block" }}
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              LOAD MORE
+            </Button>
+          )}
         </div>
       </Box>
     </>

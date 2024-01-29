@@ -122,13 +122,13 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
       .catch((error) => {
         setLoading(false);
       });
-  }, [getData]);
+  }, []);
 
   const accountComponents: any = {
     "Personal Info": <PersonalInfo />,
     Subscription: <Subscription userSubscription={currentPlan} />,
     "Payment History": <PaymentHistory userSubscription={currentPlan} />,
-    "Template History": <TemplateHistory userSubscription={currentPlan} />,
+    "Template History": <TemplateHistory />,
   };
 
   return (

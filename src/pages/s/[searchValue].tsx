@@ -103,7 +103,6 @@ export default function searchValue() {
 
   useEffect(() => {
     window.addEventListener("scroll", debouncedHandleScroll);
-
     return () => {
       window.removeEventListener("scroll", debouncedHandleScroll);
     };

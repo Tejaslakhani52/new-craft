@@ -86,6 +86,18 @@ const api = {
     }
   },
 
+  getUserTemplate: async (payload: any): Promise<any> => {
+    try {
+      const response: AxiosResponse = await axios.post(
+        `${API_BASE_URL}/user/account/template`,
+        payload
+      );
+      return JSON.parse(decryptData(response?.data));
+    } catch (error) {
+      return error;
+    }
+  },
+
   getCategoryData: async (payload: any) => {
     try {
       const response = await axios.post(
