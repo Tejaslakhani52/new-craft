@@ -73,7 +73,7 @@ export async function getServerSideProps(context: any) {
 export default function templateId({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
-  const id = router?.query?.templateId;
+  // const id = router?.query?.templateId;
   console.log("router: ", router);
   const dispatch = useDispatch();
   // const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
@@ -471,7 +471,6 @@ export default function templateId({ templateData }: any) {
                     key={index}
                     href={`/templates/p/${templates.id_name}`}
                     onClick={(e: any) => {
-                      setShowImage("");
                       e.preventDefault();
                     }}
                   >
@@ -504,6 +503,7 @@ export default function templateId({ templateData }: any) {
                             );
                           } else {
                             setAnotherData([]);
+                            setShowImage("");
                             router.push(`/templates/p/${templates?.id_name}`);
                           }
                         }}
@@ -575,6 +575,7 @@ export default function templateId({ templateData }: any) {
       />
 
       <ShowPremiumDialog
+        scroll_none={false}
         open={showPremiumBox}
         setOpen={setShowPremiumBox}
         tempData={{

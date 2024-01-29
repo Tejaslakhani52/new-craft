@@ -572,6 +572,7 @@ export default function TemplateModal({
       </Box>
       {open && (
         <ShowPremiumDialog
+          scroll_none={true}
           open={showPremiumBox}
           setOpen={setShowPremiumBox}
           tempData={{

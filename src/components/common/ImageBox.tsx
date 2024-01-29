@@ -1,7 +1,6 @@
 import Icons from "@/src/assets";
 import { calculateHeight } from "@/src/commonFunction/calculateHeight";
 import { DataType } from "@/src/interface/searchTemplateType";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -69,7 +68,11 @@ export default function ImageBox({
     >
       <Link
         href={`/templates/p/${templates.id_name}`}
-        onClick={(e) => e.preventDefault()}
+        onClick={(e) => {
+          if (screenWidth > 700) {
+            e.preventDefault();
+          }
+        }}
       >
         <div
           className="w-full h-full p-[8px] relative"
@@ -82,7 +85,7 @@ export default function ImageBox({
                 "",
                 `/templates/p/${templates?.id_name}`
               );
-            } else router.push(`/templates/p/${templates?.id_name}`);
+            }
           }}
         >
           {templates.is_premium && (

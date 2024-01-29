@@ -22,12 +22,14 @@ type PropsType = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   tempData: TemplateData;
+  scroll_none: boolean;
 };
 
 export default function ShowPremiumDialog({
   open,
   setOpen,
   tempData,
+  scroll_none,
 }: PropsType) {
   const router = useRouter();
   const [countryCode, setCountryCode] = useState<string>("IN");
@@ -52,15 +54,15 @@ export default function ShowPremiumDialog({
     setAmount(val);
   }, [open, tempData]);
 
-  useEffect(() => {
-    const htmlStyleElement = document.getElementById("html_style");
+  // useEffect(() => {
+  //   const htmlStyleElement = document.getElementById("html_style");
 
-    if (htmlStyleElement) {
-      if (openPaymentDialog) {
-        htmlStyleElement.style.overflow = "hidden";
-      }
-    }
-  }, [openPaymentDialog]);
+  //   if (htmlStyleElement) {
+  //     if (openPaymentDialog) {
+  //       htmlStyleElement.style.overflow = "hidden";
+  //     }
+  //   }
+  // }, [openPaymentDialog]);
 
   return (
     <>
@@ -68,7 +70,7 @@ export default function ShowPremiumDialog({
         open={open}
         setOpen={setOpen}
         className="w-[100%] lg:w-[80%] xl:w-[500px]"
-        scroll_none
+        scroll_none={scroll_none}
       >
         <Box className="rounded-[8px] p-[30px] bg-[#F4F7FE] overflow-hidden">
           <Typography variant="h2" className="font-medium text-[22px] mb-2">
@@ -108,13 +110,14 @@ export default function ShowPremiumDialog({
           </Box>
         </Box>
       </DialogModal>
-      {openPaymentDialog && (
-        <DialogModal
-          open={openPaymentDialog}
-          setOpen={setOpenPaymentDialog}
-          className="w-[100%] sm:w-[500px]"
-          // scroll_none={true}
-        >
+      {/* {openPaymentDialog && ( */}
+      <DialogModal
+        open={openPaymentDialog}
+        setOpen={setOpenPaymentDialog}
+        className="w-[100%] sm:w-[500px]"
+        scroll_none={scroll_none}
+      >
+        {openPaymentDialog && (
           <Box className="flex max-md:flex-col rounded-[8px] bg-[#F4F7FE] overflow-hidden">
             <Box className="md:w-[100%] p-[30px] ">
               <Typography variant="h2" className="font-medium text-[22px] mb-5">
@@ -138,8 +141,9 @@ export default function ShowPremiumDialog({
               </Elements>
             </Box>
           </Box>
-        </DialogModal>
-      )}
+        )}
+      </DialogModal>
+      {/* )} */}
     </>
   );
 }
