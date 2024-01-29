@@ -16,6 +16,7 @@ const MobileBottomBarImport = dynamic(
 );
 
 export async function getInitialProps(context: any) {
+  const router = useRouter();
   const cookiesString = context.req.headers.cookie || "";
   const sessionId = extractCookieValue(cookiesString, "_sdf");
 
@@ -40,6 +41,7 @@ export default function Home(Props: any) {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>("default");
   const router = useRouter();
+  console.log("router: ", router);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -105,7 +107,11 @@ export default function Home(Props: any) {
           )}
           {Props?.children}
 
-          <Box>{!token && <FooterImport />}</Box>
+          <Box>
+            {!token && router.pathname !== "/s/[searchValue]" && (
+              <FooterImport />
+            )}
+          </Box>
         </Box>
       </Box>
 

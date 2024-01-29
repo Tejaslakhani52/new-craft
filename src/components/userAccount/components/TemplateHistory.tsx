@@ -28,7 +28,8 @@ export default function TemplateHistory() {
         }
       })
       .catch((error) => {
-        console.log("error: ", error);
+        setLoadMoreTemplate(false);
+        // console.log("error: ", error);
       });
   }, [page]);
   return (
