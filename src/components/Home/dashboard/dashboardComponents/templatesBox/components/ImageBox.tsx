@@ -68,7 +68,11 @@ export default function ImageBox({
       } rounded-[12px]`}
       key={templates.id_name}
       href={`/templates/p/${templates.id_name}`}
-      onClick={(e) => e.preventDefault()}
+      onClick={(e) => {
+        if (screenWidth > 700) {
+          e.preventDefault();
+        }
+      }}
     >
       <Box
         onClick={() => {
@@ -80,7 +84,7 @@ export default function ImageBox({
               "",
               `/templates/p/${templates?.id_name}`
             );
-          } else router.push(`/templates/p/${templates?.id_name}`);
+          }
         }}
       >
         <Box

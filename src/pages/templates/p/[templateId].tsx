@@ -40,37 +40,39 @@ export const IconsText = ({ image, text }: PropType) => {
   );
 };
 
-// export async function getServerSideProps(context: any) {
-//   try {
-//     const { params } = context;
-//     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
-//     const accessKey = process.env.NEXT_PUBLIC_KEY;
+export async function getServerSideProps(context: any) {
+  console.log("context: ", context);
+  try {
+    const { params } = context;
+    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
+    const accessKey = process.env.NEXT_PUBLIC_KEY;
 
-//     const response = await axios.post(
-//       `${apiUrl}/templates/api/V4/getPosterPage`,
-//       {
-//         key: `${accessKey}`,
-//         id_name: params?.templateId,
-//         fromFabric: "1",
-//       },
-//       { withCredentials: false }
-//     );
+    const response = await axios.post(
+      `${apiUrl}/templates/api/V4/getPosterPage`,
+      {
+        key: `${accessKey}`,
+        id_name: params?.templateId,
+        fromFabric: "1",
+      },
+      { withCredentials: false }
+    );
 
-//     const templateData = response.data;
+    const templateDatas = response.data;
+    console.log("templateDatasddsv: ", templateDatas);
 
-//     return {
-//       props: {
-//         templateData,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       notFound: true,
-//     };
-//   }
-// }
+    return {
+      props: {
+        templateDatas,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
+}
 
-export default function templateId() {
+export default function templateId({ templateDatas }: any) {
   const containerId = `slider`;
   const router = useRouter();
   const id = router?.query?.templateId;
@@ -310,7 +312,9 @@ export default function templateId() {
                   >
                     <Box className="w-[80px]">
                       <img
-                        src={`/api/image/compress?url=${encodeURIComponent(image)}`}
+                        src={`/api/image/compress?url=${encodeURIComponent(
+                          image
+                        )}`}
                         alt={templateData?.template_name}
                         className="h-auto rounded-[4px]"
                       />
