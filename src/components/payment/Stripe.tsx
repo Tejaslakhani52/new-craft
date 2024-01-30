@@ -1,12 +1,9 @@
+import { encryptData } from "@/src/aes-crypto";
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
 import { capitalizeFirstLetter } from "@/src/commonFunction/capitalizeFirstLetter";
 import { getCardIconSvg } from "@/src/commonFunction/getCardIcon";
 import { PaymentProps, PurchaseItemProps } from "@/src/interface/payment_props";
-import {
-  removeUnusedSessions,
-  setSessionVal,
-} from "@/src/redux/action/AuthToken";
 import {
   saveCardData,
   setPurchaseItems,
@@ -104,7 +101,7 @@ export default function Stripe({
   const ProcessPay = (id: string) => {
     setMainLoading(true);
     api
-      .stripe({ pi: id, p: _paf })
+      .stripe({ pi: id, _paf: encryptData(_paf) })
       .then((c) => {
         stripe
           ?.confirmCardPayment(c.client_secret)
@@ -118,12 +115,13 @@ export default function Stripe({
                 id: data.paymentIntent.id,
                 m: "Stripe",
               };
-              setSessionVal("_pdf", JSON.stringify(datas));
               getCard();
-
               setMainLoading(true);
               api
-                .webhook({ plan_id: _paf })
+                .webhook({
+                  _paf: encryptData(_paf),
+                  _pdf: encryptData(JSON.stringify(datas)),
+                })
                 .then((data) => {
                   setMainLoading(false);
                   if (data.success) {
@@ -143,7 +141,6 @@ export default function Stripe({
                         currency: countryCode === "IN" ? "INR" : "USD",
                       }
                     );
-                    removeUnusedSessions();
                     toast.success(data.msg);
                     setOpen(false);
                     setOpenEditCard(false);

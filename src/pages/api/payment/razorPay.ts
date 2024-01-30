@@ -23,7 +23,7 @@ export default async function handler(
     const form = new FormData();
     form.append("key", `${accessKey}`);
     form.append("u", _sdf);
-    form.append("p", req.body.p);
+    form.append("p", decryptData(req.body._paf));
     form.append("currency", cc === "IN" ? "INR" : "USD");
     form.append("from", "Web");
 

@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { decryptData } from "../aes-crypto";
 import { DashboardDataType } from "../interface/dashboard";
+import { CreateUserPayload } from "../interface/createUser";
+import { BillingDetailProps } from "../interface/payment_props";
 
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
 const API_BASE_URL_1 = `${process.env.NEXT_PUBLIC_API_BASE_URL_1}`;
@@ -16,7 +18,7 @@ const api = {
     }
   },
 
-  getCountryCode: async (payload: any) => {
+  getCountryCode: async (payload: { ip: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/get/getCountryCode`,
@@ -29,7 +31,7 @@ const api = {
     }
   },
 
-  getUserData: async (payload: any): Promise<any> => {
+  getUserData: async (payload: { user_id: string }) => {
     try {
       const response: AxiosResponse = await axios.post(
         `${API_BASE_URL}/user/getData`,
@@ -42,7 +44,7 @@ const api = {
     }
   },
 
-  createUser: async (payload: any) => {
+  createUser: async (payload: CreateUserPayload) => {
     try {
       const response = await axios.post(`${API_BASE_URL}/user/create`, payload);
       const res = JSON.parse(decryptData(response?.data));
@@ -52,7 +54,11 @@ const api = {
     }
   },
 
-  updateUser: async (userData: any): Promise<void> => {
+  updateUser: async (userData: {
+    name: string;
+    updateDp: number | any;
+    photo_uri: string;
+  }): Promise<void> => {
     try {
       const formData = new FormData();
       formData.append("name", userData.name || "");
@@ -75,7 +81,7 @@ const api = {
     }
   },
 
-  getCurrentPlan: async (): Promise<any> => {
+  getCurrentPlan: async () => {
     try {
       const response: AxiosResponse = await axios.post(
         `${API_BASE_URL}/user/account/currentPlan`
@@ -86,7 +92,7 @@ const api = {
     }
   },
 
-  getUserTemplate: async (payload: any): Promise<any> => {
+  getUserTemplate: async (payload: { page: number }) => {
     try {
       const response: AxiosResponse = await axios.post(
         `${API_BASE_URL}/user/account/template`,
@@ -98,7 +104,7 @@ const api = {
     }
   },
 
-  getCategoryData: async (payload: any) => {
+  getCategoryData: async (payload: { cat_id: string; page: number }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/category/getData`,
@@ -121,7 +127,7 @@ const api = {
     }
   },
 
-  getSingleTemplate: async (payload: any) => {
+  getSingleTemplate: async (payload: { id_name: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/get/getSingleTemplate`,
@@ -134,7 +140,7 @@ const api = {
     }
   },
 
-  getKeywordData: async (payload: any) => {
+  getKeywordData: async (payload: { key_name: string; page: number }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/special/getKeywordData`,
@@ -147,7 +153,7 @@ const api = {
     }
   },
 
-  searchTemplate: async (payload: any) => {
+  searchTemplate: async (payload: { keywords: string; page: number }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/search/templates`,
@@ -160,7 +166,7 @@ const api = {
     }
   },
 
-  getDraftData: async (payload: any) => {
+  getDraftData: async (payload: { type: string; page: number }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/draft/getData`,
@@ -173,7 +179,7 @@ const api = {
     }
   },
 
-  draftAction: async (payload: any) => {
+  draftAction: async (payload: { id: string; type: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/draft/action`,
@@ -186,7 +192,11 @@ const api = {
     }
   },
 
-  getUploadData: async (payload: any) => {
+  getUploadData: async (payload: {
+    key: string;
+    type: string;
+    page: number;
+  }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/upload/getData`,
@@ -199,7 +209,7 @@ const api = {
     }
   },
 
-  uploadAction: async (payload: any) => {
+  uploadAction: async (payload: { id: string; type: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/upload/action`,
@@ -212,7 +222,7 @@ const api = {
     }
   },
 
-  getPlanData: async (payload: any) => {
+  getPlanData: async (payload: { currency: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/plans/getData`,
@@ -224,7 +234,7 @@ const api = {
     }
   },
 
-  razorpay: async (payload: any) => {
+  razorpay: async (payload: { _paf: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/payment/razorPay`,
@@ -237,7 +247,7 @@ const api = {
     }
   },
 
-  stripe: async (payload: any) => {
+  stripe: async (payload: { pi: string; _paf: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/payment/stripe`,
@@ -250,7 +260,7 @@ const api = {
     }
   },
 
-  webhook: async (payload: any) => {
+  webhook: async (payload: { _paf: string; _pdf: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/payment/webhook`,
@@ -273,7 +283,7 @@ const api = {
     }
   },
 
-  detach: async (payload: any) => {
+  detach: async (payload: { pm: string }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/payment/detach`,
@@ -286,7 +296,12 @@ const api = {
     }
   },
 
-  updateCard: async (payload: any) => {
+  updateCard: async (payload: {
+    pm: string;
+    billing_details: BillingDetailProps;
+    month: number;
+    year: number;
+  }) => {
     try {
       const response = await axios.post(
         `${API_BASE_URL}/payment/update`,
@@ -299,7 +314,7 @@ const api = {
     }
   },
 
-  removeBackground: async (payload: any): Promise<Blob> => {
+  removeBackground: async (payload: { image: File }): Promise<Blob> => {
     try {
       const formData = new FormData();
       formData.append("file", payload.image);

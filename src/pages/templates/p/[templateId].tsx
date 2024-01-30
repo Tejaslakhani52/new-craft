@@ -5,7 +5,6 @@ import { consoleLog } from "@/src/commonFunction/console";
 import { isPurchased } from "@/src/commonFunction/isPurchased";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
-import { SingleTempType } from "@/src/interface/getSingleTempType";
 import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
 import {
   modalClosePath,
@@ -73,11 +72,8 @@ export async function getServerSideProps(context: any) {
 export default function templateId({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
-  // const id = router?.query?.templateId;
   const dispatch = useDispatch();
-  // const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
-  //   {}
-  // );
+
   const [token, setToken] = React.useState<any>(null);
   const [anotherData, setAnotherData] = React.useState<any>([]);
   const screenWidth = useScreenWidth();
@@ -99,36 +95,6 @@ export default function templateId({ templateData }: any) {
       setToken(authCookiesGet());
     }
   }, []);
-
-  // React.useEffect(() => {
-  //   setLoading(true);
-
-  //   if (id !== "") {
-  //     api
-  //       .getSingleTemplate({
-  //         id_name: id,
-  //       })
-  //       .then((response) => {
-  //         setTemplateData(response);
-
-  //         api
-  //           .searchTemplate({
-  //             keywords:
-  //               response?.tags?.[0] === "Poster"
-  //                 ? response?.tags?.[1]
-  //                 : response?.tags?.[0],
-  //             page: 1,
-  //           })
-  //           .then((res) => {
-  //             setAnotherData(res.datas);
-  //             setLoading(false);
-  //           });
-  //       })
-  //       .catch((error) => {
-  //         consoleLog("getSingleTemplate", error);
-  //       });
-  //   }
-  // }, [id]);
 
   React.useEffect(() => {
     api
@@ -344,7 +310,6 @@ export default function templateId({ templateData }: any) {
                       "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
                   }}
                   onClick={() => {
-                    // router.push("/login");
                     dispatch(openLogin(true));
                   }}
                 >
@@ -511,19 +476,6 @@ export default function templateId({ templateData }: any) {
                               e.target.classList.remove("opacity-0")
                             }
                           />
-
-                          {/* <Image
-                            src={templates?.template_thumb}
-                            alt={templates?.category_name}
-                            width={150}
-                            height={150}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              borderRadius: "5px",
-                              cursor: "pointer",
-                            }}
-                          /> */}
                         </div>
                       </div>
                     </div>

@@ -1,9 +1,6 @@
+import { encryptData } from "@/src/aes-crypto";
 import api from "@/src/clientApi/api";
 import { PaymentProps, PurchaseItemProps } from "@/src/interface/payment_props";
-import {
-  removeUnusedSessions,
-  setSessionVal,
-} from "@/src/redux/action/AuthToken";
 import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button } from "@mui/material";
@@ -60,7 +57,7 @@ export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
     setOpen(false);
     dispatch(mainLoad(true));
     api
-      .razorpay({ p: _paf })
+      .razorpay({ _paf: encryptData(_paf) })
       .then((res) => {
         const options = {
           ...res,
@@ -69,10 +66,12 @@ export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
               id: response.razorpay_payment_id,
               m: "Razorpay",
             };
-            setSessionVal("_pdf", JSON.stringify(datas));
             dispatch(mainLoad(true));
             api
-              .webhook({ plan_id: _paf })
+              .webhook({
+                _paf: encryptData(_paf),
+                _pdf: encryptData(JSON.stringify(datas)),
+              })
               .then((res) => {
                 if (res.success) {
                   const val: PaymentProps[] = JSON.parse(_paf);
@@ -89,7 +88,6 @@ export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
                       currency: "INR",
                     }
                   );
-                  removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
                   dispatch(mainLoad(false));

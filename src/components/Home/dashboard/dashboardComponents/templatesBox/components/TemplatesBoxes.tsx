@@ -2,7 +2,6 @@ import Icons from "@/src/assets";
 import { DashboardDataType } from "@/src/interface/dashboard";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import ImageBox from "./ImageBox";
 

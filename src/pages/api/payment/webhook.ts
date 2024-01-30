@@ -15,7 +15,7 @@ export default async function handler(
     const cookieValue = req.cookies;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
-    const pay_details = JSON.parse(decryptData(cookieValue._pdf, ""));
+    const pay_details = JSON.parse(decryptData(req.body._pdf));
     let transaction_id = pay_details.id;
 
     if (pay_details.m === "Stripe") {
@@ -43,7 +43,7 @@ export default async function handler(
     form.append("transaction_id", transaction_id);
     form.append("method", pay_details.m);
     form.append("user_id", decryptData(cookieValue._sdf));
-    form.append("plan_id", req.body.plan_id);
+    form.append("plan_id", decryptData(req.body._paf));
     form.append("currency_code", decryptData(cookieValue.cc, "USD"));
     form.append("fromWhere", "Web");
 

@@ -4,9 +4,10 @@ import { Dispatch } from "redux";
 import { mainLoad, openSidebar } from "../reducer/actionDataReducer";
 import { authCookiesSet } from "./AuthToken";
 import { consoleLog } from "@/src/commonFunction/console";
+import { CreateUserPayload } from "@/src/interface/createUser";
 
 export const createUserApi =
-  (props: any, router: any): any =>
+  (props: CreateUserPayload, router: any): any =>
   async (dispatch: Dispatch<any>) => {
     api
       .createUser({

@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { formatExpiryDate } from "../Stripe";
+import { BillingDetailProps } from "@/src/interface/payment_props";
 
 export default function EditCard({
   setOpenEditCard,
@@ -26,12 +27,7 @@ export default function EditCard({
 
   const handleSubmit = async (e: any) => {
     dispatch(mainLoad(true));
-    const billing_details: {
-      name?: string;
-      email?: string;
-      address?: any;
-      phone?: any;
-    } = {
+    const billing_details: BillingDetailProps = {
       name: undefined,
       email: selectedDefaultCard?.billing_details?.email || "",
       address: undefined,

@@ -22,3 +22,11 @@ export interface CreateUserType {
   width: number;
   template_model: string[];
 }
+
+export interface CreateUserPayload {
+  name: string;
+  email: string;
+  photo_uri: string;
+  user_id: string;
+  login_type: string;
+}
