@@ -102,13 +102,14 @@ export default function Stripe({
   }, [openEditCard]);
 
   const ProcessPay = (id: string) => {
+    setMainLoading(true);
     api
       .stripe({ pi: id, p: _paf })
       .then((c) => {
         stripe
           ?.confirmCardPayment(c.client_secret)
           .then((data) => {
-            setMainLoading(false);
+            // setMainLoading(false);
             if (data.error) {
               toast.error(`${data?.error?.message}`);
               setMainLoading(false);
@@ -175,16 +176,12 @@ export default function Stripe({
       });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async () => {
     setMainLoading(true);
     if (selectedDefaultCard?.id) {
-      try {
-        const id = selectedDefaultCard?.id;
-        ProcessPay(id);
-      } catch (error) {
-        toast.error("Payment failed");
-        setMainLoading(false);
-      }
+      const id = selectedDefaultCard?.id;
+      ProcessPay(id);
+      setMainLoading(true);
     } else {
       const billing_details: {
         name: any;
@@ -342,16 +339,23 @@ export default function Stripe({
 
           <Button
             className="bg_linear text-white w-full py-[10px] normal-case text-[17px]"
-            onClick={(e: any) => {
+            onClick={() => {
               if (selectedDefaultCard) {
-                handleSubmit(e);
+                setMainLoading(true);
+                handleSubmit();
               } else {
                 toast.error("Please select a payment method");
+                setMainLoading(false);
               }
             }}
           >
             Process to Pay
           </Button>
+          {mainLoading && (
+            <main className="main">
+              <span className="loader"></span>
+            </main>
+          )}
         </Box>
       )}
 
@@ -555,7 +559,7 @@ export default function Stripe({
       )}
 
       {mainLoading && (
-        <main className="main">
+        <main className="main  ">
           <span className="loader"></span>
         </main>
       )}
