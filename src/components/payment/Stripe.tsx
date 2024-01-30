@@ -102,8 +102,6 @@ export default function Stripe({
   }, [openEditCard]);
 
   const ProcessPay = (id: string) => {
-    // setMainLoading(false)
-
     api
       .stripe({ pi: id, p: _paf })
       .then((c) => {

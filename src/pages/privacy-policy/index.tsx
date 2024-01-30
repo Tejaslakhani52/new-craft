@@ -1,3 +1,4 @@
+import { handleEmailClick } from "@/src/commonFunction/emailCheck";
 import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 
@@ -262,10 +263,15 @@ export default function index() {
           </Typography>
 
           <Typography>
-            If you have any questions or suggestions about my{" "}
-            <span className="text-[blue]"> privacy policy</span>, do not
-            hesitate to contact me at{" "}
-            <span className="text-[blue]">craftyartapp@gmail.com</span>
+            If you have any questions or suggestions about my privacy policy, do
+            not hesitate to contact me at{" "}
+            <span
+              className="text-[#5961F8] cursor-pointer"
+              onClick={handleEmailClick}
+            >
+              {" "}
+              craftyartapp@gmail.com
+            </span>
           </Typography>
         </Box>
       </Box>

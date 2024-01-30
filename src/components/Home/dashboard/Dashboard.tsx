@@ -97,23 +97,23 @@ export default function Dashboard() {
   const router = useRouter();
   const id = router.query;
 
-  const handleBrowserButton = () => {
-    dispatch(openTempModal(true));
-  };
+  // const handleBrowserButton = () => {
+  //   dispatch(openTempModal(true));
+  // };
 
-  React.useEffect(() => {
-    const handlePopstate = () => {
-      if (id?.templates) {
-        handleBrowserButton();
-      }
-    };
+  // React.useEffect(() => {
+  //   const handlePopstate = () => {
+  //     if (id?.templates) {
+  //       handleBrowserButton();
+  //     }
+  //   };
 
-    window.addEventListener("popstate", handlePopstate);
+  //   window.addEventListener("popstate", handlePopstate);
 
-    return () => {
-      window.removeEventListener("popstate", handlePopstate);
-    };
-  }, [id?.templates]);
+  //   return () => {
+  //     window.removeEventListener("popstate", handlePopstate);
+  //   };
+  // }, [id?.templates]);
 
   return (
     <Box className="bg-[#F4F7FE]">

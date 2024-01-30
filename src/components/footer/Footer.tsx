@@ -239,7 +239,7 @@ export default function Footer() {
               </Box>
               <Box className="flex items-center gap-5 my-8 max-sm:justify-center">
                 <span className="cursor-pointer">
-                  <a href="https://www.facebook.com/people/Crafty-Art/">
+                   <a href="https://www.facebook.com/craftyartapp/">
                     <Icons.facebookIcon svgProps={{ width: 25, height: 25 }} />
                   </a>
                 </span>

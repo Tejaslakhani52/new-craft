@@ -195,9 +195,7 @@ export default function index() {
             </li>
 
             <li className="cursor-pointer mb-1">
-              <a href="https://www.facebook.com/people/Crafty-Art/100087508073608/">
-                Facebook
-              </a>
+              <a href="https://www.facebook.com/craftyartapp/">Facebook</a>
             </li>
 
             <li className="cursor-pointer mb-1">
