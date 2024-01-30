@@ -179,10 +179,6 @@ export default function templateId({ templateData }: any) {
     }
   }, [screenWidth]);
 
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   const handleScroll = (e: Event) => {
     const container = e.target as HTMLElement;
     setShowPrevButton(container.scrollLeft > 0);
@@ -219,25 +215,6 @@ export default function templateId({ templateData }: any) {
       });
     }
   };
-
-  React.useEffect(() => {
-    const handleLoad = () => {
-      setTimeout(() => {
-        if (screenWidth > 800) {
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        }
-      }, 700);
-    };
-
-    window.addEventListener("load", handleLoad);
-
-    return () => {
-      window.removeEventListener("load", handleLoad);
-    };
-  }, []);
 
   return (
     <Box className="px-[40px] max-sm:px-[10px] py-2">

@@ -58,24 +58,24 @@ export default function Home(Props: any) {
     });
   }, []);
 
-  // useEffect(() => {
-  //   const handleRouteChangeError = () => setLoading(false);
-  //   const handleRouteChangeStart = () => setLoading(false);
-  //   const handleRouteChangeComplete = () =>
-  //     setTimeout(() => {
-  //       setLoading(true);
-  //     }, 300);
+  useEffect(() => {
+    const handleRouteChangeError = () => setLoading(false);
+    const handleRouteChangeStart = () => setLoading(false);
+    const handleRouteChangeComplete = () =>
+      setTimeout(() => {
+        setLoading(true);
+      }, 300);
 
-  //   router.events.on("routeChangeError", handleRouteChangeError);
-  //   router.events.on("routeChangeStart", handleRouteChangeStart);
-  //   router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    router.events.on("routeChangeError", handleRouteChangeError);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
 
-  //   return () => {
-  //     router.events.off("routeChangeError", handleRouteChangeError);
-  //     router.events.off("routeChangeStart", handleRouteChangeStart);
-  //     router.events.off("routeChangeComplete", handleRouteChangeComplete);
-  //   };
-  // }, [router.events]);
+    return () => {
+      router.events.off("routeChangeError", handleRouteChangeError);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+    };
+  }, [router.events]);
 
   return (
     <Box>

@@ -80,11 +80,11 @@ export const Templates = {
     {
       heading: "Marketing",
       allName: [
-        { name: "Flyer", path: "/flyer" },
-        { name: "Logo", path: "/logos" },
+        { name: "Flyer", path: "/templates/flyer" },
+        { name: "Logo", path: "/templates/logos" },
         { name: "Business card", path: "/business-card" },
         { name: "Poster", path: "/poster" },
-        { name: "Resume", path: "/resume" },
+        { name: "Resume", path: "/templates/resume-portrait" },
       ],
     },
   ],
