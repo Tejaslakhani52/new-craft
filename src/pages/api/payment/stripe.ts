@@ -24,7 +24,7 @@ export default async function handler(
     form.append("p", decryptData(req.body._paf));
     form.append(
       "currency",
-      decryptData(cookieValue.CC) === "IN" ? "INR" : "USD"
+      decryptData(cookieValue.cc) === "IN" ? "INR" : "USD"
     );
     form.append("from", "Web");
 

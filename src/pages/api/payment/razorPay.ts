@@ -18,7 +18,7 @@ export default async function handler(
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
     const _sdf = decryptData(cookieValue._sdf);
-    const cc: any = decryptData(cookieValue?.CC);
+    const cc: any = decryptData(cookieValue?.cc);
 
     const form = new FormData();
     form.append("key", `${accessKey}`);

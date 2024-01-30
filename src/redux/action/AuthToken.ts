@@ -34,10 +34,10 @@ export const userPremiumGet = () => {
 };
 
 export const setCC = (value: any) => {
-  Cookies.set("CC", encryptData(value));
+  Cookies.set("cc", encryptData(value));
 };
 
 export const getCC = () => {
-  const value = Cookies.get("CC");
+  const value = Cookies.get("cc");
   return decryptData(value);
 };
