@@ -74,7 +74,6 @@ export default function templateId({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
   // const id = router?.query?.templateId;
-  console.log("router: ", router);
   const dispatch = useDispatch();
   // const [templateData, setTemplateData] = React.useState<SingleTempType | any>(
   //   {}

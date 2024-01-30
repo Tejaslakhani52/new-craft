@@ -9,8 +9,12 @@ import {
 import { RazorpayPage } from "@/src/components/payment/Razorpay";
 import Stripe from "@/src/components/payment/Stripe";
 import { PackageList } from "@/src/interface/currentPlane";
-import { authCookiesGet, setSessionVal } from "@/src/redux/action/AuthToken";
-import { openLogin } from "@/src/redux/reducer/actionDataReducer";
+import { authCookiesGet } from "@/src/redux/action/AuthToken";
+import {
+  _paf,
+  clearTemplateCookie,
+  openLogin,
+} from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button, Radio, Typography } from "@mui/material";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -80,7 +84,7 @@ const scrollToTop = () => {
 
 export default function index() {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
-
+  const dispatch = useDispatch();
   const screenHeight = useScreenHeight();
   const screenWidth = useScreenWidth();
   const [stripeTestPromise, setStripeTestPromise] = useState<any>(null);
@@ -89,8 +93,6 @@ export default function index() {
     const valStripe = loadStripe(PUBLIC_KEY);
     setStripeTestPromise(valStripe);
   }, []);
-
-  const dispatch = useDispatch();
 
   const router = useRouter();
   const uId = authCookiesGet();
@@ -106,7 +108,8 @@ export default function index() {
     useRef(null);
 
   useEffect(() => {
-    setSessionVal("_paf", choosePlan?.id.toString());
+    dispatch(_paf(choosePlan?.id.toString()));
+    dispatch(clearTemplateCookie(true));
     const currentDate = new Date();
     if (typeof choosePlan?.validity === "number") {
       const futureDate = addDays(currentDate, choosePlan?.validity);
@@ -1061,7 +1064,7 @@ export default function index() {
               <RazorpayPage
                 setOpen={setOpenPriceDialog}
                 amount={choosePlan?.offer_price}
-                action={"Purchase Subscription"}
+                actionType={1}
               />
             )}
 
@@ -1070,7 +1073,7 @@ export default function index() {
                 countryCode={userCountryCode}
                 setOpen={setOpenPriceDialog}
                 amount={choosePlan?.offer_price}
-                action={"Purchase Subscription"}
+                actionType={1}
               />
             </Elements>
           </Box>

@@ -1,7 +1,6 @@
 import api from "@/src/clientApi/api";
 import { PaymentProps, PurchaseItemProps } from "@/src/interface/payment_props";
 import {
-  getSessionVal,
   removeUnusedSessions,
   setSessionVal,
 } from "@/src/redux/action/AuthToken";
@@ -10,7 +9,7 @@ import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const url: string = "https://checkout.razorpay.com/v1/checkout.js";
 const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
@@ -34,11 +33,12 @@ declare const fbq: Function;
 interface PropsType {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   amount: string | any;
-  action: string;
+  actionType: number;
 }
 
-export function RazorpayPage({ setOpen, amount, action }: PropsType) {
+export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
   const dispatch = useDispatch();
+  const _paf = useSelector((state: any) => state.actions._paf);
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export function RazorpayPage({ setOpen, amount, action }: PropsType) {
     setOpen(false);
     dispatch(mainLoad(true));
     api
-      .razorpay()
+      .razorpay({ p: _paf })
       .then((res) => {
         const options = {
           ...res,
@@ -72,21 +72,23 @@ export function RazorpayPage({ setOpen, amount, action }: PropsType) {
             setSessionVal("_pdf", JSON.stringify(datas));
             dispatch(mainLoad(true));
             api
-              .webhook()
+              .webhook({ plan_id: _paf })
               .then((res) => {
                 if (res.success) {
-                  const val: PaymentProps[] = JSON.parse(
-                    getSessionVal("_paf", "[]") || "[]"
-                  );
+                  const val: PaymentProps[] = JSON.parse(_paf);
                   const purDatas: PurchaseItemProps[] = [];
                   val.forEach((_: any) => {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));
-                  fbq("track", action, {
-                    value: `${amount}`,
-                    currency: "INR",
-                  });
+                  fbq(
+                    "track",
+                    actionType ? "Purchase Subscription" : "Purchase Templates",
+                    {
+                      value: `${amount}`,
+                      currency: "INR",
+                    }
+                  );
                   removeUnusedSessions();
                   toast.success(res.msg);
                   setOpen(false);
@@ -104,17 +106,10 @@ export function RazorpayPage({ setOpen, amount, action }: PropsType) {
         };
 
         const rzp = new (window as any).Razorpay(options);
-        console.log("rzp: ", rzp);
 
-        rzp.on("payment.failed", function (response: any) {
-          toast.error("Razorpay modal closed:");
-          console.log("Razorpay modal closed:", response);
-
-          // Handle the event here
-        });
         rzp.open();
         if (rzp) {
-          // dispatch(mainLoad(false));
+          dispatch(mainLoad(false));
         }
       })
       .catch((error) => {

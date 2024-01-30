@@ -21,7 +21,7 @@ export default async function handler(
     form.append("key", `${accessKey}`);
     form.append("id", req.body.pi);
     form.append("u", decryptData(cookieValue._sdf));
-    form.append("p", decryptData(cookieValue._paf));
+    form.append("p", req.body.p);
     form.append(
       "currency",
       decryptData(cookieValue.CC) === "IN" ? "INR" : "USD"

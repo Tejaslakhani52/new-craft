@@ -224,9 +224,12 @@ const api = {
     }
   },
 
-  razorpay: async () => {
+  razorpay: async (payload: any) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/payment/razorPay`);
+      const response = await axios.post(
+        `${API_BASE_URL}/payment/razorPay`,
+        payload
+      );
       const res = JSON.parse(decryptData(response?.data));
       return res;
     } catch (error) {
@@ -247,9 +250,12 @@ const api = {
     }
   },
 
-  webhook: async () => {
+  webhook: async (payload: any) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/payment/webhook`);
+      const response = await axios.post(
+        `${API_BASE_URL}/payment/webhook`,
+        payload
+      );
       const res = JSON.parse(decryptData(response?.data));
       return res;
     } catch (error) {

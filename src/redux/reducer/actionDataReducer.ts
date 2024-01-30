@@ -1,5 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface TemplateData {
+  id: string;
+  type: number;
+  usdAmount: string;
+  usdVal: number;
+  inrAmount: string;
+  inrVal: number;
+}
+
 interface DataState {
   openSidebar: boolean;
   openMobileMenubar: boolean;
@@ -10,6 +19,8 @@ interface DataState {
   modalClosePath: any;
   tempId: string;
   openLogin: boolean;
+  _paf: TemplateData | any;
+  clearTemplateCookie: boolean;
 }
 
 const initialState: DataState = {
@@ -22,6 +33,8 @@ const initialState: DataState = {
   modalClosePath: "",
   tempId: "",
   openLogin: false,
+  _paf: [],
+  clearTemplateCookie: false,
 };
 
 const dataActions = createSlice({
@@ -55,6 +68,12 @@ const dataActions = createSlice({
     openLogin: (state, action: PayloadAction<boolean>) => {
       state.openLogin = action.payload;
     },
+    _paf: (state, action: PayloadAction<any>) => {
+      state._paf = action.payload;
+    },
+    clearTemplateCookie: (state, action: PayloadAction<boolean>) => {
+      state.clearTemplateCookie = action.payload;
+    },
   },
 });
 
@@ -68,5 +87,7 @@ export const {
   tempId,
   mainLoad,
   openLogin,
+  _paf,
+  clearTemplateCookie,
 } = dataActions.actions;
 export default dataActions.reducer;

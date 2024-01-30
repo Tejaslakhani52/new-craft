@@ -4,7 +4,6 @@ import { capitalizeFirstLetter } from "@/src/commonFunction/capitalizeFirstLette
 import { getCardIconSvg } from "@/src/commonFunction/getCardIcon";
 import { PaymentProps, PurchaseItemProps } from "@/src/interface/payment_props";
 import {
-  getSessionVal,
   removeUnusedSessions,
   setSessionVal,
 } from "@/src/redux/action/AuthToken";
@@ -12,7 +11,6 @@ import {
   saveCardData,
   setPurchaseItems,
 } from "@/src/redux/reducer/AuthDataReducer";
-import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import { Box, Button, Typography } from "@mui/material";
 import {
@@ -66,19 +64,19 @@ interface PropsType {
   countryCode: string;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   amount: string | any;
-  action: string;
+  actionType: number;
 }
 
 export default function Stripe({
   countryCode,
   setOpen,
   amount,
-  action,
+  actionType,
 }: PropsType) {
+  const _paf = useSelector((state: any) => state.actions._paf);
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-  // const [saveCard, setSaveCard] = useState([]);
   const [selectedDefaultCard, setSelectedDefaultCard] = useState<any>({});
   const [addNewOpen, setAddNewOpen] = useState<boolean>(false);
   const [openEditCard, setOpenEditCard] = useState<boolean>(false);
@@ -107,7 +105,7 @@ export default function Stripe({
     // setMainLoading(false)
 
     api
-      .stripe({ pi: id })
+      .stripe({ pi: id, p: _paf })
       .then((c) => {
         stripe
           ?.confirmCardPayment(c.client_secret)
@@ -126,22 +124,26 @@ export default function Stripe({
 
               setMainLoading(true);
               api
-                .webhook()
+                .webhook({ plan_id: _paf })
                 .then((data) => {
                   setMainLoading(false);
                   if (data.success) {
-                    const val: PaymentProps[] = JSON.parse(
-                      getSessionVal("_paf", "[]") || "[]"
-                    );
+                    const val: PaymentProps[] = JSON.parse(_paf);
                     const purDatas: PurchaseItemProps[] = [];
                     val.forEach((_) => {
                       purDatas.push({ id: _.id, type: _.type });
                     });
                     dispatch(setPurchaseItems(purDatas));
-                    fbq("track", action, {
-                      value: `${amount}`,
-                      currency: countryCode === "IN" ? "INR" : "USD",
-                    });
+                    fbq(
+                      "track",
+                      actionType
+                        ? "Purchase Subscription"
+                        : "Purchase Templates",
+                      {
+                        value: `${amount}`,
+                        currency: countryCode === "IN" ? "INR" : "USD",
+                      }
+                    );
                     removeUnusedSessions();
                     toast.success(data.msg);
                     setOpen(false);

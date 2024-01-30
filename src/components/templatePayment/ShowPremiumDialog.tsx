@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import DialogModal from "../common/DialogBox";
+import { getCC } from "@/src/redux/action/AuthToken";
+import { _paf } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button, Typography } from "@mui/material";
-import { useRouter } from "next/router";
-import { getCC, setSessionVal } from "@/src/redux/action/AuthToken";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import Stripe from "../payment/Stripe";
-import { RazorpayPage } from "../payment/Razorpay";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import DialogModal from "../common/DialogBox";
+import { RazorpayPage } from "../payment/Razorpay";
+import Stripe from "../payment/Stripe";
 
 interface TemplateData {
   id: string;
@@ -31,6 +33,7 @@ export default function ShowPremiumDialog({
   tempData,
   scroll_none,
 }: PropsType) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [countryCode, setCountryCode] = useState<string>("IN");
   const [openPaymentDialog, setOpenPaymentDialog] = useState<boolean>(false);
@@ -53,16 +56,6 @@ export default function ShowPremiumDialog({
 
     setAmount(val);
   }, [open, tempData]);
-
-  // useEffect(() => {
-  //   const htmlStyleElement = document.getElementById("html_style");
-
-  //   if (htmlStyleElement) {
-  //     if (openPaymentDialog) {
-  //       htmlStyleElement.style.overflow = "hidden";
-  //     }
-  //   }
-  // }, [openPaymentDialog]);
 
   return (
     <>
@@ -99,7 +92,7 @@ export default function ShowPremiumDialog({
               <Button
                 className="bg_linear text-white normal-case px-[30px] text-[16px]"
                 onClick={() => {
-                  setSessionVal("_paf", JSON.stringify([tempData]));
+                  dispatch(_paf(JSON.stringify([tempData])));
                   setOpen(false);
                   setOpenPaymentDialog(true);
                 }}
@@ -127,7 +120,7 @@ export default function ShowPremiumDialog({
                 <RazorpayPage
                   setOpen={setOpenPaymentDialog}
                   amount={amount}
-                  action={"Purchase Templates"}
+                  actionType={0}
                 />
               )}
 
@@ -136,7 +129,7 @@ export default function ShowPremiumDialog({
                   amount={amount}
                   countryCode={countryCode}
                   setOpen={setOpenPaymentDialog}
-                  action={"Purchase Templates"}
+                  actionType={0}
                 />
               </Elements>
             </Box>

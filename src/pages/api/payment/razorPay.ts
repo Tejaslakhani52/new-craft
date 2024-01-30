@@ -18,13 +18,12 @@ export default async function handler(
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
     const _sdf = decryptData(cookieValue._sdf);
-    const _paf: any = decryptData(cookieValue._paf);
     const cc: any = decryptData(cookieValue?.CC);
 
     const form = new FormData();
     form.append("key", `${accessKey}`);
     form.append("u", _sdf);
-    form.append("p", _paf);
+    form.append("p", req.body.p);
     form.append("currency", cc === "IN" ? "INR" : "USD");
     form.append("from", "Web");
 
