@@ -74,7 +74,7 @@ export default function Stripe({
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-  const [selectedDefaultCard, setSelectedDefaultCard] = useState<any>({});
+  const [selectedDefaultCard, setSelectedDefaultCard] = useState<any>(null);
   const [addNewOpen, setAddNewOpen] = useState<boolean>(false);
   const [openEditCard, setOpenEditCard] = useState<boolean>(false);
   const [openDeleteCard, setOpenDeleteCard] = useState<boolean>(false);
@@ -89,14 +89,10 @@ export default function Stripe({
   };
 
   useEffect(() => {
-    setSelectedDefaultCard(saveCard?.[0]);
-  }, [saveCard]);
-
-  useEffect(() => {
-    if (!openEditCard) {
-      getCard();
+    if (!selectedDefaultCard) {
+      setSelectedDefaultCard(saveCard?.[0]);
     }
-  }, [openEditCard]);
+  }, [saveCard]);
 
   const ProcessPay = (id: string) => {
     setMainLoading(true);

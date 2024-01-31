@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { formatExpiryDate } from "../Stripe";
 import { BillingDetailProps } from "@/src/interface/payment_props";
+import { saveCardData } from "@/src/redux/reducer/AuthDataReducer";
 
 export default function EditCard({
   setOpenEditCard,
@@ -61,6 +62,9 @@ export default function EditCard({
       })
       .then(() => {
         setOpenEditCard(false);
+        api.cardList().then((res) => {
+          dispatch(saveCardData(res?.data?.data));
+        });
         toast.success("Payment method updated successfully!");
         dispatch(mainLoad(false));
       })

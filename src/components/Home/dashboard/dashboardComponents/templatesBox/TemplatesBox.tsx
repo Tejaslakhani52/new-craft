@@ -11,6 +11,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TemplatesSkelton from "../TemplatesSkelton";
 import TemplatesBoxes from "./components/TemplatesBoxes";
+import { isMobile } from "react-device-detect";
 
 export default function TemplatesBox() {
   const screenWidth = useScreenWidth();
@@ -29,18 +30,6 @@ export default function TemplatesBox() {
       .catch((err: any) => consoleLog("err", err));
   }, []);
 
-  const height = useMemo(() => {
-    let val;
-
-    if (screenWidth) {
-      if (screenWidth < 600) {
-        val = 100;
-      } else val = 200;
-    }
-
-    return val;
-  }, [screenWidth]);
-
   return (
     <Box className="px-[20px] max-sm:px-[10px] pb-10">
       {data?.length > 0
@@ -50,7 +39,7 @@ export default function TemplatesBox() {
                 item={item}
                 setOpenModal={setOpenModal}
                 setIdName={setIdName}
-                height={height}
+                height={isMobile ? 100 : 200}
               />
             </Box>
           ))

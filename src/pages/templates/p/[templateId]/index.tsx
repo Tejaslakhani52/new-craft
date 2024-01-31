@@ -74,7 +74,6 @@ export default function index({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
-
   const [token, setToken] = React.useState<any>(null);
   const [anotherData, setAnotherData] = React.useState<any>([]);
   const screenWidth = useScreenWidth();

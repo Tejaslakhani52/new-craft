@@ -2,6 +2,7 @@ import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import Skelton from "@/src/components/common/Skelton";
 import { Box } from "@mui/material";
 import { useMemo } from "react";
+import { isMobile } from "react-device-detect";
 
 export default function TemplatesSkelton() {
   const screenWidth = useScreenWidth();
@@ -21,8 +22,8 @@ export default function TemplatesSkelton() {
     <Box className="flex flex-col gap-5 py-[50px]">
       <Box className="flex items-center overflow-hidden scroll_none gap-[20px]  ">
         <Skelton
-          width={`${height ? height : 250}px`}
-          height={`${height ? height : 250}px`}
+          width={`${isMobile ? 100 : 250}px`}
+          height={`${isMobile ? 100 : 250}px`}
           round="10px"
           fill={20}
           line="row"
@@ -35,8 +36,8 @@ export default function TemplatesSkelton() {
       </Box>
       <Box className="flex  items-center overflow-hidden scroll_none gap-[20px]  ">
         <Skelton
-          width={`${height ? height : 250}px`}
-          height={`${height ? height : 250}px`}
+          width={`${isMobile ? 100 : 250}px`}
+          height={`${isMobile ? 100 : 250}px`}
           round="10px"
           fill={20}
           line="row"
@@ -49,8 +50,8 @@ export default function TemplatesSkelton() {
       </Box>
       <Box className="flex items-center overflow-hidden scroll_none gap-[20px] mb-5 ">
         <Skelton
-          width={`${height ? height : 250}px`}
-          height={`${height ? height : 250}px`}
+          width={`${isMobile ? 100 : 250}px`}
+          height={`${isMobile ? 100 : 250}px`}
           round="10px"
           fill={20}
           line="row"
