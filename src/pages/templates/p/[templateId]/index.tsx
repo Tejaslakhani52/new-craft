@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
+import { isMobile } from "react-device-detect";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const ShowPremiumDialog = dynamic(
@@ -69,7 +70,7 @@ export async function getServerSideProps(context: any) {
   }
 }
 
-export default function templateId({ templateData }: any) {
+export default function index({ templateData }: any) {
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
@@ -286,31 +287,37 @@ export default function templateId({ templateData }: any) {
             </Typography>
 
             <Box>
-              {screenWidth < 800 ? (
-                <a
-                  className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
-                  style={{
-                    background:
-                      "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
-                  }}
-                  href="https://play.google.com/store/apps/details?id=com.crafty.art"
-                >
-                  {templateData?.is_premium && (
-                    <span className="w-[22px] ml-[8px]">
-                      <Icons.pricingIcon svgProps={{ width: 22, height: 21 }} />
-                    </span>
-                  )}
-                  Customize this template
-                </a>
-              ) : !token ? (
-                <a
-                  className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
-                  style={{
-                    background:
-                      "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
-                  }}
+              <Box>
+                <button
                   onClick={() => {
-                    dispatch(openLogin(true));
+                    if (isMobile) {
+                      window.open(
+                        "https://play.google.com/store/apps/details?id=com.crafty.art"
+                      );
+                      return;
+                    }
+                    if (!token) {
+                      dispatch(openLogin(true));
+                      return;
+                    }
+                    if (
+                      templateData?.is_premium &&
+                      !userPremiumGet() &&
+                      !isPurchased(purchaseItems, {
+                        id: templateData?.string_id,
+                        type: 0,
+                      })
+                    ) {
+                      setShowPremiumBox(true);
+                    } else
+                      window.open(
+                        `https://editor.craftyartapp.com/${templateData?.id_name}`
+                      );
+                  }}
+                  className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
+                  style={{
+                    background:
+                      "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
                   }}
                 >
                   {templateData?.is_premium && (
@@ -319,42 +326,8 @@ export default function templateId({ templateData }: any) {
                     </span>
                   )}
                   Customize this template
-                </a>
-              ) : (
-                <Box>
-                  <button
-                    onClick={() => {
-                      if (
-                        templateData?.is_premium &&
-                        !userPremiumGet() &&
-                        !isPurchased(purchaseItems, {
-                          id: templateData?.string_id,
-                          type: 0,
-                        })
-                      ) {
-                        setShowPremiumBox(true);
-                      } else
-                        window.open(
-                          `https://editor.craftyartapp.com/${templateData?.id_name}`
-                        );
-                    }}
-                    className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
-                    style={{
-                      background:
-                        "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
-                    }}
-                  >
-                    {templateData?.is_premium && (
-                      <span className="w-[22px] ml-[8px]">
-                        <Icons.pricingIcon
-                          svgProps={{ width: 22, height: 21 }}
-                        />
-                      </span>
-                    )}
-                    Customize this template
-                  </button>
-                </Box>
-              )}
+                </button>
+              </Box>
             </Box>
 
             <div className="py-4">
@@ -434,7 +407,7 @@ export default function templateId({ templateData }: any) {
                       <div
                         className="w-full h-full p-[8px] relative"
                         onClick={() => {
-                          if (screenWidth > 700) {
+                          if (!isMobile) {
                             setIdName(templates?.id_name);
                             setOpenModal(true);
                             window.history.replaceState(

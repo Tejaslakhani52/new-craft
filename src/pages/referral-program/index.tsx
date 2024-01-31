@@ -1,6 +1,7 @@
 import { handleEmailClick } from "@/src/commonFunction/emailCheck";
 import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 
@@ -125,10 +126,16 @@ export default function index() {
 
           <Typography className="mb-3">
             Visit{" "}
-            <span className="text-[#5961F8]">
+            <Link
+              className="text-[#5961F8]"
+              target="_blank"
+              href={
+                "https://play.google.com/store/apps/details?id=com.crafty.art"
+              }
+            >
               {" "}
               https://play.google.com/store/apps/details?id=com.crafty.art
-            </span>
+            </Link>
           </Typography>
 
           <Typography className="mb-3">

@@ -4,6 +4,7 @@ import { DataType } from "@/src/interface/searchTemplateType";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 
 interface ImageBoxProps {
   templates: DataType | any;
@@ -69,7 +70,7 @@ export default function ImageBox({
       <Link
         href={`/templates/p/${templates.id_name}`}
         onClick={(e) => {
-          if (screenWidth > 700) {
+          if (!isMobile) {
             e.preventDefault();
           }
         }}
@@ -77,7 +78,7 @@ export default function ImageBox({
         <div
           className="w-full h-full p-[8px] relative"
           onClick={() => {
-            if (screenWidth > 700) {
+            if (!isMobile) {
               setIdName(templates?.id_name);
               setOpenModal(true);
               window.history.replaceState(

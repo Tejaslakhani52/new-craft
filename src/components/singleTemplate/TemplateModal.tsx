@@ -374,33 +374,14 @@ export default function TemplateModal({
                       margin: "10px 0",
                     }}
                   />
-                ) : !token ? (
-                  <Box>
-                    <a
-                      className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
-                      style={{
-                        background:
-                          "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
-                      }}
-                      onClick={() => {
-                        // router.push("/login");
-                        dispatch(openLogin(true));
-                      }}
-                    >
-                      {template?.is_premium && (
-                        <span className="w-[22px] ml-[8px]">
-                          <Icons.pricingIcon
-                            svgProps={{ width: 22, height: 21 }}
-                          />
-                        </span>
-                      )}
-                      Customize this template
-                    </a>
-                  </Box>
                 ) : (
                   <Box>
                     <button
                       onClick={() => {
+                        if (!token) {
+                          dispatch(openLogin(true));
+                          return;
+                        }
                         if (
                           template?.is_premium &&
                           !userPremiumGet() &&

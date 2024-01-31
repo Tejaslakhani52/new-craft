@@ -1,3 +1,4 @@
+import { handleEmailClick } from "@/src/commonFunction/emailCheck";
 import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -317,76 +318,139 @@ export default function index() {
             6. Billing
           </Typography>
 
-          <Typography className="mb-3">
-            Crafty Art offers a free and paid service. You can learn more about
-            Crafty Art’s various subscription offerings here. Pricing may vary
-            by location and will be based on the billing information you provide
-            us at the time of purchase. If you are on a Crafty Art for Teams
-            plan, the team owner will be billed for and is responsible for
-            payment of subscription fees.
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            1. Subscription Plan:
           </Typography>
 
-          <Typography className="mb-3">
-            1. Subscriptions and Renewals If you are subscribing to Crafty Art
-            Pro or Crafty Art for Teams, you can sign up for either a monthly or
-            annual subscription. Your subscription will automatically renew on a
-            monthly or annual basis, as applicable. You can cancel your
-            subscription at any time. If you cancel your subscription, you will
-            not receive a refund or credit for any amounts that have already
-            been billed.
-          </Typography>
-          <Typography className="mb-3">
-            2. Pricing for Additional People on Your Team If you are on a Crafty
-            Art for Teams plan, you are billed according to Crafty Art’s "Pay as
-            You Grow" model. When you add people to a team, you will be billed
-            for them on your next billing date (as defined below) unless they
-            delete their account or are removed from your team by you or an
-            administrator prior to the billing date. Three (3) days prior to the
-            billing date, Crafty Art will notify via email the billing contact
-            associated with your Crafty Art Team account of the number of
-            additional people and the associated subscription fees. The
-            applicable "billing date" is as follows: (i) if you are on a monthly
-            subscription, the date of your next monthly renewal; (ii) if you are
-            on an annual subscription, every 3 months after the start date of
-            your subscription. Subscription fees for additional people on your
-            team will be in accordance with the Crafty Art for Teams pricing.
-            You will not receive a refund or credit for removing people from
-            your team that have already been paid for.The Pay as You Grow model
-            allows you to scale your team as needed and reconcile costs for
-            anyone who has joined your team but will no longer need access to
-            the service before you are billed for them.
-          </Typography>
-          <Typography className="mb-3">
-            3. Taxes. Your subscription fees are inclusive of all taxes unless
-            otherwise specified in an agreement with Crafty Art, within the
-            service, or on an applicable invoice. Tax rates are calculated based
-            on the billing information you provide and the applicable tax rate
-            at the time of your subscription charge.
-          </Typography>
-          <Typography className="mb-3">
-            4. Cancellation. You can stop using the service and/or cancel your
-            subscription at any time via your account settings. If you cancel
-            your subscription, you will not be entitled to a refund of any fees
-            already paid, and any outstanding fees will become immediately due
-            and payable.
-          </Typography>
-          <Typography className="mb-3">
-            5. Free trials and pilots Crafty Art may offer you a free trial or
-            pilot to allow you to try our service. Crafty Art reserves the right
-            to set eligibility requirements and the duration of free trials and
-            pilots.At the end of your free trial, Crafty Art will charge the
-            relevant subscription fee for the next billing cycle to your
-            nominated payment method, unless you cancel your subscription prior
-            to the end of the free trial. If you have access to a pilot, your
-            access to the service will cease if you do not enter into a paid
-            subscription prior to the end of the pilot period.
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            {" "}
+            The Subscription Plan provides users with comprehensive access to
+            all premium features, customization options, regular updates, and
+            exclusive tools such as the background remover.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Billing Frequency: Users can opt for monthly, quarterly, or yearly
+            billing based on their preference.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Payment: Payments for the Subscription Plan are processed
+            automatically according to the selected billing frequency.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Access Duration: Users enjoy uninterrupted access to premium
+            features as long as their subscription is active.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Cancellation: Users can cancel their subscription at any time.
+            However, refunds may not be provided for partial billing periods.
+          </li>
+
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            2. Single Template Purchase:
           </Typography>
 
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            {" "}
+            Users can purchase a specific template for a one-time payment.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Lifetime Access: This one-time payment grants users lifetime access
+            to the chosen template.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Customization: After the purchase, users can customize the template
+            according to their needs.
+          </li>
+
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            3. Contact Information:
+          </Typography>
+
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            For any subscription-related queries or other issues, users can
+            contact Crafty Art at{" "}
+            <span
+              className="text-[#5961F8] cursor-pointer"
+              onClick={handleEmailClick}
+            >
+              {" "}
+              craftyartapp@gmail.com
+            </span>
+            .
+          </li>
+
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            4. Purchase Process for Single Templates:
+          </Typography>
+
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Choose the premium template you wish to purchase.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Click on the "Customize This Template" button.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            In the pop-up, select the "Buy Single Template" option.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Proceed with the purchase.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            After the purchase, customize the template according to your needs.
+          </li>
+
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            5. Purchase Process for Subscriptions:
+          </Typography>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Navigate to the "Pricing" section in the header.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Choose from three subscription plans: monthly, quarterly, or yearly.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Proceed to purchase the selected subscription plan.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Alternatively, select a premium template, click on the "Customize
+            This Template" button, and choose the "Buy a Subscription" option in
+            the pop-up.
+          </li>
+
+          <Typography
+            variant="h3"
+            className=" text-[17px] mt-5 mb-2 font-[700]"
+          >
+            6. No Purchase Limit:
+          </Typography>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            There is no limit to the number of templates a user can purchase.
+          </li>
+          <li className="text-black max-sm:text-[15px] mb-2 max-2sm:text-[13px]  ">
+            Each template comes with lifetime access after a one-time payment.
+          </li>
+
           <Typography className="mb-3">
-            6. Changes to pricing. Crafty Art reserves the right to change its
-            prices at any time. If you are on a subscription plan, changes to
-            pricing will not apply until your next renewal or thirty (30) days
-            after notice, whichever is later.
+            Please note that the above is a generic draft, and you may need to
+            tailor it further based on specific details or legal requirements
+            applicable to Crafty Art Pro. It's recommended to consult with legal
+            professionals to ensure compliance with applicable laws and
+            regulations.
           </Typography>
 
           <Typography

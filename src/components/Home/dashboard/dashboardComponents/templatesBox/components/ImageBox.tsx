@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { isMobile } from "react-device-detect";
 
 interface ImageBoxesProps {
   templates: DataType;
@@ -69,14 +70,14 @@ export default function ImageBox({
       key={templates.id_name}
       href={`/templates/p/${templates.id_name}`}
       onClick={(e) => {
-        if (screenWidth > 700) {
+        if (!isMobile) {
           e.preventDefault();
         }
       }}
     >
       <Box
         onClick={() => {
-          if (screenWidth > 700) {
+          if (!isMobile) {
             setIdName(templates?.id_name);
             setOpenModal(true);
             window.history.replaceState(
