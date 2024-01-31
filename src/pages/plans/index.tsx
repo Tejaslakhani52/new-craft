@@ -1070,6 +1070,7 @@ export default function index() {
 
             <Elements stripe={stripeTestPromise}>
               <Stripe
+                open={openPriceDialog}
                 countryCode={userCountryCode}
                 setOpen={setOpenPriceDialog}
                 amount={choosePlan?.offer_price}

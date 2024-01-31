@@ -297,10 +297,10 @@ const api = {
   },
 
   updateCard: async (payload: {
-    pm: string;
+    pm: string | undefined;
     billing_details: BillingDetailProps;
-    month: number;
-    year: number;
+    month: number | undefined;
+    year: number | undefined;
   }) => {
     try {
       const response = await axios.post(

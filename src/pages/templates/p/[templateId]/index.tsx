@@ -406,19 +406,20 @@ export default function index({ templateData }: any) {
                       <div
                         className="w-full h-full p-[8px] relative"
                         onClick={() => {
-                          if (!isMobile) {
-                            setIdName(templates?.id_name);
-                            setOpenModal(true);
-                            window.history.replaceState(
-                              {},
-                              "",
-                              `/templates/p/${templates?.id_name}`
-                            );
-                          } else {
-                            setAnotherData([]);
-                            setShowImage("");
-                            router.push(`/templates/p/${templates?.id_name}`);
-                          }
+                          //   if (!isMobile) {
+                          //     setIdName(templates?.id_name);
+                          //     setOpenModal(true);
+                          //     window.history.replaceState(
+                          //       {},
+                          //       "",
+                          //       `/templates/p/${templates?.id_name}`
+                          //     );
+                          //   } else {
+                          setAnotherData([]);
+                          setShowImage("");
+                          setImageLoaded(false);
+                          router.push(`/templates/p/${templates?.id_name}`);
+                          //   }
                         }}
                       >
                         <div

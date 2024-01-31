@@ -1,20 +1,18 @@
 import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
-import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
 import { DashboardDataType } from "@/src/interface/dashboard";
 import { AuthStateType } from "@/src/interface/stateType";
 import { templatesData } from "@/src/redux/reducer/AuthDataReducer";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import TemplatesSkelton from "../TemplatesSkelton";
 import TemplatesBoxes from "./components/TemplatesBoxes";
-import { isMobile } from "react-device-detect";
 
 export default function TemplatesBox() {
-  const screenWidth = useScreenWidth();
   const [openModal, setOpenModal] = React.useState(false);
   const [idName, setIdName] = useState<string>("");
   const router = useRouter();

@@ -9,17 +9,28 @@ import { formatExpiryDate } from "../Stripe";
 import { BillingDetailProps } from "@/src/interface/payment_props";
 import { saveCardData } from "@/src/redux/reducer/AuthDataReducer";
 
-export default function EditCard({
-  setOpenEditCard,
-  selectedDefaultCard,
-}: any) {
+interface Card {
+  id: string;
+  billing_details: BillingDetailProps | any;
+  card: {
+    brand: string;
+    last4: string;
+    exp_month?: number;
+    exp_year?: number;
+  };
+}
+
+export default function EditCard(props: {
+  selectedDefaultCard: Card | null;
+  setOpenEditCard: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const elements = useElements();
   const dispatch = useDispatch();
 
   const [expiry, setExpiry] = useState<any>(
     formatExpiryDate(
-      selectedDefaultCard?.card?.exp_month || 0,
-      selectedDefaultCard?.card?.exp_year || 0
+      props.selectedDefaultCard?.card?.exp_month || 0,
+      props.selectedDefaultCard?.card?.exp_year || 0
     )
   );
   const [expiryMonth, setExpiryMonth] = useState("");
@@ -30,7 +41,7 @@ export default function EditCard({
     dispatch(mainLoad(true));
     const billing_details: BillingDetailProps = {
       name: undefined,
-      email: selectedDefaultCard?.billing_details?.email || "",
+      email: props.selectedDefaultCard?.billing_details?.email || "",
       address: undefined,
       phone: undefined,
     };
@@ -51,17 +62,17 @@ export default function EditCard({
 
     api
       .updateCard({
-        pm: selectedDefaultCard?.id,
+        pm: props.selectedDefaultCard?.id,
         billing_details,
         month: expiryMonth
           ? Number(expiryMonth)
-          : selectedDefaultCard?.card?.exp_month,
+          : props.selectedDefaultCard?.card?.exp_month,
         year: expiryYear
           ? Number(expiryYear)
-          : selectedDefaultCard?.card?.exp_year,
+          : props.selectedDefaultCard?.card?.exp_year,
       })
       .then(() => {
-        setOpenEditCard(false);
+        props.setOpenEditCard(false);
         api.cardList().then((res) => {
           dispatch(saveCardData(res?.data?.data));
         });
@@ -139,7 +150,7 @@ export default function EditCard({
           <input
             type="text"
             className=" bg-white w-full font-semibold opacity-40"
-            value={`XXXX XXXX XXXX ${selectedDefaultCard?.card?.last4}`}
+            value={`XXXX XXXX XXXX ${props.selectedDefaultCard?.card?.last4}`}
             disabled
             // onChange={(e) => setCustomerEmail(e.target.value)}
           />
@@ -206,17 +217,22 @@ export default function EditCard({
             },
             defaultValues: {
               address: {
-                country: selectedDefaultCard?.billing_details?.address?.country,
-                line1: selectedDefaultCard?.billing_details?.address?.line1,
+                country:
+                  props.selectedDefaultCard?.billing_details?.address?.country,
+                line1:
+                  props.selectedDefaultCard?.billing_details?.address?.line1,
                 line2:
-                  selectedDefaultCard?.billing_details?.address?.line2 || "",
-                city: selectedDefaultCard?.billing_details?.address?.city,
-                state: selectedDefaultCard?.billing_details?.address?.state,
+                  props.selectedDefaultCard?.billing_details?.address?.line2 ||
+                  "",
+                city: props.selectedDefaultCard?.billing_details?.address?.city,
+                state:
+                  props.selectedDefaultCard?.billing_details?.address?.state,
                 postal_code:
-                  selectedDefaultCard?.billing_details?.address?.postal_code,
+                  props.selectedDefaultCard?.billing_details?.address
+                    ?.postal_code,
               },
-              name: selectedDefaultCard?.billing_details?.name,
-              phone: selectedDefaultCard?.billing_details?.phone,
+              name: props.selectedDefaultCard?.billing_details?.name,
+              phone: props.selectedDefaultCard?.billing_details?.phone,
             },
           }}
         />
@@ -232,7 +248,7 @@ export default function EditCard({
             fontWeight: "500",
           }}
           className="bg_linear max-sm:w-full text-[#1C3048] w-[48%] py-[10px] px-[20px]  max-lg:mx-auto text-[14px] 2sm:text-[16px]"
-          onClick={() => setOpenEditCard(false)}
+          onClick={() => props.setOpenEditCard(false)}
         >
           Cancel
         </Button>

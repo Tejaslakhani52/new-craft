@@ -35,7 +35,7 @@ export interface BillingDetailProps {
     city: string;
     state: string;
     postal_code: string;
-    country: string;
+    country: string | undefined;
   };
   phone?: string;
 }

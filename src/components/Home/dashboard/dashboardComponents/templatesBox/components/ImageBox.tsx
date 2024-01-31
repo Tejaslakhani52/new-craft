@@ -69,24 +69,24 @@ export default function ImageBox({
       } rounded-[12px]`}
       key={templates.id_name}
       href={`/templates/p/${templates.id_name}`}
-      onClick={(e) => {
-        if (!isMobile) {
-          e.preventDefault();
-        }
-      }}
+      // onClick={(e) => {
+      //   if (!isMobile) {
+      //     e.preventDefault();
+      //   }
+      // }}
     >
       <Box
-        onClick={() => {
-          if (!isMobile) {
-            setIdName(templates?.id_name);
-            setOpenModal(true);
-            window.history.replaceState(
-              {},
-              "",
-              `/templates/p/${templates?.id_name}`
-            );
-          }
-        }}
+      // onClick={() => {
+      //   if (!isMobile) {
+      //     setIdName(templates?.id_name);
+      //     setOpenModal(true);
+      //     window.history.replaceState(
+      //       {},
+      //       "",
+      //       `/templates/p/${templates?.id_name}`
+      //     );
+      //   }
+      // }}
       >
         <Box
           className={` ${
