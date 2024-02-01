@@ -14,7 +14,7 @@ export default function DeleteCard(props: PropsType) {
       open={props.openDeleteCard}
       setOpen={props.setOpenDeleteCard}
       className="w-[100%] lg:w-[80%] xl:w-[550px]"
-      scroll_none={"true"}
+      scroll_none
     >
       <div className="py-[20px]">
         <h3 className="flex gap-[15px] font-semibold  px-[15px] text-[25px]  pb-4">
