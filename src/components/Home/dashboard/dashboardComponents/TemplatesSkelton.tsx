@@ -25,7 +25,7 @@ export default function TemplatesSkelton() {
           fill={20}
           line="row"
           gap={"15px"}
-          text={"true"}
+          text
           textH={"10px"}
           textW={"100px"}
           title={true}
@@ -39,7 +39,7 @@ export default function TemplatesSkelton() {
           fill={20}
           line="row"
           gap={"15px"}
-          text={"true"}
+          text
           textH={"10px"}
           textW={"100px"}
           title={true}
@@ -53,7 +53,7 @@ export default function TemplatesSkelton() {
           fill={20}
           line="row"
           gap={"15px"}
-          text={"true"}
+          text
           textH={"10px"}
           textW={"100px"}
           title={true}
