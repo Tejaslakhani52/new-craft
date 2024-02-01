@@ -58,8 +58,7 @@ export const getServerSideProps: GetServerSideProps = async (
         key: `${accessKey}`,
         id_name: params?.templateId,
         fromFabric: "1",
-      },
-      { withCredentials: false, timeout: 500 }
+      }
     );
 
     const templateData = response?.data;
