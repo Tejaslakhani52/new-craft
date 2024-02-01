@@ -10,7 +10,7 @@ import api from "@/src/clientApi/api";
 import { TemplateDataType } from "@/src/interface/commonType";
 
 interface ExploreTemplatesProps {
-  category: string;
+  category?: string;
   getAll: string;
   keyword?: string;
 }
