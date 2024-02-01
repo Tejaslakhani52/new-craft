@@ -2,7 +2,7 @@ import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
 import { DashboardDataType } from "@/src/interface/dashboard";
-import { AuthStateType } from "@/src/interface/stateType";
+import { RootState } from "@/src/redux";
 import { templatesData } from "@/src/redux/reducer/AuthDataReducer";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
@@ -17,15 +17,16 @@ export default function TemplatesBox() {
   const [idName, setIdName] = useState<string>("");
   const router = useRouter();
   const dispatch = useDispatch();
-  const data = useSelector((state: AuthStateType) => state.auth.templatesData);
+  const data = useSelector((state: RootState) => state.auth.templatesData);
 
   useEffect(() => {
     api
       .getDashboardData()
-      .then((res: any) => {
-        dispatch(templatesData(res));
+      .then((res) => {
+        const dashboardData = res as DashboardDataType[];
+        dispatch(templatesData(dashboardData));
       })
-      .catch((err: any) => consoleLog("err", err));
+      .catch((err) => consoleLog("err", err));
   }, []);
 
   return (

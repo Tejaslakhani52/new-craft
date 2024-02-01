@@ -1,3 +1,5 @@
+import { TemplateDataType } from "./commonType";
+
 export interface CategoryApiData {
   auto_create: boolean;
   category_id: number;
@@ -24,19 +26,11 @@ export interface CategoryApiData {
 }
 
 export interface ServerSideProps {
-  jsonString: {
-    datas?: any[];
-    meta_title?: string;
-    meta_desc?: string;
-    h1_tag?: string;
-    h2_tag?: string;
-    long_desc?: string;
-    short_desc?: string;
-  };
-}
-
-export interface StaticData {
-  latestMeta: ServerSideProps["jsonString"];
-  trendingData: ServerSideProps["jsonString"];
-  invitationData: ServerSideProps["jsonString"];
+  datas?: TemplateDataType[];
+  meta_title?: string;
+  meta_desc?: string;
+  h1_tag?: string;
+  h2_tag?: string;
+  long_desc?: string;
+  short_desc?: string;
 }

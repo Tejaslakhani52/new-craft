@@ -1,12 +1,12 @@
-import { authCookiesGet, setCC } from "@/src/redux/action/AuthToken";
 import { Box } from "@mui/material";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
 import api from "../clientApi/api";
 import { saveCardData } from "../redux/reducer/AuthDataReducer";
+import { authCookiesGet, setCC } from "@/src/redux/action/AuthToken";
 
 const FooterImport = dynamic(() => import("@/src/components/footer/Footer"));
 const HeaderImport = dynamic(() => import("@/src/components/header/Header"));
@@ -15,27 +15,11 @@ const MobileBottomBarImport = dynamic(
   () => import("@/src/components/common/MobileBottomBar")
 );
 
-export async function getInitialProps(context: any) {
-  const cookiesString = context.req.headers.cookie || "";
-  const sessionId = extractCookieValue(cookiesString, "_sdf");
-
-  return {
-    props: {
-      sessionId: sessionId || null,
-    },
-  };
+interface HomeProps {
+  children: React.ReactNode;
 }
 
-const extractCookieValue = (cookiesString: any, cookieName: any) => {
-  const cookieRegex = new RegExp(
-    `(?:(?:^|.*;\\s*)${cookieName}\\s*\\=\\s*([^;]*).*$)|^.*$`
-  );
-
-  const match = cookiesString.match(cookieRegex);
-  return match ? match[1] || null : null;
-};
-
-export default function Home(Props: any) {
+export default function Home(props: HomeProps) {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [token, setToken] = useState<string | null>("default");
@@ -48,7 +32,7 @@ export default function Home(Props: any) {
     }
 
     api.getIp().then((res) => {
-      api.getCountryCode({ ip: res?.ip }).then((response: any) => {
+      api.getCountryCode({ ip: res?.ip }).then((response) => {
         setCC(response?.countryCode);
       });
     });
@@ -56,7 +40,7 @@ export default function Home(Props: any) {
     api.cardList().then((res) => {
       dispatch(saveCardData(res?.data?.data));
     });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const handleRouteChangeError = () => setLoading(false);
@@ -103,7 +87,7 @@ export default function Home(Props: any) {
               <span className="loader_span"></span>
             </main>
           )}
-          {Props?.children}
+          {props.children}
 
           <Box>
             {!token && router.pathname !== "/s/[searchValue]" && (

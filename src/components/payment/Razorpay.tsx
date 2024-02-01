@@ -1,6 +1,7 @@
 import { encryptData } from "@/src/aes-crypto";
 import api from "@/src/clientApi/api";
 import { PaymentProps, PurchaseItemProps } from "@/src/interface/payment_props";
+import { RootState } from "@/src/redux";
 import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button } from "@mui/material";
@@ -35,7 +36,7 @@ interface PropsType {
 
 export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
   const dispatch = useDispatch();
-  const _paf = useSelector((state: any) => state.actions._paf);
+  const _paf = useSelector((state: RootState) => state.actions._paf);
   const [scriptUpdate, setScriptUpdate] = useState<number>(0);
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
                 if (res.success) {
                   const val: PaymentProps[] = JSON.parse(_paf);
                   const purDatas: PurchaseItemProps[] = [];
-                  val.forEach((_: any) => {
+                  val.forEach((_) => {
                     purDatas.push({ id: _.id, type: _.type });
                   });
                   dispatch(setPurchaseItems(purDatas));

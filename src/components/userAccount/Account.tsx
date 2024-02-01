@@ -1,6 +1,7 @@
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
 import { useScreenHeight } from "@/src/commonFunction/screenWidthHeight";
+import { CurrentPlanProps, User } from "@/src/interface/user";
 import { authCookiesGet, userPremium } from "@/src/redux/action/AuthToken";
 import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { Box, Typography } from "@mui/material";
@@ -11,6 +12,7 @@ import PaymentHistory from "./components/PaymentHistory";
 import PersonalInfo from "./components/PersonalInfo";
 import Subscription from "./components/Subscription";
 import TemplateHistory from "./components/TemplateHistory";
+import { consoleLog } from "@/src/commonFunction/console";
 
 interface AccountProps {
   defaultTab: string;
@@ -47,11 +49,10 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const uid = authCookiesGet();
-  const getData = authCookiesGet();
-  const [userProfile, setUserProfile] = useState<any>(null);
-  const [imageBaseUrl, setImageBaseUrl] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
+  const [imageBaseUrl, setImageBaseUrl] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>(defaultTab);
-  const [currentPlan, setCurrentPlan] = useState<any>();
+  const [currentPlan, setCurrentPlan] = useState<CurrentPlanProps | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const screenHeight = useScreenHeight();
 
@@ -65,15 +66,23 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
         setUserProfile(user);
       })
       .catch((error) => {
+        consoleLog("getUserData: ", error);
         setLoading(false);
       });
   }, []);
 
   const ProfileImage = () => {
-    return userProfile?.photo_uri !== "null" && userProfile?.photo_uri ? (
-      userProfile?.photo_uri.includes("googleusercontent") ? (
+    const hasPhotoUri =
+      userProfile?.photo_uri && userProfile?.photo_uri !== "null";
+    const photoUri =
+      hasPhotoUri && userProfile?.photo_uri.includes("googleusercontent")
+        ? userProfile?.photo_uri
+        : `${imageBaseUrl}${userProfile?.photo_uri}`;
+
+    if (hasPhotoUri) {
+      return (
         <img
-          src={`${userProfile?.photo_uri}`}
+          src={photoUri}
           alt="Selected file preview"
           style={{
             width: "100%",
@@ -81,35 +90,27 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
             objectFit: "cover",
           }}
         />
-      ) : (
-        <img
-          src={`${imageBaseUrl}${userProfile?.photo_uri}`}
-          alt="Selected file preview"
+      );
+    } else {
+      return (
+        <p
           style={{
+            background:
+              "linear-gradient(268.03deg, #5961F8 -0.66%, #5961F8 -0.65%, #497DEC 22.41%, #15D8C5 100%, #15D8C5 100%)",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            fontSize: "23px",
+            textTransform: "capitalize",
           }}
-        />
-      )
-    ) : (
-      <p
-        style={{
-          background:
-            "linear-gradient(268.03deg, #5961F8 -0.66%, #5961F8 -0.65%, #497DEC 22.41%, #15D8C5 100%, #15D8C5 100%)",
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-          fontSize: "23px",
-          textTransform: "capitalize",
-        }}
-      >
-        {userProfile?.name?.charAt(0)}
-      </p>
-    );
+        >
+          {userProfile?.name?.charAt(0)}
+        </p>
+      );
+    }
   };
 
   useEffect(() => {
@@ -124,7 +125,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
       });
   }, []);
 
-  const accountComponents: any = {
+  const accountComponents: Record<string, JSX.Element> = {
     "Personal Info": <PersonalInfo />,
     Subscription: <Subscription userSubscription={currentPlan} />,
     "Payment History": <PaymentHistory userSubscription={currentPlan} />,

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 type PropsType = {
   title?: string;
-  point?: any;
+  point?: React.ReactNode;
   image?: string;
   buttonName?: string;
   alt?: string;

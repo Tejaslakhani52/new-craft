@@ -14,6 +14,7 @@ import {
 import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux";
 
 export default function Index() {
   const screenWidth = useScreenWidth();
@@ -21,18 +22,18 @@ export default function Index() {
   const router = useRouter();
   const token = authCookiesGet();
   const hasEffectRun = useRef(false);
-  const mainLoading = useSelector((state: any) => state.actions.mainLoad);
+  const mainLoading = useSelector((state: RootState) => state.actions.mainLoad);
 
-  const productPaths = Product.subName.flatMap((category: any) =>
-    category.allName.map((item: any) => item.path)
+  const productPaths = Product.subName.flatMap((category) =>
+    category.allName.map((item) => item.path)
   );
 
-  const editorToolsPaths = EditorTools.subName.flatMap((category: any) =>
-    category.allName.map((item: any) => item.path)
+  const editorToolsPaths = EditorTools.subName.flatMap((category) =>
+    category.allName.map((item) => item.path)
   );
 
-  const templatesPaths = Templates.subName.flatMap((category: any) =>
-    category.allName.map((item: any) => item.path)
+  const templatesPaths = Templates.subName.flatMap((category) =>
+    category.allName.map((item) => item.path)
   );
 
   useEffect(() => {

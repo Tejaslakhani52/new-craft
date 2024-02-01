@@ -1,48 +1,56 @@
-import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-
+import api from "@/src/clientApi/api";
 import { auth } from "@/src/firebase";
 import { authCookiesSet } from "@/src/redux/action/AuthToken";
-import { mainLoad, openSidebar } from "@/src/redux/reducer/actionDataReducer";
+import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import {
+  Box,
+  Button,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import {
   UserCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import Input from "./Input";
 import Password from "./Password";
-import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 
-export default function ForgotPass(props: any) {
+interface ForgotPassProps {
+  setForgot: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function ForgotPass(props: ForgotPassProps) {
   const dispatch = useDispatch();
   const [enterNewPass, setEnterNewPass] = useState<boolean>(false);
-  const [process, setProcess] = useState<boolean>(false);
-  const [emailPassword, setEmailPassword] = useState<any>({
+  const [emailPassword, setEmailPassword] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: "",
   });
 
   const [emailDialogShow, setEmailDialogShow] = useState<boolean>(false);
 
-  const handleResetPassSubmit = async (e: any) => {
+  const handleResetPassSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(mainLoad(true));
 
-    if (!emailPassword?.email) {
+    if (!emailPassword.email) {
       toast.error("Please fill out all required fields.");
       dispatch(mainLoad(false));
       return;
     }
 
-    const data = await api.getUserData({ user_id: emailPassword?.email });
+    const data = await api.getUserData({ user_id: emailPassword.email });
 
     if (!data?.user) {
       toast.error("User not found.");
@@ -50,14 +58,15 @@ export default function ForgotPass(props: any) {
       return;
     }
 
-    sendPasswordResetEmail(auth, emailPassword?.email)
+    sendPasswordResetEmail(auth, emailPassword.email)
       .then((res) => {
         setEnterNewPass(true);
         toast.success("Password reset email sent.");
         setEmailDialogShow(true);
         dispatch(mainLoad(false));
       })
-      .catch((error: any) => {
+      .catch((error) => {
+        consoleLog("sendPasswordResetEmail: ", error);
         toast.error(error.message);
         dispatch(mainLoad(false));
       });
@@ -65,7 +74,7 @@ export default function ForgotPass(props: any) {
 
   const handleSignIn = async () => {
     dispatch(mainLoad(true));
-    if (!emailPassword?.email || !emailPassword?.password) {
+    if (!emailPassword.email || !emailPassword.password) {
       toast.error("Please fill out all required fields.");
       dispatch(mainLoad(false));
       return;
@@ -79,16 +88,18 @@ export default function ForgotPass(props: any) {
       );
 
       toast.success("Success Login");
-      authCookiesSet(userCredential?.user?.uid);
+      authCookiesSet(userCredential.user?.uid || "");
       setTimeout(() => {
         window.location.reload();
       }, 100);
       dispatch(mainLoad(false));
     } catch (error: any) {
+      consoleLog("signInWithEmailAndPassword: ", error);
       dispatch(mainLoad(false));
       toast.error(error?.code.split("auth/")[1]);
     }
   };
+
   return (
     <div>
       <DialogTitle
@@ -119,7 +130,7 @@ export default function ForgotPass(props: any) {
             A Verification Reset Password has been sent to:
           </Typography>
           <Typography sx={{ fontSize: "15px", textAlign: "center" }}>
-            {emailPassword?.email}
+            {emailPassword.email}
           </Typography>
         </div>
       )}
@@ -136,8 +147,8 @@ export default function ForgotPass(props: any) {
             }}
           >
             <Typography sx={{ opacity: "0.7", textAlign: "center", mt: 2 }}>
-              Check your email <strong>{emailPassword?.email}</strong> and
-              create a new password and enter that password here
+              Check your email <strong>{emailPassword.email}</strong> and create
+              a new password and enter that password here
             </Typography>
           </DialogContentText>
         ) : (
@@ -157,7 +168,7 @@ export default function ForgotPass(props: any) {
           {emailDialogShow ? (
             <Password
               label="New Password"
-              onChange={(e: any) =>
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmailPassword({
                   ...emailPassword,
                   password: e.target.value,
@@ -167,8 +178,8 @@ export default function ForgotPass(props: any) {
           ) : (
             <Input
               label="Email"
-              value={emailPassword?.email}
-              onChange={(e: any) =>
+              value={emailPassword.email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmailPassword({
                   ...emailPassword,
                   email: e.target.value,
@@ -195,23 +206,6 @@ export default function ForgotPass(props: any) {
             onClick={handleSignIn}
           >
             Sign in
-          </Button>
-        ) : process ? (
-          <Button
-            sx={{
-              textTransform: "unset",
-              fontSize: "14px",
-              fontWeight: "400",
-              color: "white",
-              whiteSpace: "nowrap",
-              opacity: "1",
-              width: "100%",
-              borderRadius: "8px",
-              padding: "12px 10px",
-            }}
-            className="bg_linear"
-          >
-            Send email
           </Button>
         ) : (
           <Button

@@ -4,12 +4,17 @@ import { AccordionDetails, Box, Button, Typography } from "@mui/material";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import { styled } from "@mui/material/styles";
 import dynamic from "next/dynamic";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const AccordionSummaryComponent = dynamic(
   () => import("@mui/material/AccordionSummary"),
   { ssr: false }
 );
+
+interface FaqsBoxProps {
+  heading: string;
+  text: string | Element | any;
+}
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -22,9 +27,9 @@ const Accordion = styled((props: AccordionProps) => (
   },
 }));
 
-export default function FaqsBox(props: any) {
+export default function FaqsBox(props: FaqsBoxProps) {
   const [open, setOpen] = useState<boolean>(false);
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {

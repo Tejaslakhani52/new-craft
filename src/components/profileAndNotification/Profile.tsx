@@ -1,5 +1,6 @@
 import api from "@/src/clientApi/api";
-import { UserProfileType } from "@/src/interface/commonType";
+import { consoleLog } from "@/src/commonFunction/console";
+import { User } from "@/src/interface/user";
 import { authCookiesGet, userPremium } from "@/src/redux/action/AuthToken";
 import {
   customerId,
@@ -21,8 +22,8 @@ export default function Profile() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
-  const [userProfile, setUserProfile] = useState<UserProfileType | any>(null);
-  const [imageBaseUrl, setImageBaseUrl] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
+  const [imageBaseUrl, setImageBaseUrl] = useState<string | null>(null);
 
   const handleClick = (event: React.MouseEvent<any> | any) => {
     setAnchorEl(event.currentTarget);
@@ -39,14 +40,23 @@ export default function Profile() {
         setUserProfile(user);
         dispatch(customerId(user?.stripe_cus_id));
       })
-      .catch((error) => {});
+      .catch((error) => {
+        consoleLog("getUserData: ", error);
+      });
   }, []);
 
   const ProfileImage = () => {
-    return userProfile?.photo_uri !== "null" && userProfile?.photo_uri ? (
-      userProfile?.photo_uri.includes("googleusercontent") ? (
+    const hasPhotoUri =
+      userProfile?.photo_uri && userProfile?.photo_uri !== "null";
+    const photoUri =
+      hasPhotoUri && userProfile?.photo_uri.includes("googleusercontent")
+        ? userProfile?.photo_uri
+        : `${imageBaseUrl}${userProfile?.photo_uri}`;
+
+    if (hasPhotoUri) {
+      return (
         <img
-          src={`${userProfile?.photo_uri}`}
+          src={photoUri}
           alt="Selected file preview"
           style={{
             width: "100%",
@@ -54,35 +64,27 @@ export default function Profile() {
             objectFit: "cover",
           }}
         />
-      ) : (
-        <img
-          src={`${imageBaseUrl}${userProfile?.photo_uri}`}
-          alt="Selected file preview"
+      );
+    } else {
+      return (
+        <p
           style={{
+            background:
+              "linear-gradient(268.03deg, #5961F8 -0.66%, #5961F8 -0.65%, #497DEC 22.41%, #15D8C5 100%, #15D8C5 100%)",
+            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             width: "100%",
             height: "100%",
-            objectFit: "cover",
+            fontSize: "23px",
+            textTransform: "capitalize",
           }}
-        />
-      )
-    ) : (
-      <p
-        style={{
-          background:
-            "linear-gradient(268.03deg, #5961F8 -0.66%, #5961F8 -0.65%, #497DEC 22.41%, #15D8C5 100%, #15D8C5 100%)",
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          height: "100%",
-          fontSize: "23px",
-          textTransform: "capitalize",
-        }}
-      >
-        {userProfile?.name?.charAt(0)}
-      </p>
-    );
+        >
+          {userProfile?.name?.charAt(0)}
+        </p>
+      );
+    }
   };
 
   return (

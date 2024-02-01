@@ -1,17 +1,16 @@
 import Icons from "@/src/assets";
 import { calculateHeight } from "@/src/commonFunction/calculateHeight";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
-import { DataType } from "@/src/interface/searchTemplateType";
+import { TemplateDataType } from "@/src/interface/commonType";
 import { modalClosePath } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { isMobile } from "react-device-detect";
 
 interface ImageBoxesProps {
-  templates: DataType;
+  templates: TemplateDataType;
   uniqueCat: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setIdName: React.Dispatch<React.SetStateAction<string>>;
@@ -28,14 +27,14 @@ export default function ImageBox({
   const dispatch = useDispatch();
   const router = useRouter();
   const screenWidth = useScreenWidth();
-  const [currentIndex, setCurrentIndex] = useState<any>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
   useEffect(() => {
     if (isHovered) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex(
-          (prevIndex: any) => (prevIndex + 1) % templates?.thumbArray.length
+          (prevIndex: number) => (prevIndex + 1) % templates?.thumbArray.length
         );
       }, 1300);
     } else {
@@ -125,7 +124,7 @@ export default function ImageBox({
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              {templates?.thumbArray.map((image: any, index: number) => (
+              {templates?.thumbArray.map((image: string, index: number) => (
                 <div
                   className="bg-slate-200 flex justify-center w-full h-full rounded-[4px] carousel-slide"
                   key={index}
@@ -141,22 +140,12 @@ export default function ImageBox({
                       height: "auto",
                       width: "auto",
                     }}
-                    onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+                    onLoad={(e) =>
+                      (e.target as HTMLImageElement).classList.remove(
+                        "opacity-0"
+                      )
+                    }
                   />
-                  {/* <div
-                    className={` w-[auto] ${
-                      uniqueCat ? "h-[100%]" : ""
-                    }  mx-auto rounded-[4px]  `}
-                  >
-                    <Image
-                      src={`${image}`}
-                      width={150}
-                      height={150}
-                      style={{ width: "100%", height: "100%" }}
-                      alt={image}
-                      decoding="async"
-                    />
-                  </div> */}
                 </div>
               ))}
             </div>

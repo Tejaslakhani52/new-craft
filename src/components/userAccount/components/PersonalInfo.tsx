@@ -1,5 +1,4 @@
 import api from "@/src/clientApi/api";
-import { UserProfileType } from "@/src/interface/commonType";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -7,10 +6,11 @@ import { setPurchaseItems } from "@/src/redux/reducer/AuthDataReducer";
 import { useDispatch } from "react-redux";
 import { authCookiesGet } from "@/src/redux/action/AuthToken";
 import { consoleLog } from "@/src/commonFunction/console";
+import { User } from "@/src/interface/user";
 
 interface AccountDetailType {
-  name: string;
-  user_id: string;
+  name: string | undefined;
+  user_id: string | undefined;
   updateDp: number | any;
   photo_uri: string | any;
 }
@@ -18,8 +18,8 @@ interface AccountDetailType {
 export default function PersonalInfo() {
   const dispatch = useDispatch();
   const uid = authCookiesGet();
-  const [removeImage, setRemoveImage] = useState<any>(false);
-  const [userProfile, setUserProfile] = useState<UserProfileType | any>(null);
+  const [removeImage, setRemoveImage] = useState<boolean>(false);
+  const [userProfile, setUserProfile] = useState<User | null>(null);
   const [imageBaseUrl, setImageBaseUrl] = useState<string>("");
   const [imagePreview, setImagePreview] = useState<string>("");
   const [editNameInput, setEditNameInput] = useState<boolean>(false);
@@ -44,7 +44,7 @@ export default function PersonalInfo() {
       const file = event.target.files[0];
 
       if (file) {
-        const imageUrl: any = URL.createObjectURL(file);
+        const imageUrl: string = URL.createObjectURL(file);
         setImagePreview(imageUrl);
         setAccountDetail({ ...accountDetail, photo_uri: file, updateDp: 1 });
       }
@@ -77,16 +77,16 @@ export default function PersonalInfo() {
   const updateFetchData = () => {
     setLoading(true);
     const sendData = {
-      name: accountDetail?.name,
-      updateDp: accountDetail.updateDp,
-      photo_uri: accountDetail?.photo_uri,
+      name: accountDetail?.name ?? "",
+      updateDp: accountDetail.updateDp ?? "",
+      photo_uri: accountDetail?.photo_uri ?? "",
     };
 
     setLoading(true);
 
     api
       .updateUser(sendData)
-      .then((res) => {
+      .then(() => {
         setTimeout(() => {
           fetchData();
           toast.success("User updated successfully");
@@ -95,6 +95,7 @@ export default function PersonalInfo() {
         }, 1000);
       })
       .catch((error) => {
+        consoleLog("updateUser: ", error);
         setLoading(false);
       });
   };

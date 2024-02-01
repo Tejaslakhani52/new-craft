@@ -1,17 +1,17 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import {
   useScreenHeight,
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
 import ImageBox from "@/src/components/common/ImageBox";
-import { DataType } from "@/src/interface/searchTemplateType";
+import { TemplateDataType } from "@/src/interface/commonType";
 import { Box, Skeleton, Typography } from "@mui/material";
+import { debounce } from "lodash";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import StackGrid from "react-stack-grid";
-import { debounce } from "lodash";
-import { consoleLog } from "@/src/commonFunction/console";
 
 const TemplateModal = dynamic(
   () => import("@/src/components/singleTemplate/TemplateModal")
@@ -19,16 +19,16 @@ const TemplateModal = dynamic(
 
 export default function searchValue() {
   const router = useRouter();
-  const searchName: any = router?.query?.searchValue;
+  const searchName: string | any = router?.query?.searchValue;
   const formattedSearchName = searchName?.replace(/-/g, " ");
   const screenWidth = useScreenWidth();
   const screenHeight = useScreenHeight();
-  const [data, setData] = useState<DataType | any>([]);
+  const [data, setData] = useState<TemplateDataType[]>([]);
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [openModal, setOpenModal] = useState(false);
-  const [idName, setIdName] = useState<any>("");
+  const [idName, setIdName] = useState<string>("");
   const [notFound, setNotFound] = useState<boolean>(false);
 
   const getSearchList = (pages: number) => {
@@ -38,10 +38,10 @@ export default function searchValue() {
         keywords: formattedSearchName,
         page: pages,
       })
-      .then((response: any) => {
+      .then((response) => {
         if (response?.datas) {
           if (response?.datas?.length > 0) {
-            setData((prevData: any) => [
+            setData((prevData) => [
               ...(prevData || []),
               ...(Array.isArray(response?.datas) ? response?.datas : []),
             ]);
@@ -54,7 +54,7 @@ export default function searchValue() {
         setIsLastPage(response?.isLastPage);
         setLoading(false);
       })
-      .catch((error: any) => {
+      .catch((error) => {
         consoleLog("searchTemplate: ", error);
         setNotFound(true);
       });
@@ -169,7 +169,7 @@ export default function searchValue() {
 
         <Box sx={{ display: notFound ? "none" : "block" }}>
           <StackGrid columnWidth={screenWidth / multiSizeFixSize} duration={0}>
-            {data?.map((templates: any, index: number) => (
+            {data?.map((templates, index) => (
               <ImageBox
                 key={index}
                 templates={templates}

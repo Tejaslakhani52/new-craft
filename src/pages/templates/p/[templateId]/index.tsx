@@ -19,7 +19,11 @@ import { useRouter } from "next/router";
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
-import { isMobile } from "react-device-detect";
+import { isMobile, isTablet } from "react-device-detect";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { SingleTempType } from "@/src/interface/getSingleTempType";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { RootState } from "@/src/redux";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const ShowPremiumDialog = dynamic(
@@ -40,7 +44,9 @@ export const IconsText = ({ image, text }: PropType) => {
   );
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   try {
     const { params } = context;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
@@ -68,14 +74,14 @@ export async function getServerSideProps(context: any) {
       notFound: true,
     };
   }
-}
+};
 
-export default function index({ templateData }: any) {
+export default function index(props: { templateData: SingleTempType }) {
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
-  const [token, setToken] = React.useState<any>(null);
-  const [anotherData, setAnotherData] = React.useState<any>([]);
+  const [token, setToken] = React.useState<string | null>(null);
+  const [anotherData, setAnotherData] = React.useState<TemplateDataType[]>([]);
   const screenWidth = useScreenWidth();
   const [idName, setIdName] = React.useState<string>("");
   const [openModal, setOpenModal] = React.useState<boolean>(false);
@@ -87,7 +93,7 @@ export default function index({ templateData }: any) {
   const [loading, setLoading] = React.useState<boolean>(true);
 
   const purchaseItems = useSelector(
-    (state: any) => state.auth.setPurchaseItems
+    (state: RootState) => state.auth.setPurchaseItems
   );
 
   React.useEffect(() => {
@@ -100,9 +106,9 @@ export default function index({ templateData }: any) {
     api
       .searchTemplate({
         keywords:
-          templateData?.tags?.[0] === "Poster"
-            ? templateData?.tags?.[1]
-            : templateData?.tags?.[0],
+          props.templateData?.tags?.[0] === "Poster"
+            ? props.templateData?.tags?.[1]
+            : props.templateData?.tags?.[0],
         page: 1,
       })
       .then((res) => {
@@ -112,17 +118,17 @@ export default function index({ templateData }: any) {
       .catch((err) => {
         consoleLog("searchTemplate: ", err);
       });
-  }, [templateData]);
+  }, [props.templateData]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
 
   React.useEffect(() => {
-    setShowImage(templateData?.thumbArray?.[0]);
-  }, [templateData]);
+    setShowImage(props.templateData?.thumbArray?.[0]);
+  }, [props.templateData]);
 
-  var templateIds: any;
+  var templateIds: string;
   if (typeof window !== "undefined" && !openModal) {
     const pathSegments = window.location.pathname.split("/");
     templateIds = pathSegments[pathSegments.length - 1];
@@ -186,8 +192,8 @@ export default function index({ templateData }: any) {
     <Box className="px-[40px] max-sm:px-[10px] py-2">
       <CustomHead
         image={showImage}
-        heading={templateData?.template_name}
-        text={`Design with ${templateData?.template_name}: Ignite Your Imagination, Create Unique Art, and Inspire Awe. Start Design Crafting Today with Crafty Art!`}
+        heading={props.templateData?.template_name}
+        text={`Design with ${props.templateData?.template_name}: Ignite Your Imagination, Create Unique Art, and Inspire Awe. Start Design Crafting Today with Crafty Art!`}
       />
 
       <Box>
@@ -197,7 +203,7 @@ export default function index({ templateData }: any) {
               {imageLoaded && showImage ? (
                 <img
                   src={showImage}
-                  alt={templateData?.template_name}
+                  alt={props.templateData?.template_name}
                   className=" h-[430px] w-auto max-sm:w-auto  max-sm:h-auto max-sm:max-h-[400px] rounded-[4px]"
                   style={{ border: "1px solid #80808059" }}
                 />
@@ -208,7 +214,7 @@ export default function index({ templateData }: any) {
               <img
                 onLoad={handleImageLoad}
                 src={showImage}
-                alt={templateData?.template_name}
+                alt={props.templateData?.template_name}
                 style={{ display: "none" }}
               />
             </Box>
@@ -217,7 +223,7 @@ export default function index({ templateData }: any) {
               className="relative"
               sx={{
                 display:
-                  templateData?.thumbArray?.length > 1 ? "block" : "none",
+                  props.templateData?.thumbArray?.length > 1 ? "block" : "none",
               }}
             >
               <Box
@@ -238,29 +244,31 @@ export default function index({ templateData }: any) {
                     </button>
                   </Box>
                 )}
-                {templateData?.thumbArray?.map((image: any, index: number) => (
-                  <Box
-                    key={index}
-                    className="cursor-pointer rounded-[4px] mx-[5px]"
-                    sx={{
-                      border:
-                        showImage === image
-                          ? "2px solid #2ec6b8"
-                          : "2px solid #ffff",
-                    }}
-                    onClick={() => setShowImage(image)}
-                  >
-                    <Box className="w-[80px]">
-                      <img
-                        src={`/api/image/compress?url=${encodeURIComponent(
-                          image
-                        )}`}
-                        alt={templateData?.template_name}
-                        className="h-auto rounded-[4px]"
-                      />
+                {props.templateData?.thumbArray?.map(
+                  (image: string, index: number) => (
+                    <Box
+                      key={index}
+                      className="cursor-pointer rounded-[4px] mx-[5px]"
+                      sx={{
+                        border:
+                          showImage === image
+                            ? "2px solid #2ec6b8"
+                            : "2px solid #ffff",
+                      }}
+                      onClick={() => setShowImage(image)}
+                    >
+                      <Box className="w-[80px]">
+                        <img
+                          src={`/api/image/compress?url=${encodeURIComponent(
+                            image
+                          )}`}
+                          alt={props.templateData?.template_name}
+                          className="h-auto rounded-[4px]"
+                        />
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
+                  )
+                )}
                 {showNextButton && (
                   <Box>
                     <button
@@ -278,18 +286,18 @@ export default function index({ templateData }: any) {
 
           <Box className="w-[33%] max-2md:w-full">
             <h1 className="text-[#1C3048] text-[24px] max-sm:text-[20px] font-[500] mb-3">
-              {templateData?.template_name}
+              {props.templateData?.template_name}
             </h1>
 
             <Typography className="text-[#ABB2C7] text-[15px] mb-4">
-              {templateData?.category_size}
+              {props.templateData?.category_size}
             </Typography>
 
             <Box>
               <Box>
                 <button
                   onClick={() => {
-                    if (isMobile) {
+                    if (isMobile || isTablet) {
                       window.open(
                         "https://play.google.com/store/apps/details?id=com.crafty.art"
                       );
@@ -300,17 +308,17 @@ export default function index({ templateData }: any) {
                       return;
                     }
                     if (
-                      templateData?.is_premium &&
+                      props.templateData?.is_premium &&
                       !userPremiumGet() &&
                       !isPurchased(purchaseItems, {
-                        id: templateData?.string_id,
+                        id: props.templateData?.string_id,
                         type: 0,
                       })
                     ) {
                       setShowPremiumBox(true);
                     } else
                       window.open(
-                        `https://editor.craftyartapp.com/${templateData?.id_name}`
+                        `https://editor.craftyartapp.com/${props.templateData?.id_name}`
                       );
                   }}
                   className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
@@ -319,7 +327,7 @@ export default function index({ templateData }: any) {
                       "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
                   }}
                 >
-                  {templateData?.is_premium && (
+                  {props.templateData?.is_premium && (
                     <span className="w-[22px] ml-[8px]">
                       <Icons.pricingIcon svgProps={{ width: 22, height: 21 }} />
                     </span>
@@ -332,7 +340,7 @@ export default function index({ templateData }: any) {
             <div className="py-4">
               <IconsText
                 image={<Icons.tModalCustomizeIcon svgProps={{ width: 20 }} />}
-                text={`Customize ${templateData?.category_name} with our online editing tool`}
+                text={`Customize ${props.templateData?.category_name} with our online editing tool`}
               />
               <IconsText
                 image={<Icons.tModalSmartphoneIcon svgProps={{ width: 20 }} />}
@@ -343,7 +351,7 @@ export default function index({ templateData }: any) {
                 text="Share and publish anywhere"
               />
 
-              {templateData?.is_premium && (
+              {props.templateData?.is_premium && (
                 <IconsText
                   image={<Icons.premiumIcon svgProps={{ width: 20 }} />}
                   text="This Template contains paid elements"
@@ -377,13 +385,13 @@ export default function index({ templateData }: any) {
             >
               {anotherData
                 ?.filter(
-                  (t: any) => t.template_id !== templateData?.template_id
+                  (t) => t.template_id !== props.templateData?.template_id
                 )
-                ?.map((templates: any, index: number) => (
+                ?.map((templates, index) => (
                   <Link
                     key={index}
                     href={`/templates/p/${templates.id_name}`}
-                    onClick={(e: any) => {
+                    onClick={(e) => {
                       e.preventDefault();
                     }}
                   >
@@ -445,8 +453,10 @@ export default function index({ templateData }: any) {
                             style={{
                               transition: "0.5s all",
                             }}
-                            onLoad={(e: any) =>
-                              e.target.classList.remove("opacity-0")
+                            onLoad={(e) =>
+                              (e.target as HTMLImageElement).classList.remove(
+                                "opacity-0"
+                              )
                             }
                           />
                         </div>
@@ -458,11 +468,11 @@ export default function index({ templateData }: any) {
           </Box>
           <Box className="my-[50px] w-[80%] mx-auto px-[30px]  max-sm:w-full">
             <h2 className="text-[26px] max-sm:text-[23px] text-center text-[#1C3048] font-semibold mb-3">
-              {templateData?.h2_tag}
+              {props.templateData?.h2_tag}
             </h2>
 
             <Typography className="text-[15px] whitespace-pre-line	text-justify">
-              {templateData?.description}
+              {props.templateData?.description}
             </Typography>
           </Box>
         </Box>
@@ -480,12 +490,12 @@ export default function index({ templateData }: any) {
         open={showPremiumBox}
         setOpen={setShowPremiumBox}
         tempData={{
-          id: templateData?.string_id,
+          id: props.templateData?.string_id,
           type: 0,
-          usdAmount: templateData?.usdAmount,
-          usdVal: templateData?.usdVal,
-          inrAmount: templateData?.inrAmount,
-          inrVal: templateData?.inrVal,
+          usdAmount: props.templateData?.payment?.usdAmount,
+          usdVal: props.templateData?.payment?.usdVal,
+          inrAmount: props.templateData?.payment?.inrAmount,
+          inrVal: props.templateData?.payment?.inrVal,
         }}
       />
     </Box>

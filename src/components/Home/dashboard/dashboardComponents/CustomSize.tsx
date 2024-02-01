@@ -6,11 +6,11 @@ import toast from "react-hot-toast";
 
 export default function CustomSize() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [height, setHeight] = useState<any>(0);
-  const [width, setWidth] = useState<any>(0);
+  const [height, setHeight] = useState<number | any>(0);
+  const [width, setWidth] = useState<number | any>(0);
   const [lockAspectRatio, setLockAspectRatio] = useState<boolean>(false);
-  const [enterHeight, setEnterHeight] = useState<any>(0);
-  const [enterWidth, setEnterWidth] = useState<any>(0);
+  const [enterHeight, setEnterHeight] = useState<number | any>(0);
+  const [enterWidth, setEnterWidth] = useState<number | any>(0);
 
   const open = Boolean(anchorEl);
 

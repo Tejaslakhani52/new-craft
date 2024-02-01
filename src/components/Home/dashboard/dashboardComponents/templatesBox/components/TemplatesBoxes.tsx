@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 import ImageBox from "./ImageBox";
+import { TemplateDataType } from "@/src/interface/commonType";
 
 interface TemplatesBoxesProps {
   item: DashboardDataType;
@@ -97,17 +98,19 @@ export default function TemplatesBoxes({
             </button>
           </Box>
         )}
-        {item?.template_model?.map((templates: any, index: number) => (
-          <div key={index}>
-            <ImageBox
-              templates={templates}
-              uniqueCat={uniqueCat}
-              height={height}
-              setIdName={setIdName}
-              setOpenModal={setOpenModal}
-            />
-          </div>
-        ))}
+        {item?.template_model?.map(
+          (templates: TemplateDataType, index: number) => (
+            <div key={index}>
+              <ImageBox
+                templates={templates}
+                uniqueCat={uniqueCat}
+                height={height}
+                setIdName={setIdName}
+                setOpenModal={setOpenModal}
+              />
+            </div>
+          )
+        )}
         {showNextButton && (
           <Box>
             <button

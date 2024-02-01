@@ -6,8 +6,9 @@ import {
   Visa,
   JCB,
 } from "@/src/assets/commonIcon";
+
 export function getCardIconSvg(brand: string) {
-  const cards: any = {
+  const cards: Record<string, any> = {
     visa: Visa,
     mastercard: Mastercard,
     amex: Amex,

@@ -8,7 +8,7 @@ import {
 } from "@/src/commonFunction/screenWidthHeight";
 import { RazorpayPage } from "@/src/components/payment/Razorpay";
 import Stripe from "@/src/components/payment/Stripe";
-import { PackageList } from "@/src/interface/currentPlane";
+import { PackageData } from "@/src/interface/pricePlan";
 import { authCookiesGet } from "@/src/redux/action/AuthToken";
 import {
   _paf,
@@ -35,7 +35,7 @@ const QuestionsTitle = dynamic(
 );
 const DialogModal = dynamic(() => import("@/src/components/common/DialogBox"));
 
-export const MarkTextRight = ({ text }: any) => {
+export const MarkTextRight = (props: { text: string }) => {
   return (
     <Box sx={{ display: "flex", gap: "10px", alignItems: "center", mb: "9px" }}>
       <Icons.rightMarkGreenIcon svgProps={{ width: 18 }} />
@@ -43,13 +43,13 @@ export const MarkTextRight = ({ text }: any) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[15px] max-sm:text-[14px]"
       >
-        {text}
+        {props.text}
       </Typography>
     </Box>
   );
 };
 
-export const MarkTextWrong = ({ text }: any) => {
+export const MarkTextWrong = (props: { text: string }) => {
   return (
     <Box sx={{ display: "flex", gap: "10px", alignItems: "center", mb: "9px" }}>
       <Icons.wrongMarkRedIcon svgProps={{ width: 18 }} />
@@ -57,18 +57,18 @@ export const MarkTextWrong = ({ text }: any) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[15px] max-sm:text-[14px]"
       >
-        {text}
+        {props.text}
       </Typography>
     </Box>
   );
 };
 
-export const IconsText = ({ text, image }: any) => {
+export const IconsText = (props: { text: string; image: string }) => {
   return (
     <Box className="flex items-center w-[33%] max-sm:w-[98%] mb-8 gap-2 max-sm:pl-[20px]">
-      <img src={image} alt={text} className="w-[30px]" />
+      <img src={props.image} alt={props.text} className="w-[30px]" />
 
-      <Typography className="mt-[3px]">{text}</Typography>
+      <Typography className="mt-[3px]">{props.text}</Typography>
     </Box>
   );
 };
@@ -97,12 +97,12 @@ export default function index() {
   const router = useRouter();
   const uId = authCookiesGet();
   const [planeType, setPlaneType] = useState<string>("monthly");
-  const [pricePlaneData, setPricePlaneData] = useState<PackageList>([]);
+  const [pricePlaneData, setPricePlaneData] = useState<PackageData[]>([]);
   const [userCountryCode, setUserCountryCode] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [priceShowData, setPriceShowData] = useState<any>();
-  const [choosePlan, setChoosePlan] = useState<any>();
-  const [endDate, setEndDate] = useState<any>("");
+  const [priceShowData, setPriceShowData] = useState<PackageData | null>(null);
+  const [choosePlan, setChoosePlan] = useState<PackageData | null>(null);
+  const [endDate, setEndDate] = useState<string>("");
   const [openPriceDialog, setOpenPriceDialog] = useState<boolean>(false);
   const scrollContainerRef: React.RefObject<HTMLInputElement> | any =
     useRef(null);
@@ -123,7 +123,7 @@ export default function index() {
     api
       .getIp()
       .then((res) => {
-        api.getCountryCode({ ip: res?.ip }).then((res: any) => {
+        api.getCountryCode({ ip: res?.ip }).then((res) => {
           setUserCountryCode(res?.countryCode);
 
           api
@@ -1002,7 +1002,7 @@ export default function index() {
             </Typography>
 
             <Box className="mt-[20px]">
-              {pricePlaneData?.map((item: any, index: number) => (
+              {pricePlaneData?.map((item, index) => (
                 <Box
                   key={index}
                   className="flex items-start mb-3 cursor-pointer"

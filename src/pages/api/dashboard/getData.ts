@@ -21,7 +21,7 @@ export default async function handler(
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const apiKey = process.env.NEXT_PUBLIC_KEY;
 
-    const response = await axios.post<any>(`${apiUrl}/templates/api/getDatas`, {
+    const response = await axios.post(`${apiUrl}/templates/api/getDatas`, {
       key: `${apiKey}`,
       page: 1,
       count: 0,

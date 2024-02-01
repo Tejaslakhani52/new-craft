@@ -6,8 +6,10 @@ import {
   useScreenHeight,
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
+import { TemplateDataType } from "@/src/interface/commonType";
 import { SingleTempType } from "@/src/interface/getSingleTempType";
-import { DataType, SearchTempType } from "@/src/interface/searchTemplateType";
+import { SearchTempType } from "@/src/interface/searchTemplateType";
+import { RootState } from "@/src/redux";
 import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
 import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Skeleton, Typography } from "@mui/material";
@@ -18,6 +20,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
 import ShowPremiumDialog from "../templatePayment/ShowPremiumDialog";
+import { consoleLog } from "@/src/commonFunction/console";
 
 interface PropType {
   image: string | any;
@@ -71,7 +74,7 @@ export default function TemplateModal({
   const router = useRouter();
   const containerId = `slider`;
   const dispatch = useDispatch();
-  const [token, setToken] = React.useState<any>();
+  const [token, setToken] = React.useState<string | null>(null);
   const screenWidth = useScreenWidth();
   const screenHeight = useScreenHeight();
   const [anotherData, setAnotherData] = React.useState<SearchTempType[] | any>(
@@ -81,18 +84,16 @@ export default function TemplateModal({
   const [template, setTemplate] = React.useState<SingleTempType | any>({});
   const [anotherTempLoad, setAnotherTempLoad] = useState<boolean>(true);
   const [showImage, setShowImage] = useState<string>("");
-  const [userPremium, setUserPremium] = useState<any>();
   const [showPremiumBox, setShowPremiumBox] = useState<boolean>(false);
   const [showPrevButton, setShowPrevButton] = React.useState(false);
   const [showNextButton, setShowNextButton] = React.useState(false);
   const purchaseItems = useSelector(
-    (state: any) => state.auth.setPurchaseItems
+    (state: RootState) => state.auth.setPurchaseItems
   );
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
       setToken(authCookiesGet());
-      setUserPremium(userPremiumGet());
     }
   }, []);
 
@@ -127,7 +128,9 @@ export default function TemplateModal({
               setAnotherTempLoad(false);
             });
         })
-        .catch((error) => {});
+        .catch((error) => {
+          consoleLog("getSingleTemplate: ", error);
+        });
     }
   }, [id, open]);
 
@@ -161,7 +164,8 @@ export default function TemplateModal({
     }
   }, [open]);
 
-  const scrollContainerRef: any = React.useRef(null);
+  const scrollContainerRef: React.RefObject<HTMLDivElement> =
+    React.useRef(null);
 
   React.useEffect(() => {
     if (scrollContainerRef.current) {
@@ -295,7 +299,7 @@ export default function TemplateModal({
                         </Box>
                       )}
                       {template?.thumbArray?.map(
-                        (image: any, index: number) => (
+                        (image: string, index: number) => (
                           <Box
                             key={index}
                             className="cursor-pointer rounded-[4px] mx-[5px]"
@@ -478,9 +482,10 @@ export default function TemplateModal({
                   <StackGrid columnWidth={screenWidth / multiSizeFixSize}>
                     {anotherData?.datas
                       ?.filter(
-                        (t: any) => t.template_id !== template?.template_id
+                        (t: TemplateDataType) =>
+                          t.template_id !== template?.template_id
                       )
-                      ?.map((templates: DataType, index: number) => (
+                      ?.map((templates: TemplateDataType, index: number) => (
                         <Link
                           key={index}
                           href={`/templates/p/${templates.id_name}`}
@@ -526,20 +531,6 @@ export default function TemplateModal({
                                   border: "1px solid #80808082",
                                 }}
                               />
-
-                              {/* <Image
-                                src={templates?.template_thumb}
-                                alt={templates?.category_name}
-                                width={150}
-                                height={150}
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  borderRadius: "5px",
-                                  cursor: "pointer",
-                                  border: "1px solid #80808082",
-                                }}
-                              /> */}
                             </div>
                           </div>
                         </Link>
@@ -559,10 +550,10 @@ export default function TemplateModal({
           tempData={{
             id: template?.string_id,
             type: 0,
-            usdAmount: template?.usdAmount,
-            usdVal: template?.usdVal,
-            inrAmount: template?.inrAmount,
-            inrVal: template?.inrVal,
+            usdAmount: template?.payment?.usdAmount,
+            usdVal: template?.payment?.usdVal,
+            inrAmount: template?.payment?.inrAmount,
+            inrVal: template?.payment?.inrVal,
           }}
         />
       )}

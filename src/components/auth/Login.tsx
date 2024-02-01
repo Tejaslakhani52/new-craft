@@ -1,21 +1,26 @@
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import { useTheme } from "@mui/material/styles";
+import React, { useState, useEffect } from "react";
+import { Button, Dialog, useTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import * as React from "react";
 import LoginContentBox from "./authComponents/LoginContentBox";
 import ForgotPass from "./authComponents/ForgotPass";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 
-export default function Login(props: any) {
+interface LoginProps {
+  openLogin: boolean;
+  openSignUp: boolean;
+  setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+  width?: boolean;
+}
+
+export default function Login(props: LoginProps) {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [forgot, setForgot] = useState<boolean>(false);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  const [forgot, setForgot] = useState<boolean>(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,11 +32,11 @@ export default function Login(props: any) {
     props.setOpenLogin(false);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     setOpen(props.openLogin);
   }, [props.openLogin]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const htmlStyleElement = document.getElementById("html_style");
 
     if (htmlStyleElement) {

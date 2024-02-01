@@ -1,8 +1,12 @@
 import { dateFormate } from "@/src/commonFunction/dateFormate";
+import { PackageData } from "@/src/interface/pricePlan";
+import { CurrentPlanProps, PurchaseHistoryItem } from "@/src/interface/user";
 import { Box, Typography } from "@mui/material";
 import Head from "next/head";
 
-export default function PaymentHistory({ userSubscription }: any) {
+export default function PaymentHistory(props: {
+  userSubscription: CurrentPlanProps | null;
+}) {
   return (
     <>
       <Head>
@@ -31,41 +35,43 @@ export default function PaymentHistory({ userSubscription }: any) {
               </tr>
             </thead>
             <tbody>
-              {userSubscription?.history === "No History exist." ? (
+              {props.userSubscription?.history === "No History exist." ? (
                 <div className=" w-full p-[24px] text-[16px]">
                   No History Exist.
                 </div>
               ) : (
-                userSubscription?.hasHistory &&
-                userSubscription?.history?.map((item: any, index: any) => (
-                  <tr key={index} className="bg-[#F4F7FE] border-b ">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item?.package_name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item?.transaction_id}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {dateFormate(item?.purchase_date)}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item?.amount}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {item?.status === "Active" ? (
-                        <i
-                          className="fa-solid fa-check"
-                          style={{ color: "green", fontSize: "20px" }}
-                        />
-                      ) : (
-                        <i
-                          className="fa-solid fa-xmark"
-                          style={{ color: "red", fontSize: "20px" }}
-                        ></i>
-                      )}
-                    </td>
-                  </tr>
-                ))
+                props.userSubscription?.hasHistory &&
+                props.userSubscription?.history?.map(
+                  (item: PurchaseHistoryItem, index: number) => (
+                    <tr key={index} className="bg-[#F4F7FE] border-b ">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item?.package_name}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item?.transaction_id}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {dateFormate(item?.purchase_date)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item?.amount}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {item?.status === "Active" ? (
+                          <i
+                            className="fa-solid fa-check"
+                            style={{ color: "green", fontSize: "20px" }}
+                          />
+                        ) : (
+                          <i
+                            className="fa-solid fa-xmark"
+                            style={{ color: "red", fontSize: "20px" }}
+                          ></i>
+                        )}
+                      </td>
+                    </tr>
+                  )
+                )
               )}
             </tbody>
           </table>

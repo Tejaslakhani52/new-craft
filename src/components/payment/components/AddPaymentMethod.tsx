@@ -1,4 +1,5 @@
 import Icons from "@/src/assets";
+import { StripePaymentMethod } from "@/src/interface/stripePaymentMethod";
 import { Box, Button, Typography } from "@mui/material";
 import {
   AddressElement,
@@ -24,7 +25,7 @@ export const inputStyle = {
 
 interface PropsType {
   countryCode: string;
-  saveCard: any[];
+  saveCard: StripePaymentMethod[];
   mainLoading: boolean;
   setAddNewOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: () => void;

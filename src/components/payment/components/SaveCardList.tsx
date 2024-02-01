@@ -6,20 +6,14 @@ import { Box, Button, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 import { formatExpiryDate } from "../Stripe";
 import { useSelector } from "react-redux";
-
-interface Card {
-  id: string;
-  card: {
-    brand: string;
-    last4: string;
-    exp_month?: number;
-    exp_year?: number;
-  };
-}
+import { RootState } from "@/src/redux";
+import { StripePaymentMethod } from "@/src/interface/stripePaymentMethod";
 
 interface PropsType {
-  selectedDefaultCard: Card | null;
-  setSelectedDefaultCard: React.Dispatch<React.SetStateAction<Card | any>>;
+  selectedDefaultCard: StripePaymentMethod | null;
+  setSelectedDefaultCard: React.Dispatch<
+    React.SetStateAction<StripePaymentMethod | any>
+  >;
   setOpenEditCard: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDeleteCard: React.Dispatch<React.SetStateAction<boolean>>;
   setAddNewOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,7 +23,7 @@ interface PropsType {
 }
 
 export default function SaveCardList(props: PropsType) {
-  const saveCard = useSelector((state: any) => state.auth.saveCardData);
+  const saveCard = useSelector((state: RootState) => state.auth.saveCardData);
 
   return (
     <Box>
@@ -40,7 +34,7 @@ export default function SaveCardList(props: PropsType) {
       </Box>
 
       <Box className="mt-[20px]">
-        {saveCard?.map((item: any, index: number) => {
+        {saveCard?.map((item: StripePaymentMethod, index: number) => {
           let CardIconSvg = getCardIconSvg(item.card.brand);
 
           return (

@@ -16,20 +16,17 @@ export default async function handler(
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
-    const response = await axios.post<any>(
-      `${apiUrl}/templates/api/V3/createUser`,
-      {
-        key: `${accessKey}`,
-        user_id: req.body.user_id,
-        name: req.body.name,
-        email: req.body.email,
-        photo_uri: req.body.photo_uri,
-        login_type: req.body.login_type,
-        device_id: "",
-        utm_medium: "craftyart",
-        utm_source: "craftyart",
-      }
-    );
+    const response = await axios.post(`${apiUrl}/templates/api/V3/createUser`, {
+      key: `${accessKey}`,
+      user_id: req.body.user_id,
+      name: req.body.name,
+      email: req.body.email,
+      photo_uri: req.body.photo_uri,
+      login_type: req.body.login_type,
+      device_id: "",
+      utm_medium: "craftyart",
+      utm_source: "craftyart",
+    });
 
     res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {

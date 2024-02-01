@@ -1,7 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { decryptData, encryptData } from "@/src/aes-crypto";
 import { isFakeDomain } from "@/src/commonFunction/domain-checker";
+
+interface CookieValue {
+  _sdf?: string;
+  cc?: string;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -13,21 +18,34 @@ export default async function handler(
       return;
     }
 
-    const cookieValue: any = req.cookies;
-    const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
-    const accessKey = process.env.NEXT_PUBLIC_KEY;
+    const cookieValue: CookieValue = req.cookies;
+    const apiUrl: string | undefined = process.env.NEXT_PUBLIC_API_BASE_URL_2;
+    const accessKey: string | undefined = process.env.NEXT_PUBLIC_KEY;
 
-    const _sdf = decryptData(cookieValue._sdf);
-    const cc: any = decryptData(cookieValue?.cc);
+    if (!apiUrl || !accessKey) {
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    const _sdf: string | undefined = decryptData(cookieValue._sdf);
+    const cc: string | undefined = decryptData(cookieValue.cc);
+
+    if (!_sdf || !cc) {
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
 
     const form = new FormData();
-    form.append("key", `${accessKey}`);
+    form.append("key", accessKey);
     form.append("u", _sdf);
     form.append("p", decryptData(req.body._paf));
     form.append("currency", cc === "IN" ? "INR" : "USD");
     form.append("from", "Web");
 
-    const response = await axios.post(`${apiUrl}/templates/api/razorpay`, form);
+    const response: AxiosResponse = await axios.post(
+      `${apiUrl}/templates/api/razorpay`,
+      form
+    );
 
     if (response.status === 200) {
       res.status(200).json(encryptData(JSON.stringify(response.data)));

@@ -6,6 +6,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { alpha, styled } from "@mui/material/styles";
 import * as React from "react";
 
+interface CustomizedMenusProps {
+  value: string;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+}
+
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -51,16 +56,19 @@ const StyledMenu = styled((props: MenuProps) => (
 
 const data = ["px", "in", "mm", "cm"];
 
-export default function CustomizedMenus({ value, setValue }: any) {
+export default function CustomizedMenus({
+  value,
+  setValue,
+}: CustomizedMenusProps) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [select, setSelect] = React.useState<null | string>("px");
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (e: any) => {
+
+  const handleClose = () => {
     setAnchorEl(null);
-    setSelect;
   };
 
   return (

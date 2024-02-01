@@ -1,11 +1,11 @@
 import Skelton from "@/src/components/common/Skelton";
-import { ActionStateType } from "@/src/interface/stateType";
+import { RootState } from "@/src/redux";
 import { Box, Skeleton } from "@mui/material";
 import { useSelector } from "react-redux";
 
-export default function DashBoardSkelton({ height }: any) {
+export default function DashBoardSkelton(props: { height: number }) {
   const sideBarRedux = useSelector(
-    (state: ActionStateType) => state.actions.openSidebar
+    (state: RootState) => state.actions.openSidebar
   );
 
   return (
@@ -150,13 +150,13 @@ export default function DashBoardSkelton({ height }: any) {
           <Box className="flex flex-col gap-5 pb-[50px]">
             <Box className="flex items-center overflow-hidden scroll_none gap-[20px]  ">
               <Skelton
-                width={`${height}px`}
-                height={`${height}px`}
+                width={`${props.height}px`}
+                height={`${props.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
                 gap={"15px"}
-                text={"true"}
+                text
                 textH={"10px"}
                 textW={"100px"}
                 title={true}
@@ -164,13 +164,13 @@ export default function DashBoardSkelton({ height }: any) {
             </Box>
             <Box className="flex  items-center overflow-hidden scroll_none gap-[20px]  ">
               <Skelton
-                width={`${height}px`}
-                height={`${height}px`}
+                width={`${props.height}px`}
+                height={`${props.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
                 gap={"15px"}
-                text={"true"}
+                text
                 textH={"10px"}
                 textW={"100px"}
                 title={true}
@@ -178,13 +178,13 @@ export default function DashBoardSkelton({ height }: any) {
             </Box>
             <Box className="flex items-center overflow-hidden scroll_none gap-[20px] mb-5 ">
               <Skelton
-                width={`${height}px`}
-                height={`${height}px`}
+                width={`${props.height}px`}
+                height={`${props.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
                 gap={"15px"}
-                text={"true"}
+                text
                 textH={"10px"}
                 textW={"100px"}
                 title={true}

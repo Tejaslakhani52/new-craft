@@ -73,12 +73,12 @@ export default function index() {
   const router = useRouter();
   const dispatch = useDispatch();
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
-  const [selectedFile, setSelectedFile] = useState<any>("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
-  const [mainLoader, setMainLoader] = useState<any>(false);
-  const [imageTab, setImageTab] = useState<any>("after");
-  const [imagePreviewUrl, setImagePreviewUrl] = useState<any>();
-  const [token, setToken] = React.useState<any>(null);
+  const [mainLoader, setMainLoader] = useState<boolean>(false);
+  const [imageTab, setImageTab] = useState<string>("after");
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>("");
+  const [token, setToken] = React.useState<string | null>(null);
   const [value, setValue] = React.useState(0);
 
   const fileInputRef: React.RefObject<HTMLInputElement> | any = useRef(null);
@@ -97,33 +97,38 @@ export default function index() {
     } else fileInputRef.current.click();
   };
 
-  const handleFileChange = (event: React.MouseEvent<any> | any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      setSelectedFile(event.target.files[0]);
 
-    const imageUrl = URL.createObjectURL(event.target.files[0]);
-    setImagePreviewUrl(imageUrl);
+      const imageUrl = URL.createObjectURL(event.target.files[0]);
+      setImagePreviewUrl(imageUrl);
+    }
   };
 
-  const handleDragOver = (event: React.MouseEvent<any> | any) => {
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = () => {
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
     setIsDragOver(false);
   };
 
-  const handleDrop = (event: React.MouseEvent<any> | any) => {
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(false);
-    setSelectedFile(event.dataTransfer.files[0]);
+    if (event.dataTransfer.files.length > 0) {
+      setSelectedFile(event.dataTransfer.files[0]);
+    }
   };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  const [imageUrl, setImageUrl] = useState<any>(null);
+  const [imageUrl, setImageUrl] = useState<string | any>(null);
 
   useEffect(() => {
     if (selectedFile) {

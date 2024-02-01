@@ -10,7 +10,22 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-export const Product = {
+interface SubNameItem {
+  name: string;
+  path: string;
+}
+
+interface SubNameSection {
+  heading: string;
+  allName: SubNameItem[];
+}
+
+interface DataType {
+  name: string;
+  subName: SubNameSection[];
+}
+
+export const Product: DataType = {
   name: "Product",
   subName: [
     {
@@ -37,7 +52,7 @@ export const Product = {
   ],
 };
 
-export const EditorTools = {
+export const EditorTools: DataType = {
   name: "Editor tools",
   subName: [
     {
@@ -54,7 +69,7 @@ export const EditorTools = {
   ],
 };
 
-export const Templates = {
+export const Templates: DataType = {
   name: "Templates",
   subName: [
     {
@@ -89,14 +104,10 @@ export const Templates = {
     },
   ],
 };
-interface SubName {
-  heading: string;
-  allName: { name: string; path: string }[];
-}
 
 export interface BasicMenuProps {
   title: string;
-  itemName: SubName[];
+  itemName: SubNameSection[];
 }
 
 export function BasicMenu({ title, itemName }: BasicMenuProps) {
@@ -135,7 +146,7 @@ export function BasicMenu({ title, itemName }: BasicMenuProps) {
           boxShadow: "0px 5px 12px 3px rgba(0, 0, 0, 0.16)",
         }}
       >
-        {itemName?.map((data: any, index: number) => (
+        {itemName?.map((data, index) => (
           <Box className="flex flex-col" key={index}>
             <Typography
               className={`text-black font-semibold px-4 ${
@@ -144,7 +155,7 @@ export function BasicMenu({ title, itemName }: BasicMenuProps) {
             >
               {data?.heading}
             </Typography>
-            {data?.allName?.map((item: any, index: number) => (
+            {data?.allName?.map((item, index) => (
               <Link
                 key={index}
                 href={item.path}

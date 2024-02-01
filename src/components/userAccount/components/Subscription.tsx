@@ -1,8 +1,11 @@
+import { CurrentPlanProps } from "@/src/interface/user";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function Subscription({ userSubscription }: any) {
+export default function Subscription(props: {
+  userSubscription: CurrentPlanProps | null;
+}) {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const router = useRouter();
   return (
@@ -12,7 +15,9 @@ export default function Subscription({ userSubscription }: any) {
       </Typography>
       <Box
         className="pt-14  justify-center "
-        sx={{ display: !userSubscription?.hasCurrentPlan ? "flex" : "none" }}
+        sx={{
+          display: !props.userSubscription?.hasCurrentPlan ? "flex" : "none",
+        }}
       >
         <Box className="w-[600px] mx-auto flex flex-col items-center justify-center">
           <img
@@ -43,7 +48,9 @@ export default function Subscription({ userSubscription }: any) {
 
       <Box
         className="pt-[35px]"
-        sx={{ display: userSubscription?.hasCurrentPlan ? "block" : "none" }}
+        sx={{
+          display: props.userSubscription?.hasCurrentPlan ? "block" : "none",
+        }}
       >
         <Typography className="font-medium text-[16px] mb-4">
           Current Plan
@@ -53,10 +60,10 @@ export default function Subscription({ userSubscription }: any) {
           <Box className="flex items-center justify-between mb-1">
             <Box className="flex gap-2 items-end">
               <Typography className="font-semibold">
-                {userSubscription?.current?.package_name}
+                {props.userSubscription?.current?.package_name}
               </Typography>
               <Typography className="font-semibold text-[#ABB2C7] text-[14px]">
-                {userSubscription?.current?.amount}
+                {props.userSubscription?.current?.amount}
               </Typography>
             </Box>
 
@@ -72,9 +79,10 @@ export default function Subscription({ userSubscription }: any) {
             Your current plan{" "}
             <span className="font-semibold">
               {" "}
-              {userSubscription?.current?.amount}
+              {props.userSubscription?.current?.amount}
             </span>{" "}
-            is end on <span>{userSubscription?.current?.billing_date}</span>
+            is end on{" "}
+            <span>{props.userSubscription?.current?.billing_date}</span>
           </Typography>
         </Box>
       </Box>

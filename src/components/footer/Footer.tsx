@@ -1,21 +1,29 @@
-import styled from "@emotion/styled";
-import { AccordionDetails, Box, Button, Typography } from "@mui/material";
-import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
+import Icons from "@/src/assets";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Icons from "@/src/assets";
-import Link from "next/link";
-import { handleClickWhatsapp } from "../header/headerComponents/Menu";
+import {
+  Accordion,
+  AccordionDetails,
+  Box,
+  Button,
+  Typography,
+} from "@mui/material";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useState } from "react";
+import { handleClickWhatsapp } from "../header/headerComponents/Menu";
 
 const AccordionSummaryComponent = dynamic(
   () => import("@mui/material/AccordionSummary"),
   { ssr: false }
 );
 
-export const OptionButton = (props: any) => {
+interface OptionButtonProps {
+  children: React.ReactNode;
+}
+
+export const OptionButton: React.FC<OptionButtonProps> = (props) => {
   return (
     <Button
       className="mb-4 cursor-pointer text-[16px] normal-case text-white p-0 min-w-[auto] opacity-90 font-[300]"
@@ -25,20 +33,14 @@ export const OptionButton = (props: any) => {
     </Button>
   );
 };
-const Accordion = styled((props: AccordionProps) => (
-  <MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-  "&:not(:last-child)": {
-    borderBottom: 0,
-  },
-  "&:before": {
-    display: "none",
-  },
-}));
 
-export const MobileFooter = (props: any) => {
+interface MobileFooterProps {
+  heading: string;
+  button: React.ReactNode;
+}
+
+export const MobileFooter: React.FC<MobileFooterProps> = (props) => {
   const [open, setOpen] = useState<boolean>(false);
-
   const [expanded, setExpanded] = React.useState<string | false>("panel2");
 
   const handleChange =
@@ -93,7 +95,7 @@ export const MobileFooter = (props: any) => {
   );
 };
 
-export const Special = () => {
+export const Special: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -111,7 +113,7 @@ export const Special = () => {
   );
 };
 
-export const Company = () => {
+export const Company: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -119,7 +121,6 @@ export const Company = () => {
       <Link href={"/about-us"}>
         <OptionButton>About</OptionButton>
       </Link>
-      {/* <OptionButton>Career</OptionButton> */}
       <Link href={"/plans"}>
         <OptionButton>Price and plan</OptionButton>
       </Link>
@@ -133,7 +134,7 @@ export const Company = () => {
   );
 };
 
-export const Legal = () => {
+export const Legal: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -158,9 +159,7 @@ export const Legal = () => {
   );
 };
 
-export const Discover = () => {
-  const router = useRouter();
-
+export const Discover: React.FC = () => {
   return (
     <Box className="flex flex-col items-start text-white font-normal">
       <Link href={"/invitation"}>
@@ -217,55 +216,48 @@ export default function Footer() {
             <Discover />
           </Box>
 
-          <Box className="w-[100%] block sm:hidden">
-            <MobileFooter heading="Special(Industry)" button={<Special />} />
-            <MobileFooter heading="Company" button={<Company />} />
-            <MobileFooter heading="Legal" button={<Legal />} />
-            <MobileFooter heading="Discover" button={<Discover />} />
-          </Box>
-
           <Box>
             <Typography className="mb-6 text-[20px] font-medium   text-white max-sm:text-center">
               Get the free app
             </Typography>
             <Box className="flex flex-col items-start text-white font-normal max-sm:items-center">
               <Box className="cursor-pointer">
-                <a href="https://play.google.com/store/apps/details?id=com.crafty.art">
+                <Link href="https://play.google.com/store/apps/details?id=com.crafty.art">
                   <img
                     src={`${assetsUrl}/w_assets/images/playstore.png`}
                     alt="playstore"
                   />
-                </a>
+                </Link>
               </Box>
               <Box className="flex items-center gap-5 my-8 max-sm:justify-center">
                 <span className="cursor-pointer">
-                   <a href="https://www.facebook.com/craftyartapp/">
+                  <Link href="https://www.facebook.com/craftyartapp/">
                     <Icons.facebookIcon svgProps={{ width: 25, height: 25 }} />
-                  </a>
+                  </Link>
                 </span>
 
                 <span className="cursor-pointer">
-                  <a href="https://www.instagram.com/craftyart_official/">
+                  <Link href="https://www.instagram.com/craftyart_official/">
                     <Icons.instagramIcon svgProps={{ width: 25, height: 25 }} />
-                  </a>
+                  </Link>
                 </span>
 
                 <span className="cursor-pointer">
-                  <a href="https://in.pinterest.com/crafty_art_official/">
+                  <Link href="https://in.pinterest.com/crafty_art_official/">
                     <Icons.pinterestIcon svgProps={{ width: 25, height: 25 }} />
-                  </a>
+                  </Link>
                 </span>
 
                 <span className="cursor-pointer">
-                  <a href="https://twitter.com/craftyartstudio">
+                  <Link href="https://twitter.com/craftyartstudio">
                     <Icons.twitterIcon svgProps={{ width: 20, height: 20 }} />
-                  </a>
+                  </Link>
                 </span>
 
                 <span className="cursor-pointer">
-                  <a href="https://www.youtube.com/@craftyartgraphic7864">
+                  <Link href="https://www.youtube.com/@craftyartgraphic7864">
                     <Icons.youtubeIcon svgProps={{ width: 25, height: 25 }} />
-                  </a>
+                  </Link>
                 </span>
               </Box>
             </Box>

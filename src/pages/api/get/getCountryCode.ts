@@ -14,7 +14,7 @@ export default async function handler(
     }
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_1;
 
-    const response = await axios.post<any>(` ${apiUrl}/api/getCountryCode`, {
+    const response = await axios.post(` ${apiUrl}/api/getCountryCode`, {
       ip: req.body.ip,
     });
 

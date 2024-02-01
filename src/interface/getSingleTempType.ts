@@ -12,6 +12,12 @@ export interface SingleTempType {
   inrVal: number;
   is_premium: boolean;
   latest: boolean;
+  payment: {
+    inrAmount: string;
+    inrVal: number;
+    usdAmount: string;
+    usdVal: number;
+  };
   ratio: string;
   status: number;
   string_id: string;
@@ -21,7 +27,7 @@ export interface SingleTempType {
   template_thumb: string;
   thumbArray: string[];
   url: string;
+  width: number;
   usdAmount: string;
   usdVal: number;
-  width: number;
 }

@@ -10,5 +10,3 @@ export interface PackageData {
   offer_msg?: string;
   offer_price?: string;
 }
-
-export type PackageList = PackageData[];

@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const imageUrl: any = req.query.url;
+  const imageUrl: string | string[] | any = req.query.url;
 
   try {
     const response = await axios.get(imageUrl, { responseType: "arraybuffer" });

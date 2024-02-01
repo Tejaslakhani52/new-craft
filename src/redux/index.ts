@@ -7,4 +7,6 @@ const rootReducer = combineReducers({
   actions: actionDataReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>;
+
 export default rootReducer;

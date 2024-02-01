@@ -1,10 +1,18 @@
 import Icons from "@/src/assets";
+import { RootState } from "@/src/redux";
 import { Box } from "@mui/material";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const data = [
+interface MobileBottomBarItem {
+  name: string;
+  icon: JSX.Element;
+  activeIcon: JSX.Element;
+  path: string;
+}
+
+const data: MobileBottomBarItem[] = [
   {
     name: "home",
     icon: <Icons.homeIcon svgProps={{ width: 25, height: 25, color: "" }} />,
@@ -59,7 +67,9 @@ const data = [
 
 export default function MobileBottomBar() {
   const router = useRouter();
-  const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
+  const sideBarRedux = useSelector(
+    (state: RootState) => state.actions.openSidebar
+  );
 
   return (
     <Box
@@ -67,7 +77,7 @@ export default function MobileBottomBar() {
       sx={{ display: sideBarRedux ? "none" : "block" }}
     >
       <Box className="flex items-center h-full justify-around">
-        {data?.map((item: any, index: any) => (
+        {data?.map((item: MobileBottomBarItem, index: number) => (
           <Box key={index}>
             <button
               style={{

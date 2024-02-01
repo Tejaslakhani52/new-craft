@@ -1,22 +1,34 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, Auth } from "firebase/auth";
 
-const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY;
-const authDomain = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN;
-const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID;
-const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
-const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID;
-const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
+interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
 
-const firebaseConfig = {
-  apiKey: `${apiKey}`,
-  authDomain: `${authDomain}`,
-  projectId: `${projectId}`,
-  storageBucket: `${storageBucket}`,
-  messagingSenderId: `${messagingSenderId}`,
-  appId: `${appId}`,
+const apiKey: string = process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "";
+const authDomain: string = process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "";
+const projectId: string = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "";
+const storageBucket: string =
+  process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "";
+const messagingSenderId: string =
+  process.env.NEXT_PUBLIC_FIREBASE_MESSAGE_SENDER_ID || "";
+const appId: string = process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "";
+
+const firebaseConfig: FirebaseConfig = {
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
 };
 
 const app = initializeApp(firebaseConfig);
+const auth: Auth = getAuth(app);
 
-export const auth: any = getAuth(app);
+export { auth };

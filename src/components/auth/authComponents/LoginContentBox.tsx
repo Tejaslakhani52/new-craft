@@ -1,8 +1,11 @@
-import { Box, Typography } from "@mui/material";
-import Button from "@mui/material/Button";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import {
+  Box,
+  Button,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import Icons from "@/src/assets";
 import { auth } from "@/src/firebase";
 import { authCookiesSet } from "@/src/redux/action/AuthToken";
@@ -18,12 +21,24 @@ import { useDispatch } from "react-redux";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import api from "@/src/clientApi/api";
 import { decryptData, encryptData } from "@/src/aes-crypto";
+import { consoleLog } from "@/src/commonFunction/console";
 
-export default function LoginContentBox(props: any) {
+interface LoginContentBoxProps {
+  handleClose?: () => void;
+  setOpenLogin?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenSignUp?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setForgot?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function LoginContentBox(props: LoginContentBoxProps) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [remember, setRemember] = useState<boolean>(false);
-  const [emailPassword, setEmailPassword] = useState<any>({
+  const [emailPassword, setEmailPassword] = useState<{
+    email: string;
+    password: string;
+  }>({
     email: "",
     password: "",
   });
@@ -37,7 +52,7 @@ export default function LoginContentBox(props: any) {
       const email = decryptData(storedCredentialsEmail);
       const password = decryptData(storedCredentialsPassword);
 
-      setEmailPassword({ ...emailPassword, email: email, password: password });
+      setEmailPassword({ ...emailPassword, email, password });
       setRemember(true);
     }
   }, []);
@@ -56,9 +71,9 @@ export default function LoginContentBox(props: any) {
     if (!data?.user) {
       toast.error("User not found. Please sign up to create an account.");
       dispatch(mainLoad(false));
-      props.setOpenLogin(false);
-      props.setOpenSignUp(true);
-      props?.setOpen(false);
+      props.setOpenLogin && props.setOpenLogin(false);
+      props.setOpenSignUp && props.setOpenSignUp(true);
+      props?.setOpen && props?.setOpen(false);
       return;
     }
 
@@ -91,6 +106,7 @@ export default function LoginContentBox(props: any) {
       dispatch(mainLoad(false));
       window.location.reload();
     } catch (error: any) {
+      consoleLog("signInWithEmailAndPassword: ", error);
       dispatch(mainLoad(false));
       toast.error(error?.code.split("auth/")[1]);
     }
@@ -141,7 +157,7 @@ export default function LoginContentBox(props: any) {
           <Input
             label="Email"
             value={emailPassword?.email}
-            onChange={(e: any) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmailPassword({
                 ...emailPassword,
                 email: e.target.value,
@@ -151,7 +167,7 @@ export default function LoginContentBox(props: any) {
           <Password
             label="Password"
             value={emailPassword?.password}
-            onChange={(e: any) =>
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEmailPassword({
                 ...emailPassword,
                 password: e.target.value,
@@ -182,7 +198,7 @@ export default function LoginContentBox(props: any) {
 
             <Typography
               className="text-[#5961F8] cursor-pointer text-[14px]  max-2sm:text-[13px]"
-              onClick={() => props?.setForgot(true)}
+              onClick={() => props?.setForgot && props?.setForgot(true)}
             >
               Forgot your Password?
             </Typography>
@@ -208,7 +224,7 @@ export default function LoginContentBox(props: any) {
         </Button>
 
         <Typography className="text-black text-center my-2  max-2sm:text-[13px]">
-          New to CraftyArt?
+          New to CraftyArt?{" "}
           <span
             className="text-[#5961F8] cursor-pointer"
             onClick={() => {

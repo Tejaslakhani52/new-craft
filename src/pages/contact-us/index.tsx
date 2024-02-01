@@ -4,6 +4,7 @@ import QuestionsTitle from "@/src/components/common/QuestionsTitle";
 import { Box, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
+import Link from "next/link";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 
@@ -133,12 +134,12 @@ export default function index() {
 
           <Typography className="mb-2">
             <span className="font-semibold">Mobile Number :</span>{" "}
-            <a
+            <Link
               href="tel:+919898978207"
               className="text-[#5961F8] cursor-pointer"
             >
               +91 9898978207
-            </a>
+            </Link>
           </Typography>
 
           <Typography className="mb-2">
@@ -189,29 +190,31 @@ export default function index() {
             }}
           >
             <li className="cursor-pointer mb-1">
-              <a href="https://www.instagram.com/craftyart_official/">
+              <Link href="https://www.instagram.com/craftyart_official/">
                 Instagram
-              </a>
+              </Link>
             </li>
 
             <li className="cursor-pointer mb-1">
-              <a href="https://www.facebook.com/craftyartapp/">Facebook</a>
+              <Link href="https://www.facebook.com/craftyartapp/">
+                Facebook
+              </Link>
             </li>
 
             <li className="cursor-pointer mb-1">
-              <a href="https://in.pinterest.com/crafty_art_official/">
+              <Link href="https://in.pinterest.com/crafty_art_official/">
                 Pinterest
-              </a>
+              </Link>
             </li>
 
             <li className="cursor-pointer mb-1">
-              <a href="https://twitter.com/craftyartstudio">Twitter</a>
+              <Link href="https://twitter.com/craftyartstudio">Twitter</Link>
             </li>
 
             <li className="cursor-pointer mb-1">
-              <a href="https://www.youtube.com/@craftyartgraphic7864">
+              <Link href="https://www.youtube.com/@craftyartgraphic7864">
                 Youtube
-              </a>
+              </Link>
             </li>
           </ul>
 

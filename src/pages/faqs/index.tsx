@@ -122,7 +122,7 @@ export default function Index() {
           Can we help you?
         </Typography>
 
-        {faqsList?.map((item: any, index: number) => (
+        {faqsList?.map((item, index) => (
           <Box
             key={index}
             className="bg-[#FFF] max-md:w-full w-[80%] p-[20px] rounded-[10px] mb-5 cursor-pointer"

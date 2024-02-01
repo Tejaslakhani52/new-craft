@@ -2,9 +2,12 @@ import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import ImageBox from "@/src/components/common/ImageBox";
-import { CategoryApiData, ServerSideProps } from "@/src/interface/categoryType";
+import { ServerSideProps } from "@/src/interface/categoryType";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { RootState } from "@/src/redux";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -32,7 +35,6 @@ const ResumeStatic = dynamic(
   () => import("@/src/components/categoryStaticComponents/ResumeStatic")
 );
 const Breadcrumb = dynamic(() => import("@/src/components/common/Breadcrumb"));
-// const ImageBox = dynamic(() => import("@/components/common/ImageBox"));
 const NotFound = dynamic(() => import("@/src/components/common/NotFound"));
 const TemplateModal = dynamic(
   () => import("@/src/components/singleTemplate/TemplateModal")
@@ -78,7 +80,7 @@ const otherData = {
   },
 };
 
-const staticBox: any = {
+const staticBox: Record<string, JSX.Element> = {
   invitation: <InvitationStatic />,
   "a4-invitation": <InvitationStatic />,
   flyer: <FlyerStatic />,
@@ -89,7 +91,9 @@ const staticBox: any = {
   latest: <FestivalBanner />,
 };
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
   try {
     const { params } = context;
 
@@ -105,7 +109,7 @@ export async function getServerSideProps(context: any) {
       }
     );
 
-    let jsonString: ServerSideProps["jsonString"];
+    let jsonString;
     if (params?.categoryId === "latest") {
       jsonString = otherData.latestMeta;
     } else if (params?.categoryId === "trending") {
@@ -125,21 +129,21 @@ export async function getServerSideProps(context: any) {
       notFound: true,
     };
   }
-}
+};
 
-export default function index({ jsonString }: ServerSideProps) {
+export default function index(props: { jsonString: ServerSideProps }) {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const router = useRouter();
   const screenWidth = useScreenWidth();
   const id: any = router.query;
   const [openModal, setOpenModal] = useState(false);
-  const [data, setData] = useState<CategoryApiData[]>([]);
-  const [contentData, setContentData] = useState<any>([]);
+  const [data, setData] = useState<TemplateDataType[]>([]);
+  const [contentData, setContentData] = useState<ServerSideProps | any>([]);
   const [page, setPage] = useState<number>(1);
-  const [loadMore, setLoadMore] = useState<any>(true);
-  const [isLastPage, setIsLastPage] = useState<any>();
-  const [idName, setIdName] = useState<any>("");
-  const tempIdValue = useSelector((state: any) => state.actions.tempId);
+  const [loadMore, setLoadMore] = useState<boolean>(true);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const [idName, setIdName] = useState<string>("");
+  const tempIdValue = useSelector((state: RootState) => state.actions.tempId);
 
   useEffect(() => {
     setLoadMore(true);
@@ -152,7 +156,7 @@ export default function index({ jsonString }: ServerSideProps) {
               : (id?.categoryId as any),
           page: page,
         })
-        .then((res: any) => {
+        .then((res) => {
           setLoadMore(false);
           setIsLastPage(res?.isLastPage);
           if (id?.categoryId === "latest") {
@@ -164,13 +168,10 @@ export default function index({ jsonString }: ServerSideProps) {
           } else setContentData(res);
 
           if (res?.datas) {
-            setData((prevData: CategoryApiData[]) => [
-              ...(prevData || []),
-              ...(res?.datas || []),
-            ]);
+            setData((prevData) => [...(prevData || []), ...(res?.datas || [])]);
           }
         })
-        .catch((err: any) => {
+        .catch((err) => {
           setLoadMore(false);
           consoleLog("getCategoryData: ", err);
         });
@@ -182,7 +183,7 @@ export default function index({ jsonString }: ServerSideProps) {
   }, [id]);
 
   useEffect(() => {
-    const element: any = document.getElementById(tempIdValue);
+    const element: HTMLElement | null = document.getElementById(tempIdValue);
     element?.scrollIntoView();
   }, [data]);
 
@@ -211,15 +212,15 @@ export default function index({ jsonString }: ServerSideProps) {
 
   return (
     <>
-      {!jsonString?.datas && <NotFound />}
+      {!props.jsonString?.datas && <NotFound />}
 
       {true && (
         <>
           <Box className="bg-[#F4F7FE] px-[10px] sm:px-[16px]">
             <CustomHead
               image={`${assetsUrl}/w_assets/images/categoryBanner.png`}
-              heading={jsonString?.meta_title}
-              text={jsonString?.meta_desc}
+              heading={props.jsonString?.meta_title}
+              text={props.jsonString?.meta_desc}
             />
             <Box className="pt-[15px]">
               <Breadcrumb
@@ -261,7 +262,7 @@ export default function index({ jsonString }: ServerSideProps) {
                     className="max-lg:text-center text-[20px] sm:text-[40px]"
                     variant="h1"
                   >
-                    {jsonString?.h1_tag}
+                    {props.jsonString?.h1_tag}
                   </Typography>
 
                   <Typography
@@ -273,7 +274,7 @@ export default function index({ jsonString }: ServerSideProps) {
                     }}
                     className="max-lg:text-center max-sm:text-[14px]"
                   >
-                    {jsonString?.short_desc}
+                    {props.jsonString?.short_desc}
                   </Typography>
                 </Box>
                 <Box
@@ -302,7 +303,7 @@ export default function index({ jsonString }: ServerSideProps) {
                 columnWidth={screenWidth / multiSizeFixSize}
                 duration={0}
               >
-                {data?.map((templates: any, index: number) => (
+                {data?.map((templates, index) => (
                   <ImageBox
                     key={index}
                     templates={templates}
@@ -342,11 +343,11 @@ export default function index({ jsonString }: ServerSideProps) {
           {!staticBox[id?.categoryId] && (
             <Box className="my-[50px] w-[80%] mx-auto px-[30px] max-sm:w-full">
               <h2 className="text-[26px]  max-sm:text-[23px] text-[#1C3048] font-semibold mb-3 text-center">
-                {jsonString?.h2_tag}
+                {props.jsonString?.h2_tag}
               </h2>
 
               <Typography className="text-[15px] whitespace-pre-line text-justify">
-                {jsonString?.long_desc}
+                {props.jsonString?.long_desc}
               </Typography>
             </Box>
           )}

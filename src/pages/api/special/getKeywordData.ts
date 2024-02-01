@@ -16,7 +16,7 @@ export default async function handler(
     const accessKey = process.env.NEXT_PUBLIC_KEY;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
 
-    const response = await axios.post<any>(
+    const response = await axios.post(
       `${apiUrl}/templates/api/getKeyTemplates/ `,
       {
         key: `${accessKey}`,

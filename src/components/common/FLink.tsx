@@ -1,7 +1,12 @@
 import Link from "next/link";
-import React from "react";
+import React, { ReactNode } from "react";
 
-export default function FLink(props: any) {
+interface FLinkProps {
+  lk: string;
+  children: ReactNode;
+}
+
+const FLink: React.FC<FLinkProps> = (props) => {
   return (
     <Link
       href={props.lk}
@@ -13,4 +18,6 @@ export default function FLink(props: any) {
       {props.children}{" "}
     </Link>
   );
-}
+};
+
+export default FLink;

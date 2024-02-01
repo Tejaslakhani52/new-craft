@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 export default function WithCraftyartBanner() {
@@ -21,13 +22,13 @@ export default function WithCraftyartBanner() {
         </p>
 
         <div className="flex justify-center pt-[30px]">
-          <a href="https://play.google.com/store/apps/details?id=com.crafty.art">
+          <Link href="https://play.google.com/store/apps/details?id=com.crafty.art">
             <img
               src={`${assetsUrl}/w_assets/images/bgRemove/playStore.png`}
               alt="playStore"
               className="w-[180px]"
             />
-          </a>
+          </Link>
         </div>
       </div>
 

@@ -2,9 +2,8 @@ import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import ImageBox from "@/src/components/common/ImageBox";
-import { CategoryApiData } from "@/src/interface/categoryType";
-import { DataType } from "@/src/interface/searchTemplateType";
-import { ActionStateType } from "@/src/interface/stateType";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { RootState } from "@/src/redux";
 import { Box, Button, Rating, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
 import Head from "next/head";
@@ -26,13 +25,11 @@ export default function index() {
   const screenWidth = useScreenWidth();
   const [openModal, setOpenModal] = useState(false);
   const [idName, setIdName] = useState<string>("");
-  const [data, setData] = useState<CategoryApiData[] | any>();
+  const [data, setData] = useState<TemplateDataType[] | null>(null);
   const [page, setPage] = useState<number>(1);
   const [loadMore, setLoadMore] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const tempIdValue = useSelector(
-    (state: ActionStateType) => state.actions.tempId
-  );
+  const tempIdValue = useSelector((state: RootState) => state.actions.tempId);
 
   useEffect(() => {
     setLoadMore(true);
@@ -41,25 +38,22 @@ export default function index() {
         cat_id: "latest",
         page: page,
       })
-      .then((res: any) => {
+      .then((res) => {
         setLoadMore(false);
         setIsLastPage(res?.isLastPage);
 
         if (res?.datas) {
-          setData((prevData: CategoryApiData[]) => [
-            ...(prevData || []),
-            ...res?.datas,
-          ]);
+          setData((prevData) => [...(prevData || []), ...res?.datas]);
         }
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setLoadMore(false);
         consoleLog("getCategoryData: ", err);
       });
   }, [page]);
 
   useEffect(() => {
-    const element: any = document.getElementById(tempIdValue);
+    const element: HTMLElement | null = document.getElementById(tempIdValue);
     element?.scrollIntoView();
   }, [data]);
 
@@ -183,7 +177,7 @@ export default function index() {
                 columnWidth={screenWidth / multiSizeFixSize}
                 duration={0}
               >
-                {data?.map((templates: DataType, index: number) => (
+                {data?.map((templates, index) => (
                   <ImageBox
                     key={index}
                     templates={templates}

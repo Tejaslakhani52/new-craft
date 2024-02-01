@@ -18,7 +18,7 @@ export default async function handler(
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
-    const response = await axios.post<any>(
+    const response = await axios.post(
       ` ${apiUrl}/templates/api/V3/getCurrentPlan`,
       {
         key: `${accessKey}`,

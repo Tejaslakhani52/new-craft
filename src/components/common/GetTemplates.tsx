@@ -2,7 +2,15 @@ import { authCookiesGet } from "@/src/redux/action/AuthToken";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
-export default function GetTemplates(props: any) {
+interface GetTemplatesProps {
+  heading: string;
+  text: string;
+  navigate?: string;
+  bt_none?: boolean;
+  bt_name?: string;
+}
+
+export default function GetTemplates(props: GetTemplatesProps) {
   const router = useRouter();
   const token = authCookiesGet();
 
@@ -36,7 +44,7 @@ export default function GetTemplates(props: any) {
             }}
             className="text-[25px] sm:text-[31px] mb-2"
           >
-            {props?.heading}
+            {props.heading}
           </Typography>
           <Typography
             sx={{
@@ -46,7 +54,7 @@ export default function GetTemplates(props: any) {
               textAlign: "center",
             }}
           >
-            {props?.text}
+            {props.text}
           </Typography>
         </Box>
 
@@ -59,17 +67,17 @@ export default function GetTemplates(props: any) {
             fontWeight: "500",
             fontSize: "17px",
             color: "white",
-            display: props?.bt_none ? "none" : "block",
+            display: props.bt_none ? "none" : "block",
           }}
           onClick={() => {
-            if (token) {
+            if (token && props.navigate) {
               router.push(props.navigate);
             } else router.push("/login");
           }}
-          className=" py-[10px] px-[15px] "
+          className="py-[10px] px-[15px]"
         >
           <span className="text_linear">
-            {props?.bt_name ?? "Get All Templates"}{" "}
+            {props.bt_name ?? "Get All Templates"}{" "}
           </span>
         </button>
       </Box>

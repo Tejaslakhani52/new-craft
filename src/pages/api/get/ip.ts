@@ -15,7 +15,7 @@ export default async function handler(
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_1;
 
-    const response = await axios.get<any>(`${apiUrl}/get-ip`);
+    const response = await axios.get(`${apiUrl}/get-ip`);
 
     res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {

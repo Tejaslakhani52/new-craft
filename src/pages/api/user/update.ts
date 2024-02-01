@@ -4,8 +4,16 @@ import { decryptData, encryptData } from "@/src/aes-crypto";
 import multer from "multer";
 import { isFakeDomain } from "@/src/commonFunction/domain-checker";
 
+interface CustomNextApiRequest extends NextApiRequest {
+  file: {
+    buffer: Buffer;
+    mimetype: string;
+    originalname: string;
+  } | null;
+}
+
 function runMiddleware(
-  req: NextApiRequest & { [key: string]: any },
+  req: CustomNextApiRequest,
   res: NextApiResponse,
   fn: (...args: any[]) => void
 ): Promise<void> {
@@ -26,7 +34,7 @@ export const config = {
 };
 
 export default async function handler(
-  req: NextApiRequest & { [key: string]: any },
+  req: CustomNextApiRequest,
   res: NextApiResponse<any>
 ) {
   try {
@@ -55,7 +63,7 @@ export default async function handler(
       formData.append("photo_uri", fileBlob, req.file.originalname);
     }
 
-    const response = await axios.post<any>(
+    const response = await axios.post(
       `${apiUrl}/templates/api/V3/updateUser`,
       formData,
       {

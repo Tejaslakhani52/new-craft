@@ -6,7 +6,9 @@ import {
   useScreenHeight,
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
+import { TemplateDataType } from "@/src/interface/commonType";
 import { DraftDataType } from "@/src/interface/getDraftsType";
+import { RootState } from "@/src/redux";
 import { Box, Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -89,7 +91,9 @@ const DraftBoxes = ({
               width: "auto",
               transition: "0.5s all",
             }}
-            onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+            onLoad={(e) =>
+              (e.target as HTMLImageElement).classList.remove("opacity-0")
+            }
           />
 
           {mouseEnterItem === item?.id && item?.thumbs?.length > 1 && (
@@ -132,13 +136,15 @@ const DraftBoxes = ({
 };
 
 export default function index() {
-  const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
+  const sideBarRedux = useSelector(
+    (state: RootState) => state.actions.openSidebar
+  );
   const screenWidth = useScreenWidth() - (sideBarRedux ? 289 : 40);
   const screenHeight = useScreenHeight();
-  const [uploadData, setUploadData] = useState<DraftDataType[] | any>([]);
-  const [mouseEnterItem, setMouseEnterItem] = useState<any>("");
-  const [loadMore, setLoadMore] = useState<any>(false);
-  const [isLastPage, setIsLastPage] = useState<any>(false);
+  const [uploadData, setUploadData] = useState<TemplateDataType[] | null>([]);
+  const [mouseEnterItem, setMouseEnterItem] = useState<string>("");
+  const [loadMore, setLoadMore] = useState<boolean>(false);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
 
   const multiSize = useMemo(() => {
@@ -173,14 +179,14 @@ export default function index() {
       .then((res) => {
         setLoadMore(false);
         if (res?.data?.datas.length > 0) {
-          setUploadData((prevData: DraftDataType[]) => [
+          setUploadData((prevData) => [
             ...(prevData || []),
             ...res?.data?.datas,
           ]);
           setIsLastPage(res?.data?.isLastPage);
         } else setUploadData(null);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         consoleLog("getUploadData: ", err);
       });
   }, [page]);
@@ -190,7 +196,7 @@ export default function index() {
       <h1 className="text-[32px] font-medium p-[10px]">Upload</h1>
       <div className="flex flex-wrap " style={{ width: screenWidth }}>
         {uploadData
-          ? uploadData?.map((item: any, index: number) => (
+          ? uploadData?.map((item, index) => (
               <DraftBoxes
                 key={index}
                 item={item}
@@ -226,6 +232,7 @@ export default function index() {
           <Box className="text_linear font-[700 text-[20px]">Loading....</Box>
         ) : (
           !isLastPage &&
+          uploadData &&
           uploadData?.length > 0 && (
             <Button
               className="bg_linear px-[80px] py-[10px] rounded-[7px] text-[15px] text-white font-semibold"

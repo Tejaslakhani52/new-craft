@@ -18,7 +18,7 @@ const TrendingFunctionalities = dynamic(
   () => import("./landingPageComponents/TrendingFunctionalities")
 );
 
-export const MarkText = ({ text }: any) => {
+export const MarkText = (props: { text: string }) => {
   return (
     <Box
       sx={{ display: "flex", gap: "20px", alignItems: "flex-start", mb: "8px" }}
@@ -33,13 +33,13 @@ export const MarkText = ({ text }: any) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[16px]  max-lg:text max-2sm:text-[14px]"
       >
-        {text}
+        {props.text}
       </Typography>
     </Box>
   );
 };
 
-export default function LandingPage({ post }: any) {
+export default function LandingPage() {
   const router = useRouter();
 
   return (

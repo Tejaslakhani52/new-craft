@@ -1,26 +1,33 @@
-export interface UserProfileType {
-  can_update: number;
-  coins: number;
-  country_code: null | string;
-  created_at: string;
-  device_id: null | string;
-  email: string;
-  fldr_str: string;
-  id: number;
-  is_premium: number;
-  login_type: string;
-  name: string;
-  number: null | string;
-  photo_uri: null | string;
-  razorpay_cus_id: string;
-  refer_id: string;
-  special_user: number;
-  stripe_cus_id: null | string;
-  total_validity: number;
-  uid: string;
-  updated_at: string;
-  utm_medium: string;
-  utm_source: string;
-  validity: number;
+export interface TemplateDataType {
+  auto_create: boolean;
+  category_id: number;
+  category_id_name: string;
+  category_name: string;
+  category_size: string;
+  description: string;
+  h2_tag: string;
+  height: number;
+  id_name: string;
+  inrAmount: string;
+  inrVal: number;
+  is_premium: boolean;
+  latest: boolean;
+  payment: {
+    inrAmount: string;
+    inrVal: number;
+    usdAmount: string;
+    usdVal: number;
+  };
+  ratio: string;
+  status: number;
+  string_id: string;
+  tags: string[];
+  template_id: number;
+  template_name: string;
+  template_thumb: string;
+  thumbArray: string[];
+  url: string;
+  width: number;
+  usdAmount: string;
+  usdVal: number;
 }
-

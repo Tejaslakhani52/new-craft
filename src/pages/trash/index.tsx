@@ -1,4 +1,3 @@
-import { decryptData } from "@/src/aes-crypto";
 import Icons from "@/src/assets";
 import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
@@ -6,7 +5,9 @@ import {
   useScreenHeight,
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
+import { TemplateDataType } from "@/src/interface/commonType";
 import { DraftDataType } from "@/src/interface/getDraftsType";
+import { RootState } from "@/src/redux";
 import { Box, Button } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import Menu from "@mui/material/Menu";
@@ -15,7 +16,6 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import axios from "axios";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -63,7 +63,7 @@ const DraftBoxes = ({
   setMouseEnterItem,
 }: DraftBoxesType) => {
   const theme = useTheme();
-  const [currentIndex, setCurrentIndex] = useState<any>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
   const [removeId, setRemoveId] = useState<string>("");
@@ -73,9 +73,7 @@ const DraftBoxes = ({
   useEffect(() => {
     if (isHovered) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex(
-          (prevIndex: any) => (prevIndex + 1) % item?.thumbs.length
-        );
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % item?.thumbs.length);
       }, 1300);
     } else {
       clearInterval(intervalRef.current);
@@ -174,7 +172,7 @@ const DraftBoxes = ({
               height: "100%",
             }}
           >
-            {item?.thumbs.map((image: any, index: number) => (
+            {item?.thumbs.map((image: string, index: number) => (
               <div
                 className="carousel-slide"
                 key={index}
@@ -194,7 +192,9 @@ const DraftBoxes = ({
                     width: "auto",
                     transition: "0.5s all",
                   }}
-                  onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+                  onLoad={(e) =>
+                    (e.target as HTMLImageElement).classList.remove("opacity-0")
+                  }
                 />
               </div>
             ))}
@@ -297,7 +297,7 @@ const DraftBoxesTab2 = ({
   setMouseEnterItem,
 }: DraftBoxesType) => {
   const theme = useTheme();
-  const [currentIndex, setCurrentIndex] = useState<any>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
   const [removeId, setRemoveId] = useState<string>("");
@@ -395,7 +395,9 @@ const DraftBoxesTab2 = ({
               width: "auto",
               transition: "0.5s all",
             }}
-            onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+            onLoad={(e) =>
+              (e.target as HTMLImageElement).classList.remove("opacity-0")
+            }
           />
 
           {mouseEnterItem === item?.id && item?.thumbs?.length > 1 && (
@@ -486,16 +488,18 @@ const DraftBoxesTab2 = ({
 };
 
 export default function index() {
-  const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
+  const sideBarRedux = useSelector(
+    (state: RootState) => state.actions.openSidebar
+  );
   const screenHeight = useScreenHeight();
   const screenWidth = useScreenWidth() - (sideBarRedux ? 289 : 40);
-  const [designTrash, setDesignTrash] = useState<any>([]);
-  const [imagesTrash, setImagesTrash] = useState<any>([]);
-  const [mouseEnterItem, setMouseEnterItem] = useState<any>("");
-  const [loadMore, setLoadMore] = useState<any>(false);
-  const [loadMore2, setLoadMore2] = useState<any>(false);
-  const [isLastDesignPage, setIsLastDesignPage] = useState<any>(false);
-  const [isLastImagesPage, setIsLastImagesPage] = useState<any>(false);
+  const [designTrash, setDesignTrash] = useState<TemplateDataType[] | null>([]);
+  const [imagesTrash, setImagesTrash] = useState<TemplateDataType[] | null>([]);
+  const [mouseEnterItem, setMouseEnterItem] = useState<string>("");
+  const [loadMore, setLoadMore] = useState<boolean>(false);
+  const [loadMore2, setLoadMore2] = useState<boolean>(false);
+  const [isLastDesignPage, setIsLastDesignPage] = useState<boolean>(false);
+  const [isLastImagesPage, setIsLastImagesPage] = useState<boolean>(false);
   const [designPage, setDesignPage] = useState<number>(1);
   const [imagesPage, setImagesPage] = useState<number>(1);
   const [value, setValue] = React.useState(0);
@@ -530,17 +534,14 @@ export default function index() {
         type: "1",
         page: designPage,
       })
-      .then((res: any) => {
+      .then((res) => {
         setLoadMore(false);
         if (res?.datas.length > 0) {
-          setDesignTrash((prevData: any) => [
-            ...(prevData || []),
-            ...res?.datas,
-          ]);
+          setDesignTrash((prevData) => [...(prevData || []), ...res?.datas]);
           setIsLastDesignPage(res?.isLastPage);
         } else setDesignTrash(null);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         consoleLog("getDraftData: ", err);
       });
   }, [designPage]);
@@ -558,7 +559,7 @@ export default function index() {
       .then((res) => {
         setLoadMore2(false);
         if (res?.data?.datas.length > 0) {
-          setImagesTrash((prevData: any) => [
+          setImagesTrash((prevData) => [
             ...(prevData || []),
             ...res?.data?.datas,
           ]);
@@ -566,7 +567,7 @@ export default function index() {
           setIsLastImagesPage(res?.data?.isLastPage);
         } else setImagesTrash(null);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setLoadMore2(false);
         consoleLog("getUploadData: ", err);
       });
@@ -643,7 +644,7 @@ export default function index() {
           <CustomTabPanel value={value} index={0}>
             <div className="flex flex-wrap " style={{ width: screenWidth }}>
               {designTrash
-                ? designTrash?.map((item: any, index: number) => (
+                ? designTrash?.map((item, index) => (
                     <DraftBoxes
                       key={index}
                       item={item}
@@ -679,6 +680,7 @@ export default function index() {
                 </Box>
               ) : (
                 !isLastDesignPage &&
+                designTrash &&
                 designTrash?.length > 0 && (
                   <Button
                     className="bg_linear px-[80px] py-[10px] rounded-[7px] text-[15px] text-white font-semibold"
@@ -693,7 +695,7 @@ export default function index() {
           <CustomTabPanel value={value} index={1}>
             <div className="flex flex-wrap " style={{ width: screenWidth }}>
               {imagesTrash
-                ? imagesTrash?.map((item: any, index: number) => (
+                ? imagesTrash?.map((item, index) => (
                     <DraftBoxesTab2
                       key={index}
                       item={item}
@@ -729,6 +731,7 @@ export default function index() {
                 </Box>
               ) : (
                 !isLastImagesPage &&
+                imagesTrash &&
                 imagesTrash?.length > 0 && (
                   <Button
                     className="bg_linear px-[80px] py-[10px] rounded-[7px] text-[15px] text-white font-semibold"

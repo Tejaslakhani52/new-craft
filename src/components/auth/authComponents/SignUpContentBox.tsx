@@ -8,6 +8,7 @@ import Icons from "@/src/assets";
 import { auth } from "@/src/firebase";
 import { createUserApi } from "@/src/redux/action/AuthAction";
 import {
+  User,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
@@ -25,16 +26,30 @@ import Link from "next/link";
 import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 
-export default function SignUpContentBox(props: any) {
+interface SignUpContentBoxProps {
+  handleClose?: () => void;
+  setOpenSignUp?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenLogin?: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface CreateAccount {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export default function SignUpContentBox(props: SignUpContentBoxProps) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [verifiedDone, setVerifiedDone] = useState<boolean>(false);
   const [emailDialogShow, setEmailDialogShow] = useState<boolean>(false);
-  const [finalUser, setFinalUser] = useState<any>(null);
+  const [finalUser, setFinalUser] = useState<User | null>(null);
 
   const [agree, setAgree] = useState<boolean>(false);
-  const [createAccount, setCreateAccount] = useState<any>({
+  const [createAccount, setCreateAccount] = useState<CreateAccount>({
     name: "",
     email: "",
     password: "",
@@ -42,7 +57,7 @@ export default function SignUpContentBox(props: any) {
   });
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user: any) => {
+    onAuthStateChanged(auth, (user: User | null) => {
       setCurrentUser(user);
     });
   }, []);
@@ -58,7 +73,7 @@ export default function SignUpContentBox(props: any) {
               clearInterval(interval);
             }
           })
-          .catch((err: any) => {
+          .catch((err) => {
             consoleLog("emailVerified", err);
           });
       }, 1000);
@@ -99,9 +114,9 @@ export default function SignUpContentBox(props: any) {
         "User already registered. Please sign in to access your account."
       );
       dispatch(mainLoad(false));
-      props.setOpenSignUp(false);
-      props.setOpenLogin(true);
-      props?.setOpen(false);
+      props.setOpenSignUp && props.setOpenSignUp(false);
+      props.setOpenLogin && props.setOpenLogin(true);
+      props?.setOpen && props?.setOpen(false);
 
       return;
     }
@@ -111,7 +126,7 @@ export default function SignUpContentBox(props: any) {
       createAccount.email,
       createAccount.password
     )
-      .then(async (res: any) => {
+      .then(async (res) => {
         const user = res?.user;
         updateProfile(user, {
           displayName: createAccount.name,
@@ -119,7 +134,7 @@ export default function SignUpContentBox(props: any) {
         setFinalUser(user);
       })
       .then(() =>
-        sendEmailVerification(auth.currentUser).then(async (res: any) => {
+        sendEmailVerification(auth.currentUser as User).then(async () => {
           toast.success(
             `A Verification email has been sent to ${createAccount.email}`
           );
@@ -142,16 +157,13 @@ export default function SignUpContentBox(props: any) {
 
   const fetchData = async () => {
     dispatch(
-      createUserApi(
-        {
-          user_id: finalUser?.uid,
-          name: finalUser?.displayName,
-          email: finalUser?.email,
-          photo_uri: "",
-          login_type: "email",
-        },
-        router
-      )
+      createUserApi({
+        user_id: finalUser?.uid ?? "",
+        name: finalUser?.displayName ?? "",
+        email: finalUser?.email ?? "",
+        photo_uri: "",
+        login_type: "email",
+      })
     );
   };
 
@@ -160,6 +172,7 @@ export default function SignUpContentBox(props: any) {
       handleSubmission();
     }
   };
+
   return (
     <div>
       {emailDialogShow ? (
@@ -222,7 +235,7 @@ export default function SignUpContentBox(props: any) {
             <DialogContentText
               sx={{ color: "#1C3048", fontSize: "14px", textAlign: "center" }}
             >
-              Sign up now and start your journey with Crafty Art(it's free)!
+              Sign up now and start your journey with Crafty Art (it's free)!
             </DialogContentText>
             <LoginPlatform />
             <Box className="flex items-center justify-between">
@@ -235,21 +248,27 @@ export default function SignUpContentBox(props: any) {
               <Input
                 label="Name"
                 value={createAccount?.name}
-                onChange={(e: any) =>
-                  setCreateAccount({ ...createAccount, name: e.target.value })
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCreateAccount({
+                    ...createAccount,
+                    name: e.target.value,
+                  })
                 }
               />
               <Input
                 label="Email"
                 value={createAccount?.email}
-                onChange={(e: any) =>
-                  setCreateAccount({ ...createAccount, email: e.target.value })
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCreateAccount({
+                    ...createAccount,
+                    email: e.target.value,
+                  })
                 }
               />
               <Password
                 label="Password"
                 value={createAccount?.password}
-                onChange={(e: any) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setCreateAccount({
                     ...createAccount,
                     password: e.target.value,
@@ -259,7 +278,7 @@ export default function SignUpContentBox(props: any) {
               <Password
                 label="Confirm Password"
                 value={createAccount?.confirmPassword}
-                onChange={(e: any) =>
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setCreateAccount({
                     ...createAccount,
                     confirmPassword: e.target.value,
@@ -328,7 +347,7 @@ export default function SignUpContentBox(props: any) {
                   ) {
                     props.setOpenSignUp(false);
                     props.setOpenLogin(true);
-                    props?.setOpen(false);
+                    props?.setOpen && props?.setOpen(false);
                   } else router.push("/login");
                 }}
               >

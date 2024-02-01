@@ -25,17 +25,3 @@ export interface PurchaseItemProps {
   id: string;
   type: number;
 }
-
-export interface BillingDetailProps {
-  name?: string;
-  email?: string;
-  address?: {
-    line1: string;
-    line2: string | null;
-    city: string;
-    state: string;
-    postal_code: string;
-    country: string | undefined;
-  };
-  phone?: string;
-}

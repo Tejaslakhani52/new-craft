@@ -1,4 +1,9 @@
 import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
+
+interface HomeProps {
+  sessionId: string | null;
+}
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const Dashboard = dynamic(
@@ -8,7 +13,9 @@ const LandingPage = dynamic(
   () => import("@/src/components/Home/landingPage/LandingPage")
 );
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+  context
+) => {
   const cookiesString = context.req.headers.cookie || "";
   const sessionId = extractCookieValue(cookiesString, "_sdf");
 
@@ -17,9 +24,9 @@ export async function getServerSideProps(context: any) {
       sessionId: sessionId || null,
     },
   };
-}
+};
 
-const extractCookieValue = (cookiesString: any, cookieName: any) => {
+const extractCookieValue = (cookiesString: string, cookieName: string) => {
   const cookieRegex = new RegExp(
     `(?:(?:^|.*;\\s*)${cookieName}\\s*\\=\\s*([^;]*).*$)|^.*$`
   );
@@ -28,7 +35,7 @@ const extractCookieValue = (cookiesString: any, cookieName: any) => {
   return match ? match[1] || null : null;
 };
 
-export default function Home({ sessionId }: any) {
+export default function Home({ sessionId }: HomeProps) {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
 
   return (

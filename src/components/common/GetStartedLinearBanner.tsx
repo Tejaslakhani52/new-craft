@@ -1,24 +1,23 @@
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
+import { ReactNode } from "react";
 
-interface props {
+interface GetStartedLinearBannerProps {
   heading: string;
   text: string;
-  image: any;
-  buttonName: string;
   navigate: string;
+  buttonName: string;
+  image: ReactNode;
 }
 
-export default function GetStartedLinearBanner(props: props) {
-  const router = useRouter();
+export default function GetStartedLinearBanner(
+  props: GetStartedLinearBannerProps
+) {
   return (
     <Box
       sx={{
         background:
           "linear-gradient(268.03deg, #5961F8 -0.66%, #5961F8 -0.65%, #497DEC 22.41%, #15D8C5 100%, #15D8C5 100%)",
-
         display: "flex",
         alignItems: "center",
         margin: "10px auto",
@@ -44,7 +43,7 @@ export default function GetStartedLinearBanner(props: props) {
           className="max-lg:text-center text-[25px]  sm:text-[40px]"
           variant="h1"
         >
-          {props?.heading}
+          {props.heading}
         </Typography>
 
         <Typography
@@ -56,15 +55,14 @@ export default function GetStartedLinearBanner(props: props) {
           }}
           className="max-lg:text-center max-sm:text-[16px]"
         >
-          {props?.text}
+          {props.text}
         </Typography>
 
-        <Link href={props?.navigate}>
+        <Link href={props.navigate}>
           <Button
             style={{
               backgroundColor: "white",
               width: "162px",
-
               textTransform: "unset",
               boxShadow: " 2px 2px 4px rgba(0, 0, 0, 0.15)",
               border: "none",
@@ -73,9 +71,8 @@ export default function GetStartedLinearBanner(props: props) {
               fontSize: "16px",
               fontWeight: "500",
             }}
-            // onClick={() => router.push(props?.navigate)}
           >
-            <span className="text_linear">{props?.buttonName}</span>
+            <span className="text_linear">{props.buttonName}</span>
           </Button>
         </Link>
       </Box>
@@ -87,7 +84,7 @@ export default function GetStartedLinearBanner(props: props) {
         }}
         className="hidden lg:flex"
       >
-        {props?.image}
+        {props.image}
       </Box>
     </Box>
   );

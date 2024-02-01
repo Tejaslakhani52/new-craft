@@ -1,7 +1,20 @@
 import { Box, Skeleton } from "@mui/material";
 import React from "react";
 
-export default function Skelton({
+interface SkeletonProps {
+  height?: string;
+  width?: string;
+  round?: string;
+  fill?: number;
+  line?: string;
+  gap?: string;
+  text?: boolean;
+  textH?: string;
+  textW?: string;
+  title?: boolean;
+}
+
+const Skelton: React.FC<SkeletonProps> = ({
   height,
   width,
   round,
@@ -12,7 +25,7 @@ export default function Skelton({
   textH,
   textW,
   title,
-}: any) {
+}) => {
   return (
     <div>
       {title && (
@@ -57,4 +70,6 @@ export default function Skelton({
       </Box>
     </div>
   );
-}
+};
+
+export default Skelton;

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
-const data = [
+const data: string[] = [
   "/images/dashImage1.webp",
   "/images/dashImage2.webp",
   "/images/dashImage3.webp",
@@ -55,7 +55,7 @@ export default function CustomInvitations() {
       </Box>
 
       <Box className=" items-center gap-[2%] justify-center mt-14  max-2sm:mt-12 hidden sm:flex">
-        {data?.map((item: any, index: number) => {
+        {data?.map((item: string, index: number) => {
           let width;
           switch (true) {
             case index === 1:
@@ -87,8 +87,8 @@ export default function CustomInvitations() {
       </Box>
       <Box className="flex items-center gap-[2%] justify-center mt-10 mb-5  max-2sm:mt-12 sm:hidden">
         {data
-          ?.filter((e: any, index: number) => index > 0 && index < 4)
-          ?.map((item: any, index: number) => {
+          ?.filter((e: string, index: number) => index > 0 && index < 4)
+          ?.map((item: string, index: number) => {
             let width;
             switch (true) {
               case index === 0:

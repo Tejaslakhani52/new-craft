@@ -12,7 +12,7 @@ const SignUpContentBox = dynamic(
 export default function index() {
   const router = useRouter();
   const userLoginStatus = authCookiesGet();
-  const [loading, setLoading] = useState<any>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (userLoginStatus) {

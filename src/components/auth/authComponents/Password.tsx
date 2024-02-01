@@ -1,13 +1,22 @@
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import FormControl from "@mui/material/FormControl";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import InputLabel from "@mui/material/InputLabel";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import React from "react";
+import React, { ChangeEvent } from "react";
 
-export default function Password(props: any) {
+interface PasswordProps {
+  label: string;
+  value?: string;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+export default function Password(props: PasswordProps) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -17,8 +26,9 @@ export default function Password(props: any) {
   ) => {
     event.preventDefault();
   };
+
   return (
-    <FormControl sx={{ m: 0, width: "100" }} variant="outlined">
+    <FormControl sx={{ m: 0, width: "100%" }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">
         {props.label}
       </InputLabel>
@@ -44,7 +54,6 @@ export default function Password(props: any) {
           ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
             border: "1px solid #ABB2C7",
             borderRadius: "10px",
-            // padding: "13.5px 14px",
           },
           "&:hover": {
             ".css-1d3z3hw-MuiOutlinedInput-notchedOutline": {

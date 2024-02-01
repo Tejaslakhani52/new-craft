@@ -2,11 +2,20 @@ import {
   useScreenHeight,
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
-const DialogModal = (props: any) => {
+interface DialogModalProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  className?: string;
+  scroll_none?: boolean;
+  children: ReactNode;
+}
+
+const DialogModal = (props: DialogModalProps) => {
   const screenHeight = useScreenHeight();
   const screenWidth = useScreenWidth();
+
   useEffect(() => {
     const htmlStyleElement = document.getElementById("html_style");
 
@@ -17,15 +26,15 @@ const DialogModal = (props: any) => {
         htmlStyleElement.style.overflow = "auto";
       }
     }
-  }, [props.open]);
+  }, [props.open, props.scroll_none]);
 
   return (
     <>
       <div
         className={"background_blur "}
         style={{
-          visibility: props?.open ? "visible" : "hidden",
-          opacity: props?.open ? "0.5" : "0",
+          visibility: props.open ? "visible" : "hidden",
+          opacity: props.open ? "0.5" : "0",
           transition: "0.2s all",
         }}
         onClick={() => {
@@ -34,10 +43,10 @@ const DialogModal = (props: any) => {
       ></div>
 
       <div
-        className={`${props?.className} report_dialog `}
+        className={`${props.className} report_dialog `}
         style={{
-          visibility: props?.open ? "visible" : "hidden",
-          opacity: props?.open ? "1" : "0",
+          visibility: props.open ? "visible" : "hidden",
+          opacity: props.open ? "1" : "0",
           transition: "0.2s all",
         }}
       >
@@ -59,7 +68,7 @@ const DialogModal = (props: any) => {
             <img src="/icons/modalClose.png" alt="icon" />
           </button>
 
-          {props?.children}
+          {props.children}
         </div>
       </div>
     </>

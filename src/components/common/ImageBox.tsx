@@ -23,14 +23,14 @@ export default function ImageBox({
   setOpenModal,
 }: ImageBoxProps) {
   const router = useRouter();
-  const [currentIndex, setCurrentIndex] = useState<any>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
   useEffect(() => {
     if (isHovered) {
       intervalRef.current = setInterval(() => {
         setCurrentIndex(
-          (prevIndex: any) => (prevIndex + 1) % templates?.thumbArray.length
+          (prevIndex: number) => (prevIndex + 1) % templates?.thumbArray.length
         );
       }, 1300);
     } else {
@@ -108,7 +108,7 @@ export default function ImageBox({
                 transform: `translateX(-${currentIndex * 100}%)`,
               }}
             >
-              {templates?.thumbArray.map((image: any, index: number) => (
+              {templates?.thumbArray.map((image: string, index: number) => (
                 <div
                   className="carousel-slide"
                   key={index}
@@ -117,19 +117,12 @@ export default function ImageBox({
                   <img
                     src={`/api/image/compress?url=${encodeURIComponent(image)}`}
                     alt={image}
-                    className={`w-full h-full rounded-[5px]  cursor-pointer  opacity-0`}
-                    style={{ transition: "0.5s all" }}
-                    onLoad={(e: any) => e.target.classList.remove("opacity-0")}
-                  />
-
-                  {/* <img
-                    src={image}
-                    alt={image}
-                    loading="lazy"
                     className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
                     style={{ transition: "0.5s all" }}
-                    onLoad={(e: any) => e.target.classList.remove("opacity-0")}
-                  /> */}
+                    onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                      e.currentTarget.classList.remove("opacity-0")
+                    }
+                  />
                 </div>
               ))}
             </div>

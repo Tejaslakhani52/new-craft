@@ -16,7 +16,7 @@ export default function index() {
   const router = useRouter();
   const userLoginStatus = authCookiesGet();
   const [forgot, setForgot] = useState<boolean>(false);
-  const [loading, setLoading] = useState<any>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (userLoginStatus) {

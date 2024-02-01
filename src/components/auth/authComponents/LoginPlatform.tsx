@@ -1,14 +1,22 @@
 import Icons from "@/src/assets";
 import { auth } from "@/src/firebase";
 import { createUserApi } from "@/src/redux/action/AuthAction";
-import { GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
-import { Box, Button } from "@mui/material";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  UserCredential,
+} from "@firebase/auth";
+import { Box, Button, ButtonProps } from "@mui/material";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 
 const provider = new GoogleAuthProvider();
 
-export const LoginButton = (props: any) => {
+interface LoginButtonProps extends ButtonProps {
+  children: React.ReactNode;
+}
+
+export const LoginButton = (props: LoginButtonProps) => {
   return (
     <Button
       sx={{
@@ -36,15 +44,15 @@ export default function LoginPlatform() {
   const router = useRouter();
 
   const handleGoogleLogin = () => {
-    signInWithPopup(auth, provider).then((data) => {
-      const userData: any = data?.user;
+    signInWithPopup(auth, provider).then((data: UserCredential) => {
+      const userData = data?.user;
 
       dispatch(
         createUserApi(
           {
-            name: userData?.displayName,
-            email: userData?.email,
-            photo_uri: userData?.photoURL,
+            name: userData?.displayName ?? "",
+            email: userData?.email ?? "",
+            photo_uri: userData?.photoURL ?? "",
             user_id: userData?.uid,
             login_type: "google",
           },

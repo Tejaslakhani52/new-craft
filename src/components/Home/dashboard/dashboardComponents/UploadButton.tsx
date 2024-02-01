@@ -6,12 +6,12 @@ import React, { useRef, useState } from "react";
 export default function UploadButton() {
   const fileInputRef: React.RefObject<HTMLInputElement> | any = useRef(null);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<any> | any) => {
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -19,22 +19,28 @@ export default function UploadButton() {
     fileInputRef.current.click();
   };
 
-  const handleFileChange = (event: React.MouseEvent<any> | any | any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setSelectedFile(event.target.files[0]);
+    }
   };
 
-  const handleDragOver = (event: React.MouseEvent<any> | any) => {
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(true);
   };
 
-  const handleDragLeave = () => {
-    setIsDragOver(false);
-  };
-  const handleDrop = (event: React.MouseEvent<any> | any) => {
+  const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setIsDragOver(false);
-    setSelectedFile(event.dataTransfer.files[0]);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDragOver(false);
+    if (event.dataTransfer.files.length > 0) {
+      setSelectedFile(event.dataTransfer.files[0]);
+    }
   };
 
   return (

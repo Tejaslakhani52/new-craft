@@ -1,13 +1,5 @@
+import { PaymentProps } from "@/src/interface/payment_props";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface TemplateData {
-  id: string;
-  type: number;
-  usdAmount: string;
-  usdVal: number;
-  inrAmount: string;
-  inrVal: number;
-}
 
 interface DataState {
   openSidebar: boolean;
@@ -16,10 +8,10 @@ interface DataState {
   enterAccount: boolean;
   mainLoader: boolean;
   mainLoad: boolean;
-  modalClosePath: any;
+  modalClosePath: string;
   tempId: string;
   openLogin: boolean;
-  _paf: TemplateData | any;
+  _paf: PaymentProps[] | any;
   clearTemplateCookie: boolean;
 }
 
@@ -59,16 +51,16 @@ const dataActions = createSlice({
     mainLoad: (state, action: PayloadAction<boolean>) => {
       state.mainLoad = action.payload;
     },
-    modalClosePath: (state, action: PayloadAction<any>) => {
+    modalClosePath: (state, action: PayloadAction<string>) => {
       state.modalClosePath = action.payload;
     },
-    tempId: (state, action: PayloadAction<any>) => {
+    tempId: (state, action: PayloadAction<string>) => {
       state.tempId = action.payload;
     },
     openLogin: (state, action: PayloadAction<boolean>) => {
       state.openLogin = action.payload;
     },
-    _paf: (state, action: PayloadAction<any>) => {
+    _paf: (state, action: PayloadAction<PaymentProps[] | any>) => {
       state._paf = action.payload;
     },
     clearTemplateCookie: (state, action: PayloadAction<boolean>) => {

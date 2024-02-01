@@ -7,9 +7,17 @@ import SignUpContentBox from "./authComponents/SignUpContentBox";
 import { useDispatch } from "react-redux";
 import { openLogin } from "@/src/redux/reducer/actionDataReducer";
 
-export default function SignUp(props: any) {
+interface SignUpProps {
+  openSignUp: boolean;
+  openLogin: boolean;
+  setOpenSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  width?: string;
+}
+
+export default function SignUp(props: SignUpProps) {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 

@@ -1,9 +1,13 @@
 import api from "@/src/clientApi/api";
+import { consoleLog } from "@/src/commonFunction/console";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import CustomHead from "@/src/components/common/CustomHead";
 import ImageBox from "@/src/components/common/ImageBox";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { RootState } from "@/src/redux";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -15,7 +19,19 @@ const TemplateModal = dynamic(
   () => import("@/src/components/singleTemplate/TemplateModal")
 );
 
-export async function getServerSideProps(context: any) {
+export interface SKeywordProps {
+  serverData: {
+    datas: TemplateDataType[];
+    meta_title: string;
+    meta_desc: string;
+    title: string;
+    short_desc: string;
+    h2_tag: string;
+  };
+  updatedLines: string[];
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { params } = context;
 
@@ -44,7 +60,7 @@ export async function getServerSideProps(context: any) {
         </a>
       `;
       const keywordRegExp = new RegExp(keyword, "gi");
-      updatedLines = lines.map((line: any) =>
+      updatedLines = lines.map((line: string) =>
         line.replace(keywordRegExp, link)
       );
     }
@@ -60,22 +76,25 @@ export async function getServerSideProps(context: any) {
       notFound: true,
     };
   }
-}
+};
 
-export default function sKeyword({ serverData, updatedLines }: any) {
+export default function SKeyword({
+  serverData,
+  updatedLines,
+}: SKeywordProps): JSX.Element {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const router = useRouter();
-  const searchName: any = router?.query?.sKeyword;
+  const searchName: string | any = router?.query?.sKeyword;
   const formattedSearchName = searchName?.replace(/\s+/g, "-").toLowerCase();
   const screenWidth = useScreenWidth();
   const [openModal, setOpenModal] = useState(false);
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<TemplateDataType[] | null>(null);
   const [page, setPage] = useState<number>(1);
-  const [loadMore, setLoadMore] = useState<any>(true);
-  const [isLastPage, setIsLastPage] = useState<any>();
-  const [idName, setIdName] = useState<any>("");
+  const [loadMore, setLoadMore] = useState<boolean>(true);
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const [idName, setIdName] = useState<string>("");
 
-  const tempIdValue = useSelector((state: any) => state.actions.tempId);
+  const tempIdValue = useSelector((state: RootState) => state.actions.tempId);
 
   useEffect(() => {
     setLoadMore(true);
@@ -90,18 +109,17 @@ export default function sKeyword({ serverData, updatedLines }: any) {
           setIsLastPage(response?.current_page >= response?.total_page);
 
           if (response?.datas) {
-            setData((prevData: any) => [
-              ...(prevData || []),
-              ...response?.datas,
-            ]);
+            setData((prevData) => [...(prevData || []), ...response?.datas]);
           }
         })
-        .catch((err: any) => {});
+        .catch((err) => {
+          consoleLog("sKeywordError", err);
+        });
     }
   }, [formattedSearchName, page]);
 
   useEffect(() => {
-    const element: any = document.getElementById(tempIdValue);
+    const element = document.getElementById(tempIdValue);
     element?.scrollIntoView();
   }, [data]);
 
@@ -187,7 +205,7 @@ export default function sKeyword({ serverData, updatedLines }: any) {
                 columnWidth={screenWidth / multiSizeFixSize}
                 duration={0}
               >
-                {data?.map((templates: any, index: number) => (
+                {data?.map((templates: TemplateDataType, index: number) => (
                   <ImageBox
                     key={index}
                     templates={templates}
@@ -244,7 +262,7 @@ export default function sKeyword({ serverData, updatedLines }: any) {
               </Typography>
 
               <div>
-                {updatedLines.map((line: any, index: number) => (
+                {updatedLines.map((line: string, index: number) => (
                   <p
                     key={index}
                     dangerouslySetInnerHTML={{ __html: line }}

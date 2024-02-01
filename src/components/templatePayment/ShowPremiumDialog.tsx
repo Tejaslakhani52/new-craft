@@ -34,7 +34,6 @@ export default function ShowPremiumDialog({
   scroll_none,
 }: PropsType) {
   const dispatch = useDispatch();
-  const router = useRouter();
   const [countryCode, setCountryCode] = useState<string>("IN");
   const [openPaymentDialog, setOpenPaymentDialog] = useState<boolean>(false);
   const [stripeTestPromise, setStripeTestPromise] = useState<string | any>(

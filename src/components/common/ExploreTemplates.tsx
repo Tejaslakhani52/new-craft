@@ -1,20 +1,31 @@
-import api from "@/src/clientApi/api";
-import { calculateHeight } from "@/src/commonFunction/calculateHeight";
-import { consoleLog } from "@/src/commonFunction/console";
-import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import StackGrid from "react-stack-grid";
+import { calculateHeight } from "@/src/commonFunction/calculateHeight";
+import { consoleLog } from "@/src/commonFunction/console";
+import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
+import api from "@/src/clientApi/api";
+import { TemplateDataType } from "@/src/interface/commonType";
 
-export default function ExploreTemplates({ category, getAll, keyword }: any) {
+interface ExploreTemplatesProps {
+  category: string;
+  getAll: string;
+  keyword?: string;
+}
+
+export default function ExploreTemplates({
+  category,
+  getAll,
+  keyword,
+}: ExploreTemplatesProps) {
   const router = useRouter();
   const { pathname } = router;
   const pathSegments = pathname.split("/");
   const lastSegment = pathSegments[pathSegments.length - 1];
   const screenWidth = useScreenWidth();
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<TemplateDataType[]>();
 
   useEffect(() => {
     api
@@ -26,7 +37,8 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
         setData(res.datas);
       })
       .catch((err) => consoleLog("err", err));
-  }, []);
+  }, [category, lastSegment]);
+
   const multiSizeFixSize = React.useMemo(() => {
     switch (true) {
       case screenWidth > 1500:
@@ -37,10 +49,8 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
         return 4.3;
       case screenWidth > 700:
         return 3.3;
-
       case screenWidth > 550:
         return 3.3;
-
       case screenWidth > 250:
         return 2.4;
       default:
@@ -78,15 +88,15 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
 
         <StackGrid columnWidth={screenWidth / multiSizeFixSize}>
           {data
-            ?.filter((e: any, index: number) => index < 20)
-            ?.map((templates: any, index: number) => (
+            ?.filter((e, index) => index < 20)
+            ?.map((templates, index) => (
               <div
                 key={index}
                 className=""
                 style={{
                   height: `${calculateHeight(
-                    templates?.width,
-                    templates?.height,
+                    templates.width,
+                    templates.height,
                     screenWidth / multiSizeFixSize
                   )}px`,
                   width: `${screenWidth / multiSizeFixSize}px`,
@@ -97,35 +107,20 @@ export default function ExploreTemplates({ category, getAll, keyword }: any) {
                   <div className="w-full h-full p-[8px]">
                     <img
                       src={`/api/image/compress?url=${encodeURIComponent(
-                        templates?.template_thumb
+                        templates.template_thumb
                       )}`}
-                      alt={templates?.category_name}
+                      alt={templates.category_name}
                       className={`w-full h-full rounded-[5px] cursor-pointer  `}
                       style={{
                         border: "1px solid #80808082",
                       }}
                     />
-
-                    {/* <Image
-                      src={templates?.template_thumb}
-                      alt={templates?.category_name}
-                      width={150}
-                      height={150}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        borderRadius: "5px",
-                        cursor: "pointer",
-                        border: "1px solid #80808082",
-                      }}
-                    /> */}
-
                     <div className="pt-2">
                       <p className="text-ellipsis w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
-                        {templates?.template_name}
+                        {templates.template_name}
                       </p>
                       <p className="text-[#ABB2C7] text-[13px] pb-1">
-                        {templates?.category_name}
+                        {templates.category_name}
                       </p>
                     </div>
                   </div>

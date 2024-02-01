@@ -88,15 +88,21 @@ const customerComment = [
       "Crafty Art Flyer Maker is a great tool for quick and easy flyer design. The only downside is the limited export options. I'd love to have more file format choices for my designs, but it's still a solid choice for businesses on a budget.",
   },
 ];
-
-interface props {
-  text: string;
-  value: number;
+interface CustomerComment {
+  rating: number;
+  comment: string;
   image: string;
   name: string;
 }
 
-export const CustomerBox = ({ text, value, image, name }: props) => {
+interface CustomerBoxProps {
+  value: number;
+  text: string;
+  image: string;
+  name: string;
+}
+
+export const CustomerBox = ({ text, value, image, name }: CustomerBoxProps) => {
   return (
     <Box
       className="w-[32%] max-sm:mx-3 bg-white p-8 rounded-[10px] max-lg:w-[100%] min-w-[300px] max-sm:min-w-[100%] max-2sm:min-w-[230px]"
@@ -109,9 +115,6 @@ export const CustomerBox = ({ text, value, image, name }: props) => {
         ></Box>
         <Box className="font-medium  ">
           <Box>{name}</Box>
-          {/* <Box className="text-sm text-gray-500 dark:text-gray-400">
-            Growth Hacker, Finter
-          </Box> */}
         </Box>
       </Box>
       <Rating name="read-only" value={value} readOnly />
@@ -177,7 +180,7 @@ export default function CustomerSaying() {
           className=" flex pr-[23px]  w-full xl:w-[80%] justify-between  z-[1] max-lg:mt-[0]  gap-[30px] max-sm:gap-[0px] overflow-auto scroll_none   sm:px-10 py-5 sm:py-15  mt-5"
           id="customer"
         >
-          {customerComment?.map((item: any, index: number) => (
+          {customerComment?.map((item: CustomerComment, index: number) => (
             <CustomerBox
               key={index}
               value={item?.rating}

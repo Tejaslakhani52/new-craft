@@ -5,9 +5,11 @@ import { mainLoad, openSidebar } from "../reducer/actionDataReducer";
 import { authCookiesSet } from "./AuthToken";
 import { consoleLog } from "@/src/commonFunction/console";
 import { CreateUserPayload } from "@/src/interface/createUser";
+import { ThunkDispatch } from "@reduxjs/toolkit";
+import { AnyAction } from "redux";
 
 export const createUserApi =
-  (props: CreateUserPayload, router: any): any =>
+  (props: CreateUserPayload): any =>
   async (dispatch: Dispatch<any>) => {
     api
       .createUser({
@@ -22,7 +24,6 @@ export const createUserApi =
         dispatch(mainLoad(false));
 
         authCookiesSet(res?.user?.uid);
-        // router.push(`${"/"}`);
         setTimeout(() => {
           window.location.reload();
         }, 100);

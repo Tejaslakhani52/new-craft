@@ -13,6 +13,7 @@ import {
 } from "../header/headerComponents/Menu";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import { authCookiesGet } from "@/src/redux/action/AuthToken";
+import { RootState } from "@/src/redux";
 
 const option = [
   {
@@ -29,14 +30,29 @@ const option = [
   },
 ];
 
-type PropsType = {
+interface AllNameType {
+  name: string;
+  path: string;
+}
+
+interface SubNameType {
+  heading: string;
+  allName: AllNameType[];
+}
+
+interface DataProps {
+  name: string;
+  subName: SubNameType[];
+}
+
+interface PropsType {
   open: boolean;
-  data: any;
+  data: DataProps;
   setOpens: React.Dispatch<React.SetStateAction<boolean>>;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
-export const InnerButton = ({ open, data, setOpens, setOpen }: PropsType) => {
+export const InnerButton = ({ open, data, setOpens }: PropsType) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const screenWidth = useScreenWidth();
@@ -68,7 +84,7 @@ export const InnerButton = ({ open, data, setOpens, setOpen }: PropsType) => {
         </Box>
         <Divider />
 
-        {data?.subName?.map((data: any, index: number) => (
+        {data?.subName?.map((data: SubNameType, index: number) => (
           <div key={index}>
             <Box className="flex flex-col p-[20px]">
               <Typography
@@ -78,7 +94,7 @@ export const InnerButton = ({ open, data, setOpens, setOpen }: PropsType) => {
               >
                 {data?.heading}
               </Typography>
-              {data?.allName?.map((item: any, index: number) => (
+              {data?.allName?.map((item: AllNameType, index: number) => (
                 <div key={index}>
                   <MenuItem
                     onClick={() => {
@@ -86,7 +102,6 @@ export const InnerButton = ({ open, data, setOpens, setOpen }: PropsType) => {
                       if (screenWidth < 1020) {
                         dispatch(openSidebar(false));
                       }
-                      // setOpen(false);
                     }}
                     sx={{
                       fontSize: "14px",
@@ -111,10 +126,14 @@ export const InnerButton = ({ open, data, setOpens, setOpen }: PropsType) => {
   );
 };
 
-export default function Sidebar(setOpen: any) {
+export default function Sidebar(
+  setOpen: React.Dispatch<React.SetStateAction<boolean>> | any
+) {
   const router = useRouter();
   const dispatch = useDispatch();
-  const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
+  const sideBarRedux = useSelector(
+    (state: RootState) => state.actions.openSidebar
+  );
   const [screenHeight, setScreenHeight] = useState(0);
   const screenWidth = useScreenWidth();
   const [token, setToken] = React.useState<string | null>("");
@@ -148,7 +167,14 @@ export default function Sidebar(setOpen: any) {
     }
   }, [sideBarRedux]);
 
-  const sidebarMenu = [
+  interface MenuItem {
+    name: string;
+    icons: React.ReactElement;
+    activeIcon: React.ReactElement;
+    path: string;
+  }
+
+  const sidebarMenu: MenuItem[] = [
     {
       name: "Home",
       icons: <Icons.homeIcons svgProps={{ width: 20 }} />,
@@ -187,7 +213,7 @@ export default function Sidebar(setOpen: any) {
     },
   ];
 
-  const SideBarMenuButton = ({ data }: any) => {
+  const SideBarMenuButton = (props: { data: DataProps }) => {
     const [open, setOpens] = useState<boolean>(false);
     return (
       <Box>
@@ -195,14 +221,14 @@ export default function Sidebar(setOpen: any) {
           className="flex gap-5 px-[20px] justify-between  w-full normal-case	text-black mb-2 relative"
           onClick={() => setOpens(!open)}
         >
-          <span className="text-black text-[15px]">{data?.name}</span>
+          <span className="text-black text-[15px]">{props.data?.name}</span>
 
           <Icons.rightArrowIcon svgProps={{ width: 7 }} />
         </Button>
         <div>
           <InnerButton
             open={open}
-            data={data}
+            data={props.data}
             setOpens={setOpens}
             setOpen={setOpen}
           />
@@ -260,7 +286,7 @@ export default function Sidebar(setOpen: any) {
           </Box>
           <Divider className="hidden max-lg:block" />
           <Box className="max-lg:py-5 px-[10px]">
-            {sidebarMenu?.map((item: any, index: number) => (
+            {sidebarMenu?.map((item: MenuItem, index: number) => (
               <Box
                 key={index}
                 className={`${

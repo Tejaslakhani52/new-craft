@@ -1,25 +1,36 @@
-import Icons from "@/src/assets";
-import { authCookiesGet } from "@/src/redux/action/AuthToken";
-import { openSidebar } from "@/src/redux/reducer/actionDataReducer";
-import { Box, Button, Menu } from "@mui/material";
+import { Box, Button, Menu, MenuList, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Profile from "../profileAndNotification/Profile";
 import Sidebar from "../sidebar/Sidebar";
 import LoginButton from "./headerComponents/LoginButton";
 import MenuBox from "./headerComponents/Menu";
+import Icons from "@/src/assets";
+import { authCookiesGet } from "@/src/redux/action/AuthToken";
+import { openSidebar } from "@/src/redux/reducer/actionDataReducer";
+import { useRouter } from "next/router";
+import { RootState } from "@/src/redux";
 
-export default function Header({ sidebarOpen, setSidebarOpen }: any) {
+interface HeaderProps {
+  sidebarOpen: boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
   const dispatch = useDispatch();
   const router = useRouter();
+  const sideBarRedux = useSelector(
+    (state: RootState) => state.actions.openSidebar
+  );
+  const sidebarOpenLogin = useSelector(
+    (state: RootState) => state?.actions?.openLogin
+  );
+  const enterYourAccount = useSelector(
+    (state: RootState) => state.actions.enterAccount
+  );
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const sideBarRedux = useSelector((state: any) => state.actions.openSidebar);
-  const sidebarOpenLogin = useSelector(
-    (state: any) => state?.actions?.openLogin
-  );
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [openSignUp, setOpenSignUp] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
@@ -44,10 +55,6 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
   useEffect(() => {
     setSidebarOpen(sideBarRedux);
   }, [sideBarRedux]);
-
-  const enterYourAccount = useSelector(
-    (state: any) => state.actions.enterAccount
-  );
 
   const handleClick = (event: React.MouseEvent<any> | any) => {
     setAnchorEl(event.currentTarget);
@@ -89,11 +96,11 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
                 </Button>
               </Box>
             )}
-            <Link href={"/"} className="w-[146px] cursor-pointer ">
+            <Link href={"/"} passHref>
               <img
                 src="/images/logo.svg"
                 alt="logo"
-                className="w-[147px] max-lg:w-[127px]  max-2sm:w-[80px]"
+                className="w-[147px] cursor-pointer max-lg:w-[127px] max-2sm:w-[80px]"
               />
             </Link>
           </Box>
@@ -141,35 +148,42 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
               "aria-labelledby": "basic-button",
             }}
           >
-            <Box className="pl-[10px] pr-[10px] flex gap-[10px]">
-              <Box className="w-[250px] bg-[#F4F7FE] px-4 py-[9px] rounded-[6px] flex items-center gap-3  ">
-                <Box className="w-[16px] flex items-center">
-                  <Icons.searchIcon svgProps={{ width: 16 }} />
+            <MenuList>
+              <MenuItem>
+                <Box className="pl-[10px] pr-[10px] flex gap-[10px]">
+                  <Box className="w-[250px] bg-[#F4F7FE] px-4 py-[9px] rounded-[6px] flex items-center gap-3  ">
+                    <Box className="w-[16px] flex items-center">
+                      <Icons.searchIcon svgProps={{ width: 16 }} />
+                    </Box>
+                    <input
+                      type="text"
+                      value={searchValue}
+                      placeholder="Search your content on crafty art"
+                      className="bg-transparent w-[100%] focus:outline-0 text-[14px]"
+                      onChange={(e) => setSearchValue(e.target.value)}
+                    />
+                  </Box>
+                  <Box>
+                    <Button
+                      className="text-white bg_linear normal-case"
+                      onClick={() => {
+                        if (searchValue !== "") {
+                          const trimmedValue = searchValue?.trim();
+                          const modifiedValue = trimmedValue?.replace(
+                            / /g,
+                            "-"
+                          );
+                          router.push(`/s/${modifiedValue}`);
+                          setAnchorEl(null);
+                        }
+                      }}
+                    >
+                      Search
+                    </Button>
+                  </Box>
                 </Box>
-                <input
-                  type="text"
-                  value={searchValue}
-                  placeholder="Search your content on crafty art"
-                  className="bg-transparent w-[100%] focus:outline-0 text-[14px]"
-                  onChange={(e) => setSearchValue(e.target.value)}
-                />
-              </Box>
-              <Box>
-                <Button
-                  className="text-white bg_linear normal-case"
-                  onClick={(e: React.MouseEvent<any> | any) => {
-                    if (searchValue !== "") {
-                      const trimmedValue = searchValue?.trim();
-                      const modifiedValue = trimmedValue?.replace(/ /g, "-");
-                      router.push(`/s/${modifiedValue}`);
-                      setAnchorEl(null);
-                    }
-                  }}
-                >
-                  Search
-                </Button>
-              </Box>
-            </Box>
+              </MenuItem>
+            </MenuList>
           </Menu>
           <Box className="">
             {token ? (
@@ -183,21 +197,14 @@ export default function Header({ sidebarOpen, setSidebarOpen }: any) {
                   setOpenLogin={setOpenLogin}
                   openSignUp={openSignUp}
                   setOpenSignUp={setOpenSignUp}
-                />{" "}
+                />
               </Box>
             )}
           </Box>
         </Box>
       </Box>
 
-      <Sidebar
-        open={sidebarOpen}
-        setOpen={setSidebarOpen}
-        openLogin={openLogin}
-        setOpenLogin={setOpenLogin}
-        openSignUp={openSignUp}
-        setOpenSignUp={setOpenSignUp}
-      />
+      <Sidebar setOpen={setSidebarOpen} />
     </>
   );
 }

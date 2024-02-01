@@ -1,20 +1,21 @@
+import { DashboardDataType } from "@/src/interface/dashboard";
 import { PurchaseItemProps } from "@/src/interface/payment_props";
+import { StripePaymentMethod } from "@/src/interface/stripePaymentMethod";
+import { User } from "@/src/interface/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DataState {
-  templatesData: any[];
-  templatesSingleValue: any;
+  templatesData: DashboardDataType[];
   tokenValue: boolean;
-  userData: any;
+  userData: User | null;
   customerId: string;
   serverSideToken: string;
   setPurchaseItems: PurchaseItemProps[];
-  saveCardData: any;
+  saveCardData: StripePaymentMethod[];
 }
 
 const initialState: DataState = {
   templatesData: [],
-  templatesSingleValue: {},
   tokenValue: false,
   userData: null,
   customerId: "",
@@ -30,7 +31,7 @@ const dataSlice = createSlice({
     tokenValue: (state, action: PayloadAction<boolean>) => {
       state.tokenValue = action.payload;
     },
-    userData: (state, action: PayloadAction<boolean>) => {
+    userData: (state, action: PayloadAction<User | null>) => {
       state.userData = action.payload;
     },
     customerId: (state, action: PayloadAction<string>) => {
@@ -39,13 +40,13 @@ const dataSlice = createSlice({
     serverSideToken: (state, action: PayloadAction<string>) => {
       state.serverSideToken = action.payload;
     },
-    templatesData: (state, action: PayloadAction<any>) => {
+    templatesData: (state, action: PayloadAction<DashboardDataType[]>) => {
       state.templatesData = action.payload;
     },
     setPurchaseItems: (state, action: PayloadAction<PurchaseItemProps[]>) => {
       state.setPurchaseItems = action.payload;
     },
-    saveCardData: (state, action: PayloadAction<PurchaseItemProps[]>) => {
+    saveCardData: (state, action: PayloadAction<StripePaymentMethod[]>) => {
       state.saveCardData = action.payload;
     },
   },

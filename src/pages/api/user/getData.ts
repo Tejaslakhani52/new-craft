@@ -16,15 +16,12 @@ export default async function handler(
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const accessKey = process.env.NEXT_PUBLIC_KEY;
 
-    const response = await axios.post<any>(
-      `${apiUrl}/templates/api/V3/getUser`,
-      {
-        key: `${accessKey}`,
-        device_id: "",
-        email: req.body.user_id,
-        debug: "debug",
-      }
-    );
+    const response = await axios.post(`${apiUrl}/templates/api/V3/getUser`, {
+      key: `${accessKey}`,
+      device_id: "",
+      email: req.body.user_id,
+      debug: "debug",
+    });
 
     res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {

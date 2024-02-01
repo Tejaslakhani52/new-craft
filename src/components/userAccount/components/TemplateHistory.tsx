@@ -72,7 +72,7 @@ export default function TemplateHistory() {
                 </div>
               ) : (
                 templateData &&
-                templateData?.map((item: any, index: any) => (
+                templateData?.map((item: Product, index: number) => (
                   <tr key={index} className="bg-[#F4F7FE] border-b ">
                     <td className="px-4 py-4  whitespace-nowrap">
                       <div className="w-[100px] border h-[100px] flex justify-center items-center p-[5px] bg-white rounded-[5px]">

@@ -6,13 +6,14 @@ import {
   useScreenWidth,
 } from "@/src/commonFunction/screenWidthHeight";
 import { DraftDataType } from "@/src/interface/getDraftsType";
-import { ActionStateType } from "@/src/interface/stateType";
+import { RootState } from "@/src/redux";
 import { Box, Button } from "@mui/material";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { isMobile, isTablet } from "react-device-detect";
 
 interface DraftBoxesType {
   item: DraftDataType | any;
@@ -27,7 +28,6 @@ const DraftBoxes = ({
   multiSize,
   setMouseEnterItem,
 }: DraftBoxesType) => {
-  const screenWidth = useScreenWidth();
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
@@ -114,7 +114,7 @@ const DraftBoxes = ({
           <div
             className="w-full h-full"
             onClick={() => {
-              if (screenWidth < 800) {
+              if (isMobile || isTablet) {
                 window.open(
                   `https://play.google.com/store/apps/details?id=com.crafty.art`
                 );
@@ -128,7 +128,7 @@ const DraftBoxes = ({
                 height: "100%",
               }}
             >
-              {item?.thumbs.map((image: any, index: number) => (
+              {item?.thumbs.map((image: string, index: number) => (
                 <div
                   className="carousel-slide"
                   key={index}
@@ -148,7 +148,11 @@ const DraftBoxes = ({
                       width: "auto",
                       transition: "0.5s all",
                     }}
-                    onLoad={(e: any) => e.target.classList.remove("opacity-0")}
+                    onLoad={(e) =>
+                      (e.target as HTMLImageElement).classList.remove(
+                        "opacity-0"
+                      )
+                    }
                   />
                 </div>
               ))}
@@ -206,7 +210,7 @@ const DraftBoxes = ({
 
 export default function index() {
   const sideBarRedux = useSelector(
-    (state: ActionStateType) => state.actions.openSidebar
+    (state: RootState) => state.actions.openSidebar
   );
   const screenHeight = useScreenHeight();
   const screenWidth = useScreenWidth() - (sideBarRedux ? 289 : 40);
@@ -241,7 +245,7 @@ export default function index() {
         type: "0",
         page: page,
       })
-      .then((res: any) => {
+      .then((res) => {
         setLoadMore(false);
 
         if (res?.datas?.length > 0) {
@@ -252,7 +256,7 @@ export default function index() {
           setIsLastPage(res?.isLastPage);
         } else setDraftData(null);
       })
-      .catch((err: any) => {
+      .catch((err) => {
         setLoadMore(false);
         consoleLog("getDraftData: ", err);
       });
@@ -263,7 +267,7 @@ export default function index() {
       <h1 className="text-[32px] font-medium p-[10px]">Draft</h1>
       <div className="flex flex-wrap" style={{ width: screenWidth }}>
         {draftData
-          ? draftData?.map((item: any, index: number) => (
+          ? draftData?.map((item: DraftDataType, index: number) => (
               <DraftBoxes
                 key={index}
                 item={item}

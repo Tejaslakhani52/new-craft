@@ -18,6 +18,9 @@ import AddPaymentMethod from "./components/AddPaymentMethod";
 import DeleteCard from "./components/DeleteCard";
 import EditCard from "./components/EditCard";
 import SaveCardList from "./components/SaveCardList";
+import { RootState } from "@/src/redux";
+import { StripePaymentMethod } from "@/src/interface/stripePaymentMethod";
+import { consoleLog } from "@/src/commonFunction/console";
 
 interface AddressProps {
   line1: string;
@@ -52,16 +55,17 @@ export default function Stripe({
   amount,
   actionType,
 }: PropsType) {
-  const _paf = useSelector((state: any) => state.actions._paf);
+  const _paf = useSelector((state: RootState) => state.actions._paf);
   const dispatch = useDispatch();
   const stripe = useStripe();
   const elements = useElements();
-  const [selectedDefaultCard, setSelectedDefaultCard] = useState<any>(null);
+  const [selectedDefaultCard, setSelectedDefaultCard] =
+    useState<StripePaymentMethod | null>(null);
   const [addNewOpen, setAddNewOpen] = useState<boolean>(false);
   const [openEditCard, setOpenEditCard] = useState<boolean>(false);
   const [openDeleteCard, setOpenDeleteCard] = useState<boolean>(false);
-  const userData = useSelector((state: any) => state.auth.userData);
-  const saveCard = useSelector((state: any) => state.auth.saveCardData);
+  const userData = useSelector((state: RootState) => state.auth.userData);
+  const saveCard = useSelector((state: RootState) => state.auth.saveCardData);
   const [mainLoading, setMainLoading] = useState<boolean>(false);
 
   const getCard = () => {
@@ -92,7 +96,6 @@ export default function Stripe({
                 id: data.paymentIntent.id,
                 m: "Stripe",
               };
-              getCard();
               setMainLoading(true);
               api
                 .webhook({
@@ -121,7 +124,7 @@ export default function Stripe({
                     toast.success(data.msg);
                     setOpen(false);
                     setOpenEditCard(false);
-                    setSelectedDefaultCard(false);
+                    setSelectedDefaultCard(null);
                     setOpenDeleteCard(false);
                   } else {
                     toast.error("Payment failed");
@@ -143,7 +146,8 @@ export default function Stripe({
             setMainLoading(false);
           });
       })
-      .catch((err: any) => {
+      .catch((err) => {
+        consoleLog("stripe: ", err);
         toast.error("Payment failed");
         setAddNewOpen(false);
         setMainLoading(false);
@@ -212,7 +216,7 @@ export default function Stripe({
 
     api
       .detach({
-        pm: selectedDefaultCard?.id,
+        pm: selectedDefaultCard?.id ?? "",
       })
       .then(() => {
         toast.success("Payment method delete successfully");

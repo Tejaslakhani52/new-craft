@@ -1,45 +1,41 @@
-import api from "@/src/clientApi/api";
-import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Button, Typography } from "@mui/material";
 import { AddressElement, useElements } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { formatExpiryDate } from "../Stripe";
-import { BillingDetailProps } from "@/src/interface/payment_props";
+import {
+  BillingDetails,
+  StripePaymentMethod,
+} from "@/src/interface/StripePaymentMethod";
+import api from "@/src/clientApi/api";
+import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { saveCardData } from "@/src/redux/reducer/AuthDataReducer";
+import { formatExpiryDate } from "../Stripe";
 
-interface Card {
-  id: string;
-  billing_details: BillingDetailProps | any;
-  card: {
-    brand: string;
-    last4: string;
-    exp_month?: number;
-    exp_year?: number;
-  };
+interface EditCardProps {
+  selectedDefaultCard: StripePaymentMethod | null;
+  setOpenEditCard: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function EditCard(props: {
-  selectedDefaultCard: Card | null;
-  setOpenEditCard: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+export default function EditCard(props: EditCardProps) {
   const elements = useElements();
   const dispatch = useDispatch();
 
-  const [expiry, setExpiry] = useState<any>(
+  const [expiry, setExpiry] = useState<string>(
     formatExpiryDate(
       props.selectedDefaultCard?.card?.exp_month || 0,
       props.selectedDefaultCard?.card?.exp_year || 0
     )
   );
-  const [expiryMonth, setExpiryMonth] = useState("");
-  const [expiryYear, setExpiryYear] = useState("");
-  const [expiryError, setExpiryError] = useState<any>(false);
+  const [expiryMonth, setExpiryMonth] = useState<string>("");
+  const [expiryYear, setExpiryYear] = useState<string>("");
+  const [expiryError, setExpiryError] = useState<boolean | any>(false);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     dispatch(mainLoad(true));
-    const billing_details: BillingDetailProps = {
+
+    const billing_details: BillingDetails = {
       name: undefined,
       email: props.selectedDefaultCard?.billing_details?.email || "",
       address: undefined,
@@ -85,7 +81,7 @@ export default function EditCard(props: {
       });
   };
 
-  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleExpiryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const inputValue = e.target.value;
     let formattedExpiry = formatExpiry(inputValue);
     setExpiry(formattedExpiry);
@@ -95,19 +91,19 @@ export default function EditCard(props: {
     const currentYear = new Date().getFullYear();
     const currentYearLastTwoDigits = currentYear % 100;
 
-    const updatedYear: any = enteredYear
+    const updatedYear: number | undefined = enteredYear
       ? parseInt(`${currentYear.toString().slice(0, 2)}${enteredYear}`, 10)
-      : "";
+      : undefined;
 
     const hasError =
       enteredYear && parseInt(enteredYear, 10) < currentYearLastTwoDigits;
 
     setExpiryMonth(month);
-    setExpiryYear(updatedYear);
+    setExpiryYear(updatedYear?.toString() || "");
     setExpiryError(hasError);
   };
 
-  const formatExpiry = (inputValue: any) => {
+  const formatExpiry = (inputValue: string): string => {
     let formattedExpiry = inputValue.replace(/[^\d]/g, "");
     if (formattedExpiry.length >= 1 && formattedExpiry !== "1") {
       formattedExpiry = formattedExpiry.padStart(2, "0");
@@ -152,7 +148,6 @@ export default function EditCard(props: {
             className=" bg-white w-full font-semibold opacity-40"
             value={`XXXX XXXX XXXX ${props.selectedDefaultCard?.card?.last4}`}
             disabled
-            // onChange={(e) => setCustomerEmail(e.target.value)}
           />
         </Box>
       </Box>
@@ -218,7 +213,8 @@ export default function EditCard(props: {
             defaultValues: {
               address: {
                 country:
-                  props.selectedDefaultCard?.billing_details?.address?.country,
+                  props.selectedDefaultCard?.billing_details?.address
+                    ?.country ?? "IN",
                 line1:
                   props.selectedDefaultCard?.billing_details?.address?.line1,
                 line2:

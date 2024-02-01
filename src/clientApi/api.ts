@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import { decryptData } from "../aes-crypto";
 import { DashboardDataType } from "../interface/dashboard";
 import { CreateUserPayload } from "../interface/createUser";
-import { BillingDetailProps } from "../interface/payment_props";
+import { BillingDetails } from "../interface/stripePaymentMethod";
+import { PaymentProps } from "../interface/payment_props";
 
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_NEXT_API_BASE_URL}`;
 const API_BASE_URL_1 = `${process.env.NEXT_PUBLIC_API_BASE_URL_1}`;
@@ -298,7 +299,7 @@ const api = {
 
   updateCard: async (payload: {
     pm: string | undefined;
-    billing_details: BillingDetailProps;
+    billing_details: BillingDetails;
     month: number | undefined;
     year: number | undefined;
   }) => {
