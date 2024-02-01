@@ -68,6 +68,7 @@ export default function ImageBox({
       } rounded-[12px]`}
       key={templates.id_name}
       href={`/templates/p/${templates.id_name}`}
+      scroll={true}
       // onClick={(e) => {
       //   if (!isMobile) {
       //     e.preventDefault();

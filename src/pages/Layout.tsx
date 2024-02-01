@@ -81,7 +81,7 @@ export default function Home(props: HomeProps) {
 
           {!loading && (
             <main
-              className="main"
+              className="main bg-[#00000081]"
               style={{ zIndex: "555555555555555555555555" }}
             >
               <span className="loader_span"></span>
