@@ -17,14 +17,16 @@ export default function TemplatesBox() {
   const [idName, setIdName] = useState<string>("");
   const router = useRouter();
   const dispatch = useDispatch();
-  const data = useSelector((state: RootState) => state.auth.templatesData);
+  const data = useSelector((state: RootState) => state?.auth?.templatesData);
 
   useEffect(() => {
     api
       .getDashboardData()
       .then((res) => {
         const dashboardData = res as DashboardDataType[];
-        dispatch(templatesData(dashboardData));
+        if (dashboardData) {
+          dispatch(templatesData(dashboardData));
+        }
       })
       .catch((err) => consoleLog("err", err));
   }, []);
