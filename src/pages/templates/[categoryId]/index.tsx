@@ -212,15 +212,15 @@ export default function index(props: { jsonString: ServerSideProps }) {
 
   return (
     <>
-      {!props.jsonString?.datas && <NotFound />}
+      {!props?.jsonString?.datas && <NotFound />}
 
       {true && (
         <>
           <Box className="bg-[#F4F7FE] px-[10px] sm:px-[16px]">
             <CustomHead
               image={`${assetsUrl}/w_assets/images/categoryBanner.png`}
-              heading={props.jsonString?.meta_title}
-              text={props.jsonString?.meta_desc}
+              heading={props?.jsonString?.meta_title}
+              text={props?.jsonString?.meta_desc}
             />
             <Box className="pt-[15px]">
               <Breadcrumb
@@ -262,7 +262,7 @@ export default function index(props: { jsonString: ServerSideProps }) {
                     className="max-lg:text-center text-[20px] sm:text-[40px]"
                     variant="h1"
                   >
-                    {props.jsonString?.h1_tag}
+                    {props?.jsonString?.h1_tag}
                   </Typography>
 
                   <Typography
@@ -274,7 +274,7 @@ export default function index(props: { jsonString: ServerSideProps }) {
                     }}
                     className="max-lg:text-center max-sm:text-[14px]"
                   >
-                    {props.jsonString?.short_desc}
+                    {props?.jsonString?.short_desc}
                   </Typography>
                 </Box>
                 <Box
@@ -343,11 +343,11 @@ export default function index(props: { jsonString: ServerSideProps }) {
           {!staticBox[id?.categoryId] && (
             <Box className="my-[50px] w-[80%] mx-auto px-[30px] max-sm:w-full">
               <h2 className="text-[26px]  max-sm:text-[23px] text-[#1C3048] font-semibold mb-3 text-center">
-                {props.jsonString?.h2_tag}
+                {props?.jsonString?.h2_tag}
               </h2>
 
               <Typography className="text-[15px] whitespace-pre-line text-justify">
-                {props.jsonString?.long_desc}
+                {props?.jsonString?.long_desc}
               </Typography>
             </Box>
           )}

@@ -87,7 +87,7 @@ export default function Home(props: HomeProps) {
               <span className="loader_span"></span>
             </main>
           )}
-          {props.children}
+          {props?.children}
 
           <Box>
             {!token && router.pathname !== "/s/[searchValue]" && (

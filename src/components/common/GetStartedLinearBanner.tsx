@@ -43,7 +43,7 @@ export default function GetStartedLinearBanner(
           className="max-lg:text-center text-[25px]  sm:text-[40px]"
           variant="h1"
         >
-          {props.heading}
+          {props?.heading}
         </Typography>
 
         <Typography
@@ -55,10 +55,10 @@ export default function GetStartedLinearBanner(
           }}
           className="max-lg:text-center max-sm:text-[16px]"
         >
-          {props.text}
+          {props?.text}
         </Typography>
 
-        <Link href={props.navigate}>
+        <Link href={props?.navigate}>
           <Button
             style={{
               backgroundColor: "white",
@@ -72,7 +72,7 @@ export default function GetStartedLinearBanner(
               fontWeight: "500",
             }}
           >
-            <span className="text_linear">{props.buttonName}</span>
+            <span className="text_linear">{props?.buttonName}</span>
           </Button>
         </Link>
       </Box>
@@ -84,7 +84,7 @@ export default function GetStartedLinearBanner(
         }}
         className="hidden lg:flex"
       >
-        {props.image}
+        {props?.image}
       </Box>
     </Box>
   );

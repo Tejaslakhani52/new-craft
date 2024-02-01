@@ -27,13 +27,13 @@ export default function SignUp(props: SignUpProps) {
 
   const handleClose = () => {
     setOpen(false);
-    props.setOpenSignUp(false);
+    props?.setOpenSignUp(false);
     dispatch(openLogin(false));
   };
 
   React.useEffect(() => {
-    setOpen(props.openSignUp);
-  }, [props.openSignUp]);
+    setOpen(props?.openSignUp);
+  }, [props?.openSignUp]);
 
   React.useEffect(() => {
     const htmlStyleElement = document.getElementById("html_style");
@@ -41,7 +41,7 @@ export default function SignUp(props: SignUpProps) {
     if (htmlStyleElement) {
       if (open) {
         htmlStyleElement.style.overflow = "hidden";
-      } else if (!props.openLogin) {
+      } else if (!props?.openLogin) {
         htmlStyleElement.style.overflow = "auto";
       }
     }
@@ -72,8 +72,8 @@ export default function SignUp(props: SignUpProps) {
         aria-labelledby="responsive-dialog-title"
       >
         <SignUpContentBox
-          setOpenSignUp={props.setOpenSignUp}
-          setOpenLogin={props.setOpenLogin}
+          setOpenSignUp={props?.setOpenSignUp}
+          setOpenLogin={props?.setOpenLogin}
           setOpen={setOpen}
           handleClose={handleClose}
         />

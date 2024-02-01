@@ -114,8 +114,8 @@ export default function SignUpContentBox(props: SignUpContentBoxProps) {
         "User already registered. Please sign in to access your account."
       );
       dispatch(mainLoad(false));
-      props.setOpenSignUp && props.setOpenSignUp(false);
-      props.setOpenLogin && props.setOpenLogin(true);
+      props?.setOpenSignUp && props?.setOpenSignUp(false);
+      props?.setOpenLogin && props?.setOpenLogin(true);
       props?.setOpen && props?.setOpen(false);
 
       return;
@@ -341,12 +341,12 @@ export default function SignUpContentBox(props: SignUpContentBoxProps) {
                 className="text-[#5961F8] cursor-pointer"
                 onClick={() => {
                   if (
-                    props.setOpenSignUp &&
-                    props.setOpenLogin &&
+                    props?.setOpenSignUp &&
+                    props?.setOpenLogin &&
                     props?.setOpen
                   ) {
-                    props.setOpenSignUp(false);
-                    props.setOpenLogin(true);
+                    props?.setOpenSignUp(false);
+                    props?.setOpenLogin(true);
                     props?.setOpen && props?.setOpen(false);
                   } else router.push("/login");
                 }}

@@ -34,7 +34,7 @@ export const LoginButton = (props: LoginButtonProps) => {
       className="text-[16px] max-2sm:text-[12px]"
       {...props}
     >
-      {props.children}
+      {props?.children}
     </Button>
   );
 };

@@ -71,8 +71,8 @@ export default function LoginContentBox(props: LoginContentBoxProps) {
     if (!data?.user) {
       toast.error("User not found. Please sign up to create an account.");
       dispatch(mainLoad(false));
-      props.setOpenLogin && props.setOpenLogin(false);
-      props.setOpenSignUp && props.setOpenSignUp(true);
+      props?.setOpenLogin && props?.setOpenLogin(false);
+      props?.setOpenSignUp && props?.setOpenSignUp(true);
       props?.setOpen && props?.setOpen(false);
       return;
     }
@@ -228,9 +228,13 @@ export default function LoginContentBox(props: LoginContentBoxProps) {
           <span
             className="text-[#5961F8] cursor-pointer"
             onClick={() => {
-              if (props.setOpenLogin && props.setOpenSignUp && props?.setOpen) {
-                props.setOpenLogin(false);
-                props.setOpenSignUp(true);
+              if (
+                props?.setOpenLogin &&
+                props?.setOpenSignUp &&
+                props?.setOpen
+              ) {
+                props?.setOpenLogin(false);
+                props?.setOpenSignUp(true);
                 props?.setOpen(false);
               } else router.push("/signup");
             }}

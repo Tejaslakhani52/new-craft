@@ -29,7 +29,7 @@ export const OptionButton: React.FC<OptionButtonProps> = (props) => {
       className="mb-4 cursor-pointer text-[16px] normal-case text-white p-0 min-w-[auto] opacity-90 font-[300]"
       {...props}
     >
-      {props.children}
+      {props?.children}
     </Button>
   );
 };
@@ -89,7 +89,7 @@ export const MobileFooter: React.FC<MobileFooterProps> = (props) => {
         sx={{ borderBottom: "1px solid #D9D9D9" }}
         className="max-lg:px-[0px]"
       >
-        {props.button}
+        {props?.button}
       </AccordionDetails>
     </Accordion>
   );

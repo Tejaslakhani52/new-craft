@@ -43,7 +43,7 @@ export const MarkTextRight = (props: { text: string }) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[15px] max-sm:text-[14px]"
       >
-        {props.text}
+        {props?.text}
       </Typography>
     </Box>
   );
@@ -57,7 +57,7 @@ export const MarkTextWrong = (props: { text: string }) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[15px] max-sm:text-[14px]"
       >
-        {props.text}
+        {props?.text}
       </Typography>
     </Box>
   );
@@ -66,9 +66,9 @@ export const MarkTextWrong = (props: { text: string }) => {
 export const IconsText = (props: { text: string; image: string }) => {
   return (
     <Box className="flex items-center w-[33%] max-sm:w-[98%] mb-8 gap-2 max-sm:pl-[20px]">
-      <img src={props.image} alt={props.text} className="w-[30px]" />
+      <img src={props?.image} alt={props?.text} className="w-[30px]" />
 
-      <Typography className="mt-[3px]">{props.text}</Typography>
+      <Typography className="mt-[3px]">{props?.text}</Typography>
     </Box>
   );
 };

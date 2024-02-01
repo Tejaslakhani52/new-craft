@@ -29,12 +29,12 @@ export default function Login(props: LoginProps) {
   const handleClose = () => {
     setOpen(false);
     dispatch(openLogin(false));
-    props.setOpenLogin(false);
+    props?.setOpenLogin(false);
   };
 
   useEffect(() => {
-    setOpen(props.openLogin);
-  }, [props.openLogin]);
+    setOpen(props?.openLogin);
+  }, [props?.openLogin]);
 
   useEffect(() => {
     const htmlStyleElement = document.getElementById("html_style");
@@ -42,7 +42,7 @@ export default function Login(props: LoginProps) {
     if (htmlStyleElement) {
       if (open) {
         htmlStyleElement.style.overflow = "hidden";
-      } else if (!props.openSignUp) {
+      } else if (!props?.openSignUp) {
         htmlStyleElement.style.overflow = "auto";
       }
     }
@@ -79,7 +79,7 @@ export default function Login(props: LoginProps) {
           borderRadius: "6px",
         }}
         className={` flex sm:hidden ${
-          props.width
+          props?.width
             ? "bg-[#F4F7FE] w-full text-black"
             : "bg_linear text-white"
         }`}
@@ -97,8 +97,8 @@ export default function Login(props: LoginProps) {
           <ForgotPass setForgot={setForgot} />
         ) : (
           <LoginContentBox
-            setOpenLogin={props.setOpenLogin}
-            setOpenSignUp={props.setOpenSignUp}
+            setOpenLogin={props?.setOpenLogin}
+            setOpenSignUp={props?.setOpenSignUp}
             handleClose={handleClose}
             setOpen={setOpen}
             setForgot={setForgot}

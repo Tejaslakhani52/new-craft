@@ -119,7 +119,7 @@ export default function AddPaymentMethod(props: PropsType) {
 
             defaultValues: {
               address: {
-                country: props.countryCode,
+                country: props?.countryCode,
                 line1: "",
                 line2: "",
                 city: "",
@@ -133,7 +133,7 @@ export default function AddPaymentMethod(props: PropsType) {
         />
       </Box>
 
-      {props.saveCard?.length > 0 ? (
+      {props?.saveCard?.length > 0 ? (
         <Box className="flex justify-between pt-5">
           <Button
             style={{
@@ -144,7 +144,7 @@ export default function AddPaymentMethod(props: PropsType) {
               fontWeight: "500",
             }}
             className="bg_linear max-sm:w-full text-[#1C3048] w-[48%] py-[10px] px-[20px]  max-lg:mx-auto text-[14px] 2sm:text-[16px]"
-            onClick={() => props.setAddNewOpen(false)}
+            onClick={() => props?.setAddNewOpen(false)}
           >
             Cancel
           </Button>
@@ -160,7 +160,7 @@ export default function AddPaymentMethod(props: PropsType) {
               fontWeight: "500",
             }}
             className="bg_linear max-sm:w-full py-[10px]   px-[20px]  w-[48%] max-lg:mx-auto text-[14px] 2sm:text-[16px]  "
-            onClick={props.handleSubmit}
+            onClick={props?.handleSubmit}
           >
             Process to Pay
           </Button>
@@ -178,14 +178,14 @@ export default function AddPaymentMethod(props: PropsType) {
               fontWeight: "500",
             }}
             className="bg_linear max-sm:w-full py-[10px] w-full  px-[20px]  max-lg:mx-auto text-[14px] 2sm:text-[16px]  "
-            onClick={props.handleSubmit}
+            onClick={props?.handleSubmit}
           >
             Process to Pay
           </Button>
         </Box>
       )}
 
-      {props.mainLoading && (
+      {props?.mainLoading && (
         <main className="main  ">
           <span className="loader"></span>
         </main>

@@ -33,7 +33,7 @@ export const MarkText = (props: { text: string }) => {
         sx={{ color: "#1C3048", opacity: 1 }}
         className="text-[16px]  max-lg:text max-2sm:text-[14px]"
       >
-        {props.text}
+        {props?.text}
       </Typography>
     </Box>
   );

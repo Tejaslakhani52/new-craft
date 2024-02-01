@@ -44,7 +44,7 @@ export default function GetTemplates(props: GetTemplatesProps) {
             }}
             className="text-[25px] sm:text-[31px] mb-2"
           >
-            {props.heading}
+            {props?.heading}
           </Typography>
           <Typography
             sx={{
@@ -54,7 +54,7 @@ export default function GetTemplates(props: GetTemplatesProps) {
               textAlign: "center",
             }}
           >
-            {props.text}
+            {props?.text}
           </Typography>
         </Box>
 
@@ -67,17 +67,17 @@ export default function GetTemplates(props: GetTemplatesProps) {
             fontWeight: "500",
             fontSize: "17px",
             color: "white",
-            display: props.bt_none ? "none" : "block",
+            display: props?.bt_none ? "none" : "block",
           }}
           onClick={() => {
-            if (token && props.navigate) {
-              router.push(props.navigate);
+            if (token && props?.navigate) {
+              router.push(props?.navigate);
             } else router.push("/login");
           }}
           className="py-[10px] px-[15px]"
         >
           <span className="text_linear">
-            {props.bt_name ?? "Get All Templates"}{" "}
+            {props?.bt_name ?? "Get All Templates"}{" "}
           </span>
         </button>
       </Box>

@@ -221,14 +221,14 @@ export default function Sidebar(
           className="flex gap-5 px-[20px] justify-between  w-full normal-case	text-black mb-2 relative"
           onClick={() => setOpens(!open)}
         >
-          <span className="text-black text-[15px]">{props.data?.name}</span>
+          <span className="text-black text-[15px]">{props?.data?.name}</span>
 
           <Icons.rightArrowIcon svgProps={{ width: 7 }} />
         </Button>
         <div>
           <InnerButton
             open={open}
-            data={props.data}
+            data={props?.data}
             setOpens={setOpens}
             setOpen={setOpen}
           />

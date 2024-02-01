@@ -35,13 +35,13 @@ export default function PaymentHistory(props: {
               </tr>
             </thead>
             <tbody>
-              {props.userSubscription?.history === "No History exist." ? (
+              {props?.userSubscription?.history === "No History exist." ? (
                 <div className=" w-full p-[24px] text-[16px]">
                   No History Exist.
                 </div>
               ) : (
-                props.userSubscription?.hasHistory &&
-                props.userSubscription?.history?.map(
+                props?.userSubscription?.hasHistory &&
+                props?.userSubscription?.history?.map(
                   (item: PurchaseHistoryItem, index: number) => (
                     <tr key={index} className="bg-[#F4F7FE] border-b ">
                       <td className="px-6 py-4 whitespace-nowrap">

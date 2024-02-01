@@ -9,13 +9,13 @@ interface FLinkProps {
 const FLink: React.FC<FLinkProps> = (props) => {
   return (
     <Link
-      href={props.lk}
+      href={props?.lk}
       className="text_linear"
       target="_blank"
       style={{ display: "unset", fontWeight: "500" }}
     >
       {" "}
-      {props.children}{" "}
+      {props?.children}{" "}
     </Link>
   );
 };

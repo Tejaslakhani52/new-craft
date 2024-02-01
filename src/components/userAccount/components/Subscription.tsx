@@ -16,7 +16,7 @@ export default function Subscription(props: {
       <Box
         className="pt-14  justify-center "
         sx={{
-          display: !props.userSubscription?.hasCurrentPlan ? "flex" : "none",
+          display: !props?.userSubscription?.hasCurrentPlan ? "flex" : "none",
         }}
       >
         <Box className="w-[600px] mx-auto flex flex-col items-center justify-center">
@@ -49,7 +49,7 @@ export default function Subscription(props: {
       <Box
         className="pt-[35px]"
         sx={{
-          display: props.userSubscription?.hasCurrentPlan ? "block" : "none",
+          display: props?.userSubscription?.hasCurrentPlan ? "block" : "none",
         }}
       >
         <Typography className="font-medium text-[16px] mb-4">
@@ -60,10 +60,10 @@ export default function Subscription(props: {
           <Box className="flex items-center justify-between mb-1">
             <Box className="flex gap-2 items-end">
               <Typography className="font-semibold">
-                {props.userSubscription?.current?.package_name}
+                {props?.userSubscription?.current?.package_name}
               </Typography>
               <Typography className="font-semibold text-[#ABB2C7] text-[14px]">
-                {props.userSubscription?.current?.amount}
+                {props?.userSubscription?.current?.amount}
               </Typography>
             </Box>
 
@@ -79,10 +79,10 @@ export default function Subscription(props: {
             Your current plan{" "}
             <span className="font-semibold">
               {" "}
-              {props.userSubscription?.current?.amount}
+              {props?.userSubscription?.current?.amount}
             </span>{" "}
             is end on{" "}
-            <span>{props.userSubscription?.current?.billing_date}</span>
+            <span>{props?.userSubscription?.current?.billing_date}</span>
           </Typography>
         </Box>
       </Box>

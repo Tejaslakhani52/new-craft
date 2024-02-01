@@ -41,11 +41,11 @@ export default function SaveCardList(props: PropsType) {
             <Box
               key={index}
               className={`flex items-center justify-between px-4 py-2 rounded-[5px] mb-4 cursor-pointer ${
-                item?.id === props.selectedDefaultCard?.id
+                item?.id === props?.selectedDefaultCard?.id
                   ? "border_linear"
                   : "border_normal"
               } bg-white`}
-              onClick={() => props.setSelectedDefaultCard(item)}
+              onClick={() => props?.setSelectedDefaultCard(item)}
             >
               <Box className="flex items-center gap-4">
                 <Box className="flex items-center gap-5 w-[40px]">
@@ -71,7 +71,7 @@ export default function SaveCardList(props: PropsType) {
               <Box className="flex items-center gap-2 text-[12px] font-[600] max-sm:flex-col">
                 <Button
                   onClick={() => {
-                    props.setOpenEditCard(true);
+                    props?.setOpenEditCard(true);
                   }}
                   className="min-w-[20px]"
                 >
@@ -81,7 +81,7 @@ export default function SaveCardList(props: PropsType) {
 
                 <Button
                   className="min-w-[20px]"
-                  onClick={() => props.setOpenDeleteCard(true)}
+                  onClick={() => props?.setOpenDeleteCard(true)}
                 >
                   <Icons.DeleteIcon />
                 </Button>
@@ -93,8 +93,8 @@ export default function SaveCardList(props: PropsType) {
         <Box
           className={`flex items-center justify-between px-4 py-2 rounded-[5px] mb-4 cursor-pointer ${"border_normal"}  bg-white`}
           onClick={() => {
-            props.setSelectedDefaultCard(null);
-            props.setAddNewOpen(true);
+            props?.setSelectedDefaultCard(null);
+            props?.setAddNewOpen(true);
           }}
         >
           <Box className="py-[7px]">
@@ -111,18 +111,18 @@ export default function SaveCardList(props: PropsType) {
       <Button
         className="bg_linear text-white w-full py-[10px] normal-case text-[17px]"
         onClick={() => {
-          if (props.selectedDefaultCard) {
-            props.setMainLoading(true);
-            props.handleSubmit();
+          if (props?.selectedDefaultCard) {
+            props?.setMainLoading(true);
+            props?.handleSubmit();
           } else {
             toast.error("Please select a payment method");
-            props.setMainLoading(false);
+            props?.setMainLoading(false);
           }
         }}
       >
         Process to Pay
       </Button>
-      {props.mainLoading && (
+      {props?.mainLoading && (
         <main className="main">
           <span className="loader"></span>
         </main>

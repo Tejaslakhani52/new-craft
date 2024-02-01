@@ -11,8 +11,8 @@ interface PropsType {
 export default function DeleteCard(props: PropsType) {
   return (
     <DialogModal
-      open={props.openDeleteCard}
-      setOpen={props.setOpenDeleteCard}
+      open={props?.openDeleteCard}
+      setOpen={props?.setOpenDeleteCard}
       className="w-[100%] lg:w-[80%] xl:w-[550px]"
       scroll_none
     >
@@ -32,14 +32,14 @@ export default function DeleteCard(props: PropsType) {
         >
           <Button
             className={`${"normal-case bg-[#E6E8EE] text-black px-[15px]"} `}
-            onClick={() => props.setOpenDeleteCard(false)}
+            onClick={() => props?.setOpenDeleteCard(false)}
             style={{ height: "40px" }}
           >
             Cancel
           </Button>
           <Button
             className={`bg-[#C70000] text-white normal-case px-[15px]`}
-            onClick={() => props.handleDeletePaymentMethod()}
+            onClick={() => props?.handleDeletePaymentMethod()}
             style={{ height: "40px" }}
           >
             Delete

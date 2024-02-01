@@ -30,7 +30,7 @@ export default function Password(props: PasswordProps) {
   return (
     <FormControl sx={{ m: 0, width: "100%" }} variant="outlined">
       <InputLabel htmlFor="outlined-adornment-password">
-        {props.label}
+        {props?.label}
       </InputLabel>
       <OutlinedInput
         id="outlined-adornment-password"

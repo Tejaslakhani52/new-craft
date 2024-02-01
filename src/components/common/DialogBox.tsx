@@ -19,34 +19,34 @@ const DialogModal = (props: DialogModalProps) => {
   useEffect(() => {
     const htmlStyleElement = document.getElementById("html_style");
 
-    if (htmlStyleElement && !props.scroll_none) {
-      if (props.open) {
+    if (htmlStyleElement && !props?.scroll_none) {
+      if (props?.open) {
         htmlStyleElement.style.overflow = "hidden";
       } else {
         htmlStyleElement.style.overflow = "auto";
       }
     }
-  }, [props.open, props.scroll_none]);
+  }, [props?.open, props?.scroll_none]);
 
   return (
     <>
       <div
         className={"background_blur "}
         style={{
-          visibility: props.open ? "visible" : "hidden",
-          opacity: props.open ? "0.5" : "0",
+          visibility: props?.open ? "visible" : "hidden",
+          opacity: props?.open ? "0.5" : "0",
           transition: "0.2s all",
         }}
         onClick={() => {
-          props.setOpen(false);
+          props?.setOpen(false);
         }}
       ></div>
 
       <div
-        className={`${props.className} report_dialog `}
+        className={`${props?.className} report_dialog `}
         style={{
-          visibility: props.open ? "visible" : "hidden",
-          opacity: props.open ? "1" : "0",
+          visibility: props?.open ? "visible" : "hidden",
+          opacity: props?.open ? "1" : "0",
           transition: "0.2s all",
         }}
       >
@@ -62,13 +62,13 @@ const DialogModal = (props: DialogModalProps) => {
           <button
             className="fixed right-[20px] lg:right-[-50px] top-[15px] lg:top-[-10px] cursor-pointer"
             onClick={() => {
-              props.setOpen(false);
+              props?.setOpen(false);
             }}
           >
             <img src="/icons/modalClose.png" alt="icon" />
           </button>
 
-          {props.children}
+          {props?.children}
         </div>
       </div>
     </>

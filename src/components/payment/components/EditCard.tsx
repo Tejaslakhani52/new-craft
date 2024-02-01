@@ -24,8 +24,8 @@ export default function EditCard(props: EditCardProps) {
 
   const [expiry, setExpiry] = useState<string>(
     formatExpiryDate(
-      props.selectedDefaultCard?.card?.exp_month || 0,
-      props.selectedDefaultCard?.card?.exp_year || 0
+      props?.selectedDefaultCard?.card?.exp_month || 0,
+      props?.selectedDefaultCard?.card?.exp_year || 0
     )
   );
   const [expiryMonth, setExpiryMonth] = useState<string>("");
@@ -38,7 +38,7 @@ export default function EditCard(props: EditCardProps) {
 
     const billing_details: BillingDetails = {
       name: undefined,
-      email: props.selectedDefaultCard?.billing_details?.email || "",
+      email: props?.selectedDefaultCard?.billing_details?.email || "",
       address: undefined,
       phone: undefined,
     };
@@ -59,17 +59,17 @@ export default function EditCard(props: EditCardProps) {
 
     api
       .updateCard({
-        pm: props.selectedDefaultCard?.id,
+        pm: props?.selectedDefaultCard?.id,
         billing_details,
         month: expiryMonth
           ? Number(expiryMonth)
-          : props.selectedDefaultCard?.card?.exp_month,
+          : props?.selectedDefaultCard?.card?.exp_month,
         year: expiryYear
           ? Number(expiryYear)
-          : props.selectedDefaultCard?.card?.exp_year,
+          : props?.selectedDefaultCard?.card?.exp_year,
       })
       .then(() => {
-        props.setOpenEditCard(false);
+        props?.setOpenEditCard(false);
         api.cardList().then((res) => {
           dispatch(saveCardData(res?.data?.data));
         });
@@ -147,7 +147,7 @@ export default function EditCard(props: EditCardProps) {
           <input
             type="text"
             className=" bg-white w-full font-semibold opacity-40"
-            value={`XXXX XXXX XXXX ${props.selectedDefaultCard?.card?.last4}`}
+            value={`XXXX XXXX XXXX ${props?.selectedDefaultCard?.card?.last4}`}
             disabled
           />
         </Box>
@@ -214,22 +214,23 @@ export default function EditCard(props: EditCardProps) {
             defaultValues: {
               address: {
                 country:
-                  props.selectedDefaultCard?.billing_details?.address
+                  props?.selectedDefaultCard?.billing_details?.address
                     ?.country ?? "IN",
                 line1:
-                  props.selectedDefaultCard?.billing_details?.address?.line1,
+                  props?.selectedDefaultCard?.billing_details?.address?.line1,
                 line2:
-                  props.selectedDefaultCard?.billing_details?.address?.line2 ||
+                  props?.selectedDefaultCard?.billing_details?.address?.line2 ||
                   "",
-                city: props.selectedDefaultCard?.billing_details?.address?.city,
+                city: props?.selectedDefaultCard?.billing_details?.address
+                  ?.city,
                 state:
-                  props.selectedDefaultCard?.billing_details?.address?.state,
+                  props?.selectedDefaultCard?.billing_details?.address?.state,
                 postal_code:
-                  props.selectedDefaultCard?.billing_details?.address
+                  props?.selectedDefaultCard?.billing_details?.address
                     ?.postal_code,
               },
-              name: props.selectedDefaultCard?.billing_details?.name,
-              phone: props.selectedDefaultCard?.billing_details?.phone,
+              name: props?.selectedDefaultCard?.billing_details?.name,
+              phone: props?.selectedDefaultCard?.billing_details?.phone,
             },
           }}
         />
@@ -245,7 +246,7 @@ export default function EditCard(props: EditCardProps) {
             fontWeight: "500",
           }}
           className="bg_linear max-sm:w-full text-[#1C3048] w-[48%] py-[10px] px-[20px]  max-lg:mx-auto text-[14px] 2sm:text-[16px]"
-          onClick={() => props.setOpenEditCard(false)}
+          onClick={() => props?.setOpenEditCard(false)}
         >
           Cancel
         </Button>

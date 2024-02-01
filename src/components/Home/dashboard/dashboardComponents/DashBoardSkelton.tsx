@@ -150,8 +150,8 @@ export default function DashBoardSkelton(props: { height: number }) {
           <Box className="flex flex-col gap-5 pb-[50px]">
             <Box className="flex items-center overflow-hidden scroll_none gap-[20px]  ">
               <Skelton
-                width={`${props.height}px`}
-                height={`${props.height}px`}
+                width={`${props?.height}px`}
+                height={`${props?.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
@@ -164,8 +164,8 @@ export default function DashBoardSkelton(props: { height: number }) {
             </Box>
             <Box className="flex  items-center overflow-hidden scroll_none gap-[20px]  ">
               <Skelton
-                width={`${props.height}px`}
-                height={`${props.height}px`}
+                width={`${props?.height}px`}
+                height={`${props?.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
@@ -178,8 +178,8 @@ export default function DashBoardSkelton(props: { height: number }) {
             </Box>
             <Box className="flex items-center overflow-hidden scroll_none gap-[20px] mb-5 ">
               <Skelton
-                width={`${props.height}px`}
-                height={`${props.height}px`}
+                width={`${props?.height}px`}
+                height={`${props?.height}px`}
                 round="10px"
                 fill={20}
                 line="row"
