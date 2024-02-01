@@ -20,10 +20,10 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
 import { isMobile, isTablet } from "react-device-detect";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { SingleTempType } from "@/src/interface/getSingleTempType";
 import { TemplateDataType } from "@/src/interface/commonType";
 import { RootState } from "@/src/redux";
+import { GetServerSideProps } from "next";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const ShowPremiumDialog = dynamic(
@@ -44,9 +44,7 @@ export const IconsText = ({ image, text }: PropType) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { params } = context;
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;

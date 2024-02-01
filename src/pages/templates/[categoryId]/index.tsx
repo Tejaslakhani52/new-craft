@@ -7,7 +7,7 @@ import { TemplateDataType } from "@/src/interface/commonType";
 import { RootState } from "@/src/redux";
 import { Box, Button, Typography } from "@mui/material";
 import axios from "axios";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -91,9 +91,7 @@ const staticBox: Record<string, JSX.Element> = {
   latest: <FestivalBanner />,
 };
 
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const { params } = context;
 
