@@ -96,12 +96,12 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
                 </Button>
               </Box>
             )}
-            <Link href={"/"} passHref>
-              <img
-                src="/images/logo.svg"
-                alt="logo"
-                className="w-[147px] cursor-pointer max-lg:w-[127px] max-2sm:w-[80px]"
-              />
+            <Link
+              href={"/"}
+              passHref
+              className="w-[147px] cursor-pointer max-lg:w-[127px] max-2sm:w-[80px]"
+            >
+              <img src="/images/logo.svg" alt="logo" className="" />
             </Link>
           </Box>
 
