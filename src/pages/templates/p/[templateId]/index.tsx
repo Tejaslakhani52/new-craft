@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps = async (
       { withCredentials: false }
     );
 
-    const templateData = response.data;
+    const templateData = response?.data;
 
     return {
       props: {
@@ -77,6 +77,7 @@ export const getServerSideProps: GetServerSideProps = async (
 };
 
 export default function index(props: { templateData: SingleTempType }) {
+  console.log("templateData: ", props?.templateData);
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
@@ -106,32 +107,32 @@ export default function index(props: { templateData: SingleTempType }) {
     api
       .searchTemplate({
         keywords:
-          props.templateData?.tags?.[0] === "Poster"
-            ? props.templateData?.tags?.[1]
-            : props.templateData?.tags?.[0],
+          props?.templateData?.tags?.[0] === "Poster"
+            ? props?.templateData?.tags?.[1]
+            : props?.templateData?.tags?.[0],
         page: 1,
       })
       .then((res) => {
-        setAnotherData(res.datas);
+        setAnotherData(res?.datas);
         setLoading(false);
       })
       .catch((err) => {
         consoleLog("searchTemplate: ", err);
       });
-  }, [props.templateData]);
+  }, [props?.templateData]);
 
   const handleImageLoad = () => {
     setImageLoaded(true);
   };
 
   React.useEffect(() => {
-    setShowImage(props.templateData?.thumbArray?.[0]);
-  }, [props.templateData]);
+    setShowImage(props?.templateData?.thumbArray?.[0]);
+  }, [props?.templateData]);
 
   var templateIds: string;
   if (typeof window !== "undefined" && !openModal) {
     const pathSegments = window.location.pathname.split("/");
-    templateIds = pathSegments[pathSegments.length - 1];
+    templateIds = pathSegments[pathSegments?.length - 1];
   }
 
   const multiSizeFixSize = React.useMemo(() => {
@@ -192,8 +193,8 @@ export default function index(props: { templateData: SingleTempType }) {
     <Box className="px-[40px] max-sm:px-[10px] py-2">
       <CustomHead
         image={showImage}
-        heading={props.templateData?.template_name}
-        text={`Design with ${props.templateData?.template_name}: Ignite Your Imagination, Create Unique Art, and Inspire Awe. Start Design Crafting Today with Crafty Art!`}
+        heading={props?.templateData?.template_name}
+        text={`Design with ${props?.templateData?.template_name}: Ignite Your Imagination, Create Unique Art, and Inspire Awe. Start Design Crafting Today with Crafty Art!`}
       />
 
       <Box>
@@ -203,7 +204,7 @@ export default function index(props: { templateData: SingleTempType }) {
               {imageLoaded && showImage ? (
                 <img
                   src={showImage}
-                  alt={props.templateData?.template_name}
+                  alt={props?.templateData?.template_name}
                   className=" h-[430px] w-auto max-sm:w-auto  max-sm:h-auto max-sm:max-h-[400px] rounded-[4px]"
                   style={{ border: "1px solid #80808059" }}
                 />
@@ -214,7 +215,7 @@ export default function index(props: { templateData: SingleTempType }) {
               <img
                 onLoad={handleImageLoad}
                 src={showImage}
-                alt={props.templateData?.template_name}
+                alt={props?.templateData?.template_name}
                 style={{ display: "none" }}
               />
             </Box>
@@ -223,7 +224,9 @@ export default function index(props: { templateData: SingleTempType }) {
               className="relative"
               sx={{
                 display:
-                  props.templateData?.thumbArray?.length > 1 ? "block" : "none",
+                  props?.templateData?.thumbArray?.length > 1
+                    ? "block"
+                    : "none",
               }}
             >
               <Box
@@ -244,7 +247,7 @@ export default function index(props: { templateData: SingleTempType }) {
                     </button>
                   </Box>
                 )}
-                {props.templateData?.thumbArray?.map(
+                {props?.templateData?.thumbArray?.map(
                   (image: string, index: number) => (
                     <Box
                       key={index}
@@ -262,7 +265,7 @@ export default function index(props: { templateData: SingleTempType }) {
                           src={`/api/image/compress?url=${encodeURIComponent(
                             image
                           )}`}
-                          alt={props.templateData?.template_name}
+                          alt={props?.templateData?.template_name}
                           className="h-auto rounded-[4px]"
                         />
                       </Box>
@@ -286,11 +289,11 @@ export default function index(props: { templateData: SingleTempType }) {
 
           <Box className="w-[33%] max-2md:w-full">
             <h1 className="text-[#1C3048] text-[24px] max-sm:text-[20px] font-[500] mb-3">
-              {props.templateData?.template_name}
+              {props?.templateData?.template_name}
             </h1>
 
             <Typography className="text-[#ABB2C7] text-[15px] mb-4">
-              {props.templateData?.category_size}
+              {props?.templateData?.category_size}
             </Typography>
 
             <Box>
@@ -308,17 +311,17 @@ export default function index(props: { templateData: SingleTempType }) {
                       return;
                     }
                     if (
-                      props.templateData?.is_premium &&
+                      props?.templateData?.is_premium &&
                       !userPremiumGet() &&
                       !isPurchased(purchaseItems, {
-                        id: props.templateData?.string_id,
+                        id: props?.templateData?.string_id,
                         type: 0,
                       })
                     ) {
                       setShowPremiumBox(true);
                     } else
                       window.open(
-                        `https://editor.craftyartapp.com/${props.templateData?.id_name}`
+                        `https://editor.craftyartapp.com/${props?.templateData?.id_name}`
                       );
                   }}
                   className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
@@ -327,7 +330,7 @@ export default function index(props: { templateData: SingleTempType }) {
                       "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
                   }}
                 >
-                  {props.templateData?.is_premium && (
+                  {props?.templateData?.is_premium && (
                     <span className="w-[22px] ml-[8px]">
                       <Icons.pricingIcon svgProps={{ width: 22, height: 21 }} />
                     </span>
@@ -340,7 +343,7 @@ export default function index(props: { templateData: SingleTempType }) {
             <div className="py-4">
               <IconsText
                 image={<Icons.tModalCustomizeIcon svgProps={{ width: 20 }} />}
-                text={`Customize ${props.templateData?.category_name} with our online editing tool`}
+                text={`Customize ${props?.templateData?.category_name} with our online editing tool`}
               />
               <IconsText
                 image={<Icons.tModalSmartphoneIcon svgProps={{ width: 20 }} />}
@@ -351,7 +354,7 @@ export default function index(props: { templateData: SingleTempType }) {
                 text="Share and publish anywhere"
               />
 
-              {props.templateData?.is_premium && (
+              {props?.templateData?.is_premium && (
                 <IconsText
                   image={<Icons.premiumIcon svgProps={{ width: 20 }} />}
                   text="This Template contains paid elements"
@@ -385,7 +388,7 @@ export default function index(props: { templateData: SingleTempType }) {
             >
               {anotherData
                 ?.filter(
-                  (t) => t.template_id !== props.templateData?.template_id
+                  (t) => t.template_id !== props?.templateData?.template_id
                 )
                 ?.map((templates, index) => (
                   <Link
@@ -468,11 +471,11 @@ export default function index(props: { templateData: SingleTempType }) {
           </Box>
           <Box className="my-[50px] w-[80%] mx-auto px-[30px]  max-sm:w-full">
             <h2 className="text-[26px] max-sm:text-[23px] text-center text-[#1C3048] font-semibold mb-3">
-              {props.templateData?.h2_tag}
+              {props?.templateData?.h2_tag}
             </h2>
 
             <Typography className="text-[15px] whitespace-pre-line	text-justify">
-              {props.templateData?.description}
+              {props?.templateData?.description}
             </Typography>
           </Box>
         </Box>
@@ -490,12 +493,12 @@ export default function index(props: { templateData: SingleTempType }) {
         open={showPremiumBox}
         setOpen={setShowPremiumBox}
         tempData={{
-          id: props.templateData?.string_id,
+          id: props?.templateData?.string_id,
           type: 0,
-          usdAmount: props.templateData?.payment?.usdAmount,
-          usdVal: props.templateData?.payment?.usdVal,
-          inrAmount: props.templateData?.payment?.inrAmount,
-          inrVal: props.templateData?.payment?.inrVal,
+          usdAmount: props?.templateData?.payment?.usdAmount,
+          usdVal: props?.templateData?.payment?.usdVal,
+          inrAmount: props?.templateData?.payment?.inrAmount,
+          inrVal: props?.templateData?.payment?.inrVal,
         }}
       />
     </Box>
