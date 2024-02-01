@@ -5,6 +5,15 @@ interface HomeProps {
   sessionId: string | null;
 }
 
+const extractCookieValue = (cookiesString: string, cookieName: string) => {
+  const cookieRegex = new RegExp(
+    `(?:(?:^|.*;\\s*)${cookieName}\\s*\\=\\s*([^;]*).*$)|^.*$`
+  );
+
+  const match = cookiesString.match(cookieRegex);
+  return match ? match[1] || null : null;
+};
+
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const Dashboard = dynamic(
   () => import("@/src/components/Home/dashboard/Dashboard")
@@ -24,15 +33,6 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
       sessionId: sessionId || null,
     },
   };
-};
-
-const extractCookieValue = (cookiesString: string, cookieName: string) => {
-  const cookieRegex = new RegExp(
-    `(?:(?:^|.*;\\s*)${cookieName}\\s*\\=\\s*([^;]*).*$)|^.*$`
-  );
-
-  const match = cookiesString.match(cookieRegex);
-  return match ? match[1] || null : null;
 };
 
 export default function Home({ sessionId }: HomeProps) {

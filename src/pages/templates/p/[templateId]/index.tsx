@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (
         id_name: params?.templateId,
         fromFabric: "1",
       },
-      { withCredentials: false }
+      { withCredentials: false, timeout: 500 }
     );
 
     const templateData = response?.data;
@@ -77,7 +77,6 @@ export const getServerSideProps: GetServerSideProps = async (
 };
 
 export default function index(props: { templateData: SingleTempType }) {
-  console.log("templateData: ", props?.templateData);
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
