@@ -48,16 +48,13 @@ export default function LoginPlatform() {
       const userData = data?.user;
 
       dispatch(
-        createUserApi(
-          {
-            name: userData?.displayName ?? "",
-            email: userData?.email ?? "",
-            photo_uri: userData?.photoURL ?? "",
-            user_id: userData?.uid,
-            login_type: "google",
-          },
-          router
-        )
+        createUserApi({
+          name: userData?.displayName ?? "",
+          email: userData?.email ?? "",
+          photo_uri: userData?.photoURL ?? "",
+          user_id: userData?.uid,
+          login_type: "google",
+        })
       );
     });
   };
