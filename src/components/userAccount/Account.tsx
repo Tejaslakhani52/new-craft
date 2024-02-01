@@ -13,6 +13,7 @@ import PersonalInfo from "./components/PersonalInfo";
 import Subscription from "./components/Subscription";
 import TemplateHistory from "./components/TemplateHistory";
 import { consoleLog } from "@/src/commonFunction/console";
+import { openSidebar } from "@/src/redux/reducer/actionDataReducer";
 
 interface AccountProps {
   defaultTab: string;
@@ -57,6 +58,8 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
   const screenHeight = useScreenHeight();
 
   useEffect(() => {
+    dispatch(openSidebar(false));
+
     api
       .getUserData({ user_id: uid })
       .then(({ user, url, purDatas }) => {

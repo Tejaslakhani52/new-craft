@@ -22,9 +22,7 @@ const LandingPage = dynamic(
   () => import("@/src/components/Home/landingPage/LandingPage")
 );
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context
-) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookiesString = context.req.headers.cookie || "";
   const sessionId = extractCookieValue(cookiesString, "_sdf");
 
