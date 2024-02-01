@@ -3,14 +3,15 @@ import { AddressElement, useElements } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import {
-  BillingDetails,
-  StripePaymentMethod,
-} from "@/src/interface/StripePaymentMethod";
+
 import api from "@/src/clientApi/api";
 import { mainLoad } from "@/src/redux/reducer/actionDataReducer";
 import { saveCardData } from "@/src/redux/reducer/AuthDataReducer";
 import { formatExpiryDate } from "../Stripe";
+import {
+  BillingDetails,
+  StripePaymentMethod,
+} from "@/src/interface/stripePaymentMethod";
 
 interface EditCardProps {
   selectedDefaultCard: StripePaymentMethod | null;
