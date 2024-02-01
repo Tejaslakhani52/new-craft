@@ -26,7 +26,7 @@ export default function index() {
             complete with all pertinent details: Notice of a copyright violation
             on{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               craftyartapp@gmail.com
@@ -239,7 +239,7 @@ export default function index() {
             Abuseful content and files are not tolerated at Crafty Art. Send an
             email to{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               {" "}

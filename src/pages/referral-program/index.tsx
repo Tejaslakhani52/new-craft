@@ -92,7 +92,7 @@ export default function index() {
             For queries/complaints pertaining to redeeming of the Coins
             mentioned in the reward, customer may send eMail on
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               {" "}
@@ -153,7 +153,7 @@ export default function index() {
             For queries/complaints pertaining to redeeming of the Coins
             mentioned in the reward, customer may send Email on
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               {" "}

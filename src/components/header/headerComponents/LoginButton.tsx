@@ -24,6 +24,7 @@ export default function LoginButton({
         openSignUp={openSignUp}
         setOpenLogin={setOpenLogin}
       />
+
       <Box className="max-sm:hidden">
         <SignUp
           setOpenLogin={setOpenLogin}

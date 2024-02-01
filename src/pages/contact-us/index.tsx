@@ -125,7 +125,7 @@ export default function index() {
           <Typography className="mb-2">
             <span className="font-semibold">Email :</span>{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               craftyartapp@gmail.com
@@ -136,7 +136,7 @@ export default function index() {
             <span className="font-semibold">Mobile Number :</span>{" "}
             <Link
               href="tel:+919898978207"
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
             >
               +91 9898978207
             </Link>
@@ -162,7 +162,7 @@ export default function index() {
             <span className="font-semibold">Email :</span> For general inquiries
             or project proposals, please email us at{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               craftyartapp@gmail.com
@@ -283,7 +283,7 @@ export default function index() {
               To contact Crafty Art regarding any subscription-related queries
               or other issues, you can reach out to them at
               <span
-                className="text-[#5961F8] cursor-pointer"
+                className="text-[blue] cursor-pointer"
                 onClick={handleEmailClick}
               >
                 {" "}

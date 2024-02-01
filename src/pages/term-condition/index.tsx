@@ -379,14 +379,14 @@ export default function index() {
             For any subscription-related queries or other issues, users can
             contact Crafty Art at{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               {" "}
               craftyartapp@gmail.com
             </span>
             .
-          </li>
+          </li> 
 
           <Typography
             variant="h3"

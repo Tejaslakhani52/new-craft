@@ -569,7 +569,7 @@ export default function index() {
               To contact Crafty Art regarding any subscription-related queries
               or other issues, you can reach out to them at
               <span
-                className="text-[#5961F8] cursor-pointer"
+                className="text-[blue] cursor-pointer"
                 onClick={handleEmailClick}
               >
                 {" "}

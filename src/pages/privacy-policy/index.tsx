@@ -266,7 +266,7 @@ export default function index() {
             If you have any questions or suggestions about my privacy policy, do
             not hesitate to contact me at{" "}
             <span
-              className="text-[#5961F8] cursor-pointer"
+              className="text-[blue] cursor-pointer"
               onClick={handleEmailClick}
             >
               {" "}
