@@ -1,13 +1,13 @@
 import Icons from "@/src/assets";
 import { calculateHeight } from "@/src/commonFunction/calculateHeight";
-import { DataType } from "@/src/interface/searchTemplateType";
+import { TemplateDataType } from "@/src/interface/commonType";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 
 interface ImageBoxProps {
-  templates: DataType | any;
+  templates: TemplateDataType | any;
   screenWidth: number;
   multiSizeFixSize: number;
   setIdName: React.Dispatch<React.SetStateAction<string>>;

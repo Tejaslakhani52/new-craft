@@ -41,7 +41,6 @@ export const LoginButton = (props: LoginButtonProps) => {
 
 export default function LoginPlatform() {
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const handleGoogleLogin = () => {
     signInWithPopup(auth, provider).then((data: UserCredential) => {
