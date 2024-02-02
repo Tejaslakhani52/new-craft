@@ -403,7 +403,10 @@ export default function index(props: { templateData: SingleTempType }) {
                       style={{
                         right: templates.is_premium ? "47px" : "15px",
                         opacity:
-                          showPreviewButton === templates.id_name ? "1" : "0",
+                          showPreviewButton === templates.id_name &&
+                          !(isMobile || isTablet)
+                            ? "1"
+                            : "0",
                         transition: "0.3s all",
                       }}
                       onClick={() => {

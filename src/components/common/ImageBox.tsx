@@ -4,6 +4,7 @@ import { TemplateDataType } from "@/src/interface/commonType";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile, isTablet } from "react-device-detect";
 
 interface ImageBoxProps {
   templates: TemplateDataType | any;
@@ -74,7 +75,7 @@ export default function ImageBox({
         className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
         style={{
           right: templates.is_premium ? "47px" : "15px",
-          opacity: showPreviewButton ? "1" : "0",
+          opacity: showPreviewButton && !(isMobile || isTablet) ? "1" : "0",
           transition: "0.3s all",
         }}
         onClick={() => {

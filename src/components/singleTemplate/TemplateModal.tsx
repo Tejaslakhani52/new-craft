@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
 import ShowPremiumDialog from "../templatePayment/ShowPremiumDialog";
 import { consoleLog } from "@/src/commonFunction/console";
+import { isMobile, isTablet } from "react-device-detect";
 
 interface PropType {
   image: string | any;
@@ -499,7 +500,8 @@ export default function TemplateModal({
                             style={{
                               right: templates.is_premium ? "47px" : "15px",
                               opacity:
-                                showPreviewButton === templates.id_name
+                                showPreviewButton === templates.id_name &&
+                                !(isMobile || isTablet)
                                   ? "1"
                                   : "0",
                               transition: "0.3s all",
