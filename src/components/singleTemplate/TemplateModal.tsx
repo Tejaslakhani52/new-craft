@@ -245,7 +245,6 @@ export default function TemplateModal({
                 setTemplate({});
                 setAnotherData([]);
                 setOpen(false);
-                window.history.replaceState({}, "", `${router.asPath}`);
               }}
             >
               <Icons.modalCloseIcon svgProps={{ width: 20 }} />

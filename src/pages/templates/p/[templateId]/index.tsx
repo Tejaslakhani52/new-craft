@@ -471,12 +471,6 @@ export default function index(props: { templateData: SingleTempType }) {
                               width: "100%",
                             }}
                           >
-                            {templates.is_premium && (
-                              <span className="w-[28px] absolute right-[13px] top-[13px] z-[1]">
-                                <Icons.proIcon svgProps={{ width: 28 }} />
-                              </span>
-                            )}
-
                             <img
                               src={`/api/image/compress?url=${encodeURIComponent(
                                 templates?.template_thumb
