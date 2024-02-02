@@ -214,9 +214,7 @@ export default function MenuBox() {
         >
           Custom order
         </button>
-        <button
-          className={` max-xl:hidden px-4 max-2xl:px-3 py-2   text-[14px] flex items-center whitespace-nowrap text-[#1C3048] hover:text-[#2EC6B8]`}
-        >
+        <button>
           <Link
             href={"/plans"}
             onClick={() => {
@@ -224,12 +222,13 @@ export default function MenuBox() {
                 dispatch(openSidebar(false));
               }
             }}
+            className={` max-xl:hidden px-4 max-2xl:px-3 py-2   text-[14px] flex items-center whitespace-nowrap text-[#1C3048] hover:text-[#2EC6B8]`}
           >
             Pricing
+            <span className="ml-[8px]">
+              <Icons.pricingIcon />
+            </span>
           </Link>
-          <span className="ml-[8px]">
-            <Icons.pricingIcon />
-          </span>
         </button>
         <Box className=" relative block xl:hidden">
           <Button className="text-black px-2 min-w-[auto] peer ">

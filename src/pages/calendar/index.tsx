@@ -170,11 +170,10 @@ export default function index() {
         image={`${assetsUrl}/w_assets/images/calendarTrending.png`}
       />
 
-      <ExploreTemplates getAll={"/templates/calendar"} keyword="Calendar" />
+      <ExploreTemplates getAll={"/s/calendar"} keyword="Calendar" />
 
       <RightImageSection
-        title="Unlock Your Creativity with Our Free Calendar Maker!
-        "
+        title="Unlock Your Creativity with Our Free Calendar Maker!"
         point={
           <Box>
             <MarkText text="Create Personalized Calendars Effortlessly" />

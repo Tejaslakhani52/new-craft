@@ -56,7 +56,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         key: `${accessKey}`,
         id_name: params?.templateId,
         fromFabric: "1",
-      }
+      },
+      { withCredentials: false }
     );
 
     const templateData = response?.data;
@@ -74,6 +75,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function index(props: { templateData: SingleTempType }) {
+  console.log("templateData: ", props.templateData);
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
@@ -100,6 +102,7 @@ export default function index(props: { templateData: SingleTempType }) {
   }, []);
 
   React.useEffect(() => {
+    setAnotherData([]);
     api
       .searchTemplate({
         keywords:

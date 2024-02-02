@@ -1,7 +1,7 @@
 import { decryptData, encryptData } from "@/src/aes-crypto";
 import Cookies from "js-cookie";
 
-export const authCookiesSet = (value: any) => {
+export const authCookiesSet = (value: string) => {
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 30);
 
@@ -18,7 +18,7 @@ export const authCookiesGet = () => {
   return decryptData(value);
 };
 
-export const userPremium = (value: any) => {
+export const userPremium = (value: string) => {
   // Cookies.set("_pmf", encryptData(value), {
   //   domain: ".craftyartapp.com",
   // });
@@ -33,7 +33,7 @@ export const userPremiumGet = () => {
   return false;
 };
 
-export const setCC = (value: any) => {
+export const setCC = (value: string) => {
   Cookies.set("cc", encryptData(value));
 };
 

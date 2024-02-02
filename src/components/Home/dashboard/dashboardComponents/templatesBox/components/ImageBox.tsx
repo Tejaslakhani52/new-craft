@@ -69,6 +69,7 @@ export default function ImageBox({
       key={templates.id_name}
       href={`/templates/p/${templates.id_name}`}
       scroll={true}
+
       // onClick={(e) => {
       //   if (!isMobile) {
       //     e.preventDefault();

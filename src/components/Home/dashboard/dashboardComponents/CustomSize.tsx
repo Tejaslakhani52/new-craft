@@ -11,6 +11,7 @@ export default function CustomSize() {
   const [lockAspectRatio, setLockAspectRatio] = useState<boolean>(false);
   const [enterHeight, setEnterHeight] = useState<number | any>(0);
   const [enterWidth, setEnterWidth] = useState<number | any>(0);
+  const [focus, setFocus] = useState<boolean>(false);
 
   const open = Boolean(anchorEl);
 
@@ -40,6 +41,13 @@ export default function CustomSize() {
     setBase64String(encodedString);
   }, [width, height]);
 
+  useEffect(() => {
+    if (focus) {
+      document.getElementById("heightInput")?.focus();
+      setFocus(false);
+    }
+  }, [focus]);
+
   return (
     <Box>
       <Button
@@ -53,7 +61,11 @@ export default function CustomSize() {
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
-        onClose={() => setAnchorEl(null)}
+        onClose={(e: React.KeyboardEvent<any>) => {
+          if (e.key === "Tab") {
+            e.preventDefault();
+          } else setAnchorEl(null);
+        }}
         MenuListProps={{
           "aria-labelledby": "basic-button",
         }}
@@ -80,6 +92,12 @@ export default function CustomSize() {
                   setWidth(e.target.value);
                   setEnterWidth(e.target.value);
                 }}
+                onKeyDown={(e) => {
+                  if (e.key === "Tab") {
+                    e.preventDefault();
+                    setFocus(true);
+                  }
+                }}
               />
             </Box>
 
@@ -87,6 +105,7 @@ export default function CustomSize() {
               <Typography className="mb-2">Height</Typography>
               <input
                 type="number"
+                id="heightInput"
                 value={height}
                 style={{ border: "1px solid  #D9D9D9" }}
                 className="max-w-[120px] px-3 py-2 rounded-[4px]"
