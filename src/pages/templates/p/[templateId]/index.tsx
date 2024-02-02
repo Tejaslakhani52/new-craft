@@ -90,6 +90,7 @@ export default function index(props: { templateData: SingleTempType }) {
   const [imageLoaded, setImageLoaded] = React.useState(false);
   const [showPremiumBox, setShowPremiumBox] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const [showPreviewButton, setShowPreviewButton] = React.useState<string>("");
 
   const purchaseItems = useSelector(
     (state: RootState) => state.auth.setPurchaseItems
@@ -128,11 +129,11 @@ export default function index(props: { templateData: SingleTempType }) {
     setShowImage(props?.templateData?.thumbArray?.[0]);
   }, [props?.templateData]);
 
-  var templateIds: string;
-  if (typeof window !== "undefined" && !openModal) {
-    const pathSegments = window.location.pathname.split("/");
-    templateIds = pathSegments[pathSegments?.length - 1];
-  }
+  // var templateIds: string;
+  // if (typeof window !== "undefined" && !openModal) {
+  //   const pathSegments = window.location.pathname.split("/");
+  //   templateIds = pathSegments[pathSegments?.length - 1];
+  // }
 
   const multiSizeFixSize = React.useMemo(() => {
     switch (true) {
@@ -390,81 +391,112 @@ export default function index(props: { templateData: SingleTempType }) {
                   (t) => t.template_id !== props?.templateData?.template_id
                 )
                 ?.map((templates, index) => (
-                  <Link
-                    key={index}
-                    href={`/templates/p/${templates.id_name}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                    }}
+                  <div
+                    className="relative"
+                    onMouseEnter={() =>
+                      setShowPreviewButton(templates?.id_name)
+                    }
+                    onMouseLeave={() => setShowPreviewButton("")}
                   >
-                    <div
-                      className=""
+                    <span
+                      className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
                       style={{
-                        height: `${calculateHeight(
-                          templates?.width,
-                          templates?.height,
-                          screenWidth / multiSizeFixSize
-                        )}px`,
-                        width: `${screenWidth / multiSizeFixSize}px`,
+                        right: templates.is_premium ? "47px" : "15px",
+                        opacity:
+                          showPreviewButton === templates.id_name ? "1" : "0",
+                        transition: "0.3s all",
                       }}
-                      id={`content${index}`}
                       onClick={() => {
-                        dispatch(tempId(`content${index}`));
-                        dispatch(modalClosePath(`templates/p/${templateIds}`));
+                        setIdName(templates?.id_name);
+                        setOpenModal(true);
+                      }}
+                      onMouseEnter={() =>
+                        setShowPreviewButton(templates?.id_name)
+                      }
+                      onMouseLeave={() => setShowPreviewButton("")}
+                    >
+                      <Icons.PreviewIcon svgProps={{ width: 27, height: 27 }} />
+                    </span>
+                    {templates.is_premium && (
+                      <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
+                        <Icons.proIcon svgProps={{ width: 27, height: 27 }} />
+                      </span>
+                    )}
+                    <Link
+                      key={index}
+                      href={`/templates/p/${templates.id_name}`}
+                      onClick={(e) => {
+                        e.preventDefault();
                       }}
                     >
                       <div
-                        className="w-full h-full p-[8px] relative"
+                        className=""
+                        style={{
+                          height: `${calculateHeight(
+                            templates?.width,
+                            templates?.height,
+                            screenWidth / multiSizeFixSize
+                          )}px`,
+                          width: `${screenWidth / multiSizeFixSize}px`,
+                        }}
+                        id={`content${index}`}
                         onClick={() => {
-                          //   if (!isMobile) {
-                          //     setIdName(templates?.id_name);
-                          //     setOpenModal(true);
-                          //     window.history.replaceState(
-                          //       {},
-                          //       "",
-                          //       `/templates/p/${templates?.id_name}`
-                          //     );
-                          //   } else {
-                          setAnotherData([]);
-                          setShowImage("");
-                          setImageLoaded(false);
-                          router.push(`/templates/p/${templates?.id_name}`);
-                          //   }
+                          dispatch(tempId(`content${index}`));
                         }}
                       >
                         <div
-                          style={{
-                            border: "1px solid #80808059",
-                            borderRadius: "5px",
-                            height: "100%",
-                            width: "100%",
+                          className="w-full h-full p-[8px] relative"
+                          onClick={() => {
+                            //   if (!isMobile) {
+                            //     setIdName(templates?.id_name);
+                            //     setOpenModal(true);
+                            //     window.history.replaceState(
+                            //       {},
+                            //       "",
+                            //       `/templates/p/${templates?.id_name}`
+                            //     );
+                            //   } else {
+                            setAnotherData([]);
+                            setShowImage("");
+                            setImageLoaded(false);
+                            router.push(`/templates/p/${templates?.id_name}`);
+                            //   }
                           }}
                         >
-                          {templates.is_premium && (
-                            <span className="w-[28px] absolute right-[13px] top-[13px] z-[1]">
-                              <Icons.proIcon svgProps={{ width: 28 }} />
-                            </span>
-                          )}
-
-                          <img
-                            src={`/api/image/compress?url=${encodeURIComponent(
-                              templates?.template_thumb
-                            )}`}
-                            alt={templates?.category_name}
-                            className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
+                          <div
                             style={{
-                              transition: "0.5s all",
+                              border: "1px solid #80808059",
+                              borderRadius: "5px",
+                              height: "100%",
+                              width: "100%",
                             }}
-                            onLoad={(e) =>
-                              (e.target as HTMLImageElement).classList.remove(
-                                "opacity-0"
-                              )
-                            }
-                          />
+                          >
+                            {templates.is_premium && (
+                              <span className="w-[28px] absolute right-[13px] top-[13px] z-[1]">
+                                <Icons.proIcon svgProps={{ width: 28 }} />
+                              </span>
+                            )}
+
+                            <img
+                              src={`/api/image/compress?url=${encodeURIComponent(
+                                templates?.template_thumb
+                              )}`}
+                              alt={templates?.category_name}
+                              className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
+                              style={{
+                                transition: "0.5s all",
+                              }}
+                              onLoad={(e) =>
+                                (e.target as HTMLImageElement).classList.remove(
+                                  "opacity-0"
+                                )
+                              }
+                            />
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 ))}
             </StackGrid>
           </Box>

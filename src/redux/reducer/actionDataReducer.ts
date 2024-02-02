@@ -1,3 +1,4 @@
+import { TemplateDataType } from "@/src/interface/commonType";
 import { PaymentProps } from "@/src/interface/payment_props";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -13,6 +14,7 @@ interface DataState {
   openLogin: boolean;
   _paf: PaymentProps[] | any;
   clearTemplateCookie: boolean;
+  templatePreviewData: TemplateDataType | null;
 }
 
 const initialState: DataState = {
@@ -27,6 +29,7 @@ const initialState: DataState = {
   openLogin: false,
   _paf: [],
   clearTemplateCookie: false,
+  templatePreviewData: null,
 };
 
 const dataActions = createSlice({
@@ -66,6 +69,12 @@ const dataActions = createSlice({
     clearTemplateCookie: (state, action: PayloadAction<boolean>) => {
       state.clearTemplateCookie = action.payload;
     },
+    templatePreviewData: (
+      state,
+      action: PayloadAction<TemplateDataType | null>
+    ) => {
+      state.templatePreviewData = action.payload;
+    },
   },
 });
 
@@ -81,5 +90,6 @@ export const {
   openLogin,
   _paf,
   clearTemplateCookie,
+  templatePreviewData,
 } = dataActions.actions;
 export default dataActions.reducer;

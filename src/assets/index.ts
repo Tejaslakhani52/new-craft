@@ -118,6 +118,7 @@ import {
   SearchQuotesIcon,
   EditQuotesIcon,
   DownloadQuotesIcon,
+  PreviewIcon,
 } from "./commonIcon";
 
 class Icons {
@@ -240,5 +241,6 @@ class Icons {
   static SearchQuotesIcon = SearchQuotesIcon;
   static EditQuotesIcon = EditQuotesIcon;
   static DownloadQuotesIcon = DownloadQuotesIcon;
+  static PreviewIcon = PreviewIcon;
 }
 export default Icons;

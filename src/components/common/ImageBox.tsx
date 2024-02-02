@@ -25,6 +25,8 @@ export default function ImageBox({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
+  const [showPreviewButton, setShowPreviewButton] = useState<boolean>(false);
+
   useEffect(() => {
     if (isHovered) {
       intervalRef.current = setInterval(() => {
@@ -42,12 +44,14 @@ export default function ImageBox({
   }, [isHovered, templates?.thumbArray]);
 
   const handleMouseEnter = () => {
+    setShowPreviewButton(true);
     if (screenWidth > 600) {
       setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
+    setShowPreviewButton(false);
     if (screenWidth > 600) {
       setIsHovered(false);
       setCurrentIndex(0);
@@ -56,7 +60,7 @@ export default function ImageBox({
 
   return (
     <div
-      className=""
+      className="relative"
       style={{
         height: `${calculateHeight(
           templates?.width,
@@ -66,8 +70,30 @@ export default function ImageBox({
         width: `${screenWidth / multiSizeFixSize}px`,
       }}
     >
+      <span
+        className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
+        style={{
+          right: templates.is_premium ? "47px" : "15px",
+          opacity: showPreviewButton ? "1" : "0",
+          transition: "0.3s all",
+        }}
+        onClick={() => {
+          setOpenModal(true);
+          setIdName(templates?.id_name);
+        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Icons.PreviewIcon svgProps={{ width: 27, height: 27 }} />
+      </span>
+
+      {templates.is_premium && (
+        <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
+          <Icons.proIcon svgProps={{ width: 27, height: 27 }} />
+        </span>
+      )}
       <Link
-        href={`/templates/p/${templates.id_name}`}
+        href={`/templates/p/${templates?.id_name}`}
         // onClick={(e) => {
         //   if (!isMobile) {
         //     e.preventDefault();
@@ -88,13 +114,6 @@ export default function ImageBox({
           //   }
           // }}
         >
-          {templates.is_premium && (
-            <>
-              <span className="w-[28px] absolute right-[13px] top-[13px] z-[1]">
-                <Icons.proIcon svgProps={{ width: 28 }} />
-              </span>
-            </>
-          )}
           <div
             className="custom-carousel w-full h-full overflow-hidden cursor-pointer rounded-[5px]"
             onMouseEnter={handleMouseEnter}

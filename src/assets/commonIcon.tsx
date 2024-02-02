@@ -7416,3 +7416,44 @@ export const DownloadQuotesIcon = ({ svgProps }: { svgProps?: SvgProps }) => {
     </svg>
   );
 };
+
+export const PreviewIcon = ({ svgProps }: { svgProps?: SvgProps }) => {
+  let width = 24;
+  let height = 24;
+
+  if (svgProps) {
+    if (svgProps.width) {
+      width = svgProps.width;
+    }
+    if (svgProps.height) {
+      height = svgProps.height;
+    }
+  }
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect opacity="0.8" width="24" height="24" rx="4" fill="#1C3048" />
+      <g clip-path="url(#clip0_2021_607)">
+        <path
+          d="M12.0005 7.23438C8.94352 7.23438 6.1713 8.90687 4.12568 11.6235C3.95876 11.846 3.95876 12.1569 4.12568 12.3795C6.1713 15.0994 8.94352 16.7719 12.0005 16.7719C15.0575 16.7719 17.8297 15.0994 19.8753 12.3828C20.0422 12.1602 20.0422 11.8493 19.8753 11.6267C17.8297 8.90687 15.0575 7.23438 12.0005 7.23438ZM12.2198 15.3612C10.1905 15.4888 8.51476 13.8164 8.6424 11.7838C8.74714 10.1081 10.1054 8.74977 11.7812 8.64503C13.8105 8.51739 15.4862 10.1899 15.3586 12.2224C15.2506 13.8949 13.8923 15.2532 12.2198 15.3612ZM12.1183 13.8098C11.0251 13.8785 10.1218 12.9785 10.1938 11.8853C10.2494 10.9819 10.9826 10.2521 11.8859 10.1932C12.9791 10.1244 13.8825 11.0245 13.8105 12.1177C13.7515 13.0243 13.0184 13.7542 12.1183 13.8098Z"
+          fill="white"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_2021_607">
+          <rect
+            width="16"
+            height="16"
+            fill="white"
+            transform="translate(4 4)"
+          />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};

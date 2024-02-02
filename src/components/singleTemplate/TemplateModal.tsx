@@ -87,6 +87,8 @@ export default function TemplateModal({
   const [showPremiumBox, setShowPremiumBox] = useState<boolean>(false);
   const [showPrevButton, setShowPrevButton] = React.useState(false);
   const [showNextButton, setShowNextButton] = React.useState(false);
+  const [showPreviewButton, setShowPreviewButton] = useState<string>("");
+
   const purchaseItems = useSelector(
     (state: RootState) => state.auth.setPurchaseItems
   );
@@ -269,7 +271,7 @@ export default function TemplateModal({
                       src={showImage}
                       alt={template?.template_name}
                       className="h-[430px] w-auto max-sm:w-auto max-sm:max-h-[400px] rounded-[4px]"
-                      style={{ border: "1px solid #80808059" }}
+                      // style={{ border: "1px solid #80808059" }}
                     />
                   </Box>
 
@@ -324,7 +326,7 @@ export default function TemplateModal({
                       {showNextButton && (
                         <Box>
                           <button
-                            className="next_button right-[0] md:right-[-20px] flex  "
+                            className="next_button right-[0] md:right-[-20px] flex "
                             style={{ top: "52%" }}
                             onClick={handleNextClick}
                           >
@@ -486,54 +488,76 @@ export default function TemplateModal({
                           t.template_id !== template?.template_id
                       )
                       ?.map((templates: TemplateDataType, index: number) => (
-                        <Link
-                          key={index}
-                          href={`/templates/p/${templates.id_name}`}
-                          onClick={(e) => e.preventDefault()}
+                        <div
+                          className="relative"
+                          onMouseEnter={() =>
+                            setShowPreviewButton(templates?.id_name)
+                          }
+                          onMouseLeave={() => setShowPreviewButton("")}
                         >
-                          <div
-                            className=""
+                          <span
+                            className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
                             style={{
-                              height: `${calculateHeight(
-                                templates?.width,
-                                templates?.height,
-                                screenWidth / multiSizeFixSize
-                              )}px`,
-                              width: `${screenWidth / multiSizeFixSize}px`,
+                              right: templates.is_premium ? "47px" : "15px",
+                              opacity:
+                                showPreviewButton === templates.id_name
+                                  ? "1"
+                                  : "0",
+                              transition: "0.3s all",
                             }}
                             onClick={() => {
-                              window.history.replaceState(
-                                {},
-                                "",
-                                `/templates/p/${templates?.id_name}`
-                              );
-                              setId("");
                               setTemplate({});
                               setAnotherData([]);
                               setIsLoading(true);
                               setId(templates?.id_name);
                             }}
+                            onMouseEnter={() =>
+                              setShowPreviewButton(templates?.id_name)
+                            }
+                            onMouseLeave={() => setShowPreviewButton("")}
                           >
-                            <div className="w-full h-full p-[8px] relative">
-                              {templates.is_premium && (
-                                <span className="w-[28px] absolute right-[13px] top-[13px] z-[1]">
-                                  <Icons.proIcon svgProps={{ width: 28 }} />
-                                </span>
-                              )}
-
-                              <img
-                                src={`/api/image/compress?url=${encodeURIComponent(
-                                  templates?.template_thumb
-                                )}`}
-                                alt={templates?.category_name}
-                                className={`w-full h-full rounded-[5px] cursor-pointer `}
-                                style={{
-                                  border: "1px solid #80808082",
-                                }}
+                            <Icons.PreviewIcon
+                              svgProps={{ width: 27, height: 27 }}
+                            />
+                          </span>
+                          {templates.is_premium && (
+                            <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
+                              <Icons.proIcon
+                                svgProps={{ width: 27, height: 27 }}
                               />
+                            </span>
+                          )}{" "}
+                          <Link
+                            key={index}
+                            href={`/templates/p/${templates.id_name}`}
+                            onClick={(e) => setOpen(false)}
+                          >
+                            <div
+                              className=""
+                              style={{
+                                height: `${calculateHeight(
+                                  templates?.width,
+                                  templates?.height,
+                                  screenWidth / multiSizeFixSize
+                                )}px`,
+                                width: `${screenWidth / multiSizeFixSize}px`,
+                              }}
+                            >
+                              <div className="w-full h-full p-[8px] relative">
+                                <img
+                                  src={`/api/image/compress?url=${encodeURIComponent(
+                                    templates?.template_thumb
+                                  )}`}
+                                  alt={templates?.category_name}
+                                  className={`w-full h-full rounded-[5px] cursor-pointer `}
+                                  style={{
+                                    border: "1px solid #80808082",
+                                  }}
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </Link>
+                          </Link>
+                        </div>
                       ))}
                   </StackGrid>
                 </Box>

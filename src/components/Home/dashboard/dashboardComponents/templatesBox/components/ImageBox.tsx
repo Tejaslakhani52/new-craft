@@ -30,6 +30,7 @@ export default function ImageBox({
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState(false);
   const intervalRef: React.RefObject<HTMLInputElement> | any = useRef(null);
+  const [showPreviewButton, setShowPreviewButton] = useState<boolean>(false);
   useEffect(() => {
     if (isHovered) {
       intervalRef.current = setInterval(() => {
@@ -47,12 +48,14 @@ export default function ImageBox({
   }, [isHovered, templates?.thumbArray]);
 
   const handleMouseEnter = () => {
+    setShowPreviewButton(true);
     if (screenWidth > 600) {
       setIsHovered(true);
     }
   };
 
   const handleMouseLeave = () => {
+    setShowPreviewButton(false);
     if (screenWidth > 600) {
       setIsHovered(false);
       setCurrentIndex(0);
@@ -60,124 +63,147 @@ export default function ImageBox({
   };
 
   return (
-    <Link
-      className={`h-auto bg-white cursor-pointer block ${
-        uniqueCat
-          ? "p-3 max-sm:p-1 max-w-[250px] max-sm:max-w-[130px]"
-          : "p-[7px] max-sm:p-1"
-      } rounded-[12px]`}
-      key={templates.id_name}
-      href={`/templates/p/${templates.id_name}`}
-      scroll={true}
+    <div className="relative">
+      <span
+        className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
+        style={{
+          right: templates.is_premium ? "47px" : "15px",
+          opacity: showPreviewButton ? "1" : "0",
+          transition: "0.3s all",
+        }}
+        onClick={() => {
+          setOpenModal(true);
+          setIdName(templates?.id_name);
+        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <Icons.PreviewIcon svgProps={{ width: 27, height: 27 }} />
+      </span>
 
-      // onClick={(e) => {
-      //   if (!isMobile) {
-      //     e.preventDefault();
-      //   }
-      // }}
-    >
-      <Box
-      // onClick={() => {
-      //   if (!isMobile) {
-      //     setIdName(templates?.id_name);
-      //     setOpenModal(true);
-      //     window.history.replaceState(
-      //       {},
-      //       "",
-      //       `/templates/p/${templates?.id_name}`
-      //     );
-      //   }
-      // }}
+      {templates.is_premium && (
+        <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
+          <Icons.proIcon svgProps={{ width: 27, height: 27 }} />
+        </span>
+      )}
+
+      <Link
+        className={`h-auto bg-white cursor-pointer block ${
+          uniqueCat
+            ? "p-3 max-sm:p-1 max-w-[250px] max-sm:max-w-[130px]"
+            : "p-[7px] max-sm:p-1"
+        } rounded-[12px]`}
+        key={templates?.id_name}
+        href={`/templates/p/${templates?.id_name}`}
+        scroll={true}
+
+        // onClick={(e) => {
+        //   if (!isMobile) {
+        //     e.preventDefault();
+        //   }
+        // }}
       >
         <Box
-          className={` ${
-            uniqueCat
-              ? "bg-[#E6E8EE] p-2 max-sm:p-1 h-[165px] max-sm:h-[150px]"
-              : "p-[0px]"
-          } rounded-[10px] relative`}
-          style={{
-            height: uniqueCat
-              ? "auto"
-              : `${calculateHeight(
-                  templates?.width,
-                  templates?.height,
-                  height
-                )}px`,
-            width: uniqueCat ? "auto" : `${height}px`,
-          }}
-          onClick={() => {
-            dispatch(modalClosePath(`/`));
-          }}
+        // onClick={() => {
+        //   if (!isMobile) {
+        //     setIdName(templates?.id_name);
+        //     setOpenModal(true);
+        //     window.history.replaceState(
+        //       {},
+        //       "",
+        //       `/templates/p/${templates?.id_name}`
+        //     );
+        //   }
+        // }}
         >
-          {templates.is_premium && (
-            <span className="w-[28px] absolute right-[5px] top-[5px] z-[1]">
-              <Icons.proIcon svgProps={{ width: 28 }} />
-            </span>
-          )}
-
-          <div
-            className="custom-carousel w-full h-full overflow-hidden cursor-pointer rounded-[5px]"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+          <Box
+            className={` ${
+              uniqueCat
+                ? "bg-[#E6E8EE] p-2 max-sm:p-1 h-[165px] max-sm:h-[150px]"
+                : "p-[0px]"
+            } rounded-[10px] relative`}
+            style={{
+              height: uniqueCat
+                ? "auto"
+                : `${calculateHeight(
+                    templates?.width,
+                    templates?.height,
+                    height
+                  )}px`,
+              width: uniqueCat ? "auto" : `${height}px`,
+            }}
+            onClick={() => {
+              dispatch(modalClosePath(`/`));
+            }}
           >
             <div
-              className="carousel-slider w-full h-full "
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
+              className="custom-carousel w-full h-full overflow-hidden cursor-pointer rounded-[5px]"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
-              {templates?.thumbArray.map((image: string, index: number) => (
-                <div
-                  className="bg-slate-200 flex justify-center w-full h-full rounded-[4px] carousel-slide"
-                  key={index}
-                >
-                  <img
-                    src={`/api/image/compress?url=${encodeURIComponent(image)}`}
-                    alt={image}
-                    className={`w-[auto] ${
-                      uniqueCat ? "h-[100%]" : ""
-                    }  mx-auto rounded-[4px] opacity-0`}
-                    style={{
-                      transition: "0.8s all",
-                      height: "auto",
-                      width: "auto",
-                    }}
-                    onLoad={(e) =>
-                      (e.target as HTMLImageElement).classList.remove(
-                        "opacity-0"
-                      )
-                    }
-                  />
-                </div>
-              ))}
+              <div
+                className="carousel-slider w-full h-full "
+                style={{
+                  transform: `translateX(-${currentIndex * 100}%)`,
+                }}
+              >
+                {templates?.thumbArray.map((image: string, index: number) => (
+                  <div
+                    className="bg-slate-200 flex justify-center w-full h-full rounded-[4px] carousel-slide"
+                    key={index}
+                  >
+                    <img
+                      src={`/api/image/compress?url=${encodeURIComponent(
+                        image
+                      )}`}
+                      alt={image}
+                      className={`w-[auto] ${
+                        uniqueCat ? "h-[100%]" : ""
+                      }  mx-auto rounded-[4px] opacity-0`}
+                      style={{
+                        transition: "0.8s all",
+                        height: "auto",
+                        width: "auto",
+                      }}
+                      onLoad={(e) =>
+                        (e.target as HTMLImageElement).classList.remove(
+                          "opacity-0"
+                        )
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {isHovered && templates?.thumbArray?.length > 1 && (
-            <p
-              className="absolute bottom-[10px] w-[45px] flex justify-center left-[10px] bg-[#11171d99] font-[600] text-[white] text-[10px] py-[1px] px-[4px] rounded-[8px]"
-              style={{ transition: "0.5s all" }}
-            >
-              <span className="w-[9px]"> {currentIndex + 1} </span> OF{" "}
-              {templates?.thumbArray.length}
-            </p>
-          )}
+            {isHovered && templates?.thumbArray?.length > 1 && (
+              <p
+                className="absolute bottom-[10px] w-[45px] flex justify-center left-[10px] bg-[#11171d99] font-[600] text-[white] text-[10px] py-[1px] px-[4px] rounded-[8px]"
+                style={{ transition: "0.5s all" }}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <span className="w-[9px]"> {currentIndex + 1} </span> OF{" "}
+                {templates?.thumbArray.length}
+              </p>
+            )}
+          </Box>
         </Box>
-      </Box>
 
-      <Box
-        className="pt-2"
-        style={{
-          width: uniqueCat ? "auto" : `${height}px`,
-        }}
-      >
-        <Typography className="text-ellipsis max-sm:text-[12px] w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
-          {templates?.template_name}
-        </Typography>
-        <Typography className="text-[#ABB2C7] text-[13px] pb-1 max-sm:hidden">
-          {templates?.category_name}
-        </Typography>
-      </Box>
-    </Link>
+        <Box
+          className="pt-2"
+          style={{
+            width: uniqueCat ? "auto" : `${height}px`,
+          }}
+        >
+          <Typography className="text-ellipsis max-sm:text-[12px] w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
+            {templates?.template_name}
+          </Typography>
+          <Typography className="text-[#ABB2C7] text-[13px] pb-1 max-sm:hidden">
+            {templates?.category_name}
+          </Typography>
+        </Box>
+      </Link>
+    </div>
   );
 }
