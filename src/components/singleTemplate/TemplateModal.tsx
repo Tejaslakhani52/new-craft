@@ -73,7 +73,6 @@ export default function TemplateModal({
   setId,
 }: TemplateModalPropType) {
   const router = useRouter();
-  // console.log("template: ", template);
   const containerId = `slider`;
   const dispatch = useDispatch();
   const [token, setToken] = React.useState<string | null>(null);
@@ -82,7 +81,6 @@ export default function TemplateModal({
   const [anotherData, setAnotherData] = React.useState<SearchTempType[] | any>(
     null
   );
-  // console.log("anotherData: ", anotherData);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   // const [template, setTemplate] = React.useState<SingleTempType | any>({});
   const [anotherTempLoad, setAnotherTempLoad] = useState<boolean>(true);

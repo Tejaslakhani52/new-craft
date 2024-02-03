@@ -124,7 +124,6 @@ const api = {
         `${API_BASE_URL}/dashboard/getData`,
         payload
       );
-      console.log("response: ", response);
       const res: DashboardDataType = JSON.parse(decryptData(response?.data));
       return res;
     } catch (error) {

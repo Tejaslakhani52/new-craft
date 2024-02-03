@@ -27,9 +27,7 @@ export default function TemplatesBox() {
     api
       .getDashboardData({ page: page })
       .then((res) => {
-        console.log("res: ", res);
         const dashboardData = res as DashboardDataType;
-        console.log("dashboardData: ", dashboardData);
         if (dashboardData?.datas) {
           setData((prevData) => [
             ...(prevData || []),
