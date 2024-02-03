@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
-import { encryptData } from "@/src/aes-crypto";
+import { decryptData, encryptData } from "@/src/aes-crypto";
 import { isFakeDomain } from "@/src/commonFunction/domain-checker";
 
 export default async function handler(
@@ -20,11 +20,13 @@ export default async function handler(
 
     const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
     const apiKey = process.env.NEXT_PUBLIC_KEY;
+    const cookieValue = req.cookies;
+    const userId = decryptData(cookieValue._sdf);
 
-    const response = await axios.post(`${apiUrl}/templates/api/getDatas`, {
+    const response = await axios.post(`${apiUrl}/templates/api/getDashboard`, {
       key: `${apiKey}`,
-      page: 1,
-      count: 0,
+      page: req.body.page,
+      user_id: userId,
     });
 
     res.status(200).json(encryptData(JSON.stringify(response.data.datas)));

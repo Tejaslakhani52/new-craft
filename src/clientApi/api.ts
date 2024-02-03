@@ -118,9 +118,12 @@ const api = {
     }
   },
 
-  getDashboardData: async () => {
+  getDashboardData: async (payload: { page: number }) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/dashboard/getData`);
+      const response = await axios.post(
+        `${API_BASE_URL}/dashboard/getData`,
+        payload
+      );
       const res: DashboardDataType = JSON.parse(decryptData(response?.data));
       return res;
     } catch (error) {
