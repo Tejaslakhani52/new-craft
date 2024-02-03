@@ -101,12 +101,7 @@ export default function Header({ sidebarOpen, setSidebarOpen }: HeaderProps) {
               passHref
               className="w-[147px] cursor-pointer max-lg:w-[127px] max-2sm:w-[80px]"
             >
-              <img
-                crossOrigin="anonymous"
-                src="/images/logo.svg"
-                alt="logo"
-                className=""
-              />
+              <img src="/images/logo.svg" alt="logo" className="" />
             </Link>
           </Box>
 

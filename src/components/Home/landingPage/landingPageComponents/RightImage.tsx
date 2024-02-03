@@ -58,7 +58,6 @@ export default function RightImage({
       <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
         {image ? (
           <img
-            crossOrigin="anonymous"
             src={image}
             alt={alt}
             className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

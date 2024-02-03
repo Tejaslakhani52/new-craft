@@ -5,7 +5,6 @@ export default function NotFound() {
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-white flex items-center justify-center z-[1001]">
       <div className="text-center">
         <img
-          crossOrigin="anonymous"
           src="/images/logo.svg"
           alt="logo"
           className="w-[150px] mx-auto"

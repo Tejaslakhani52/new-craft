@@ -134,9 +134,9 @@ export default function ImageBox({
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <img
-                    crossOrigin="anonymous"
                     src={`/api/image/compress?url=${encodeURIComponent(image)}`}
                     alt={image}
+                    crossOrigin="anonymous"
                     className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
                     style={{ transition: "0.5s all" }}
                     onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>

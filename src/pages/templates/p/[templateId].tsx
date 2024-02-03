@@ -198,7 +198,6 @@ export default function index(props: { templateData: SingleTempType }) {
             <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
               {imageLoaded && showImage ? (
                 <img
-                  crossOrigin="anonymous"
                   src={showImage}
                   alt={props?.templateData?.template_name}
                   className=" h-[430px] w-auto max-sm:w-auto  max-sm:h-auto max-sm:max-h-[400px] rounded-[4px]"
@@ -209,7 +208,6 @@ export default function index(props: { templateData: SingleTempType }) {
               )}
 
               <img
-                crossOrigin="anonymous"
                 onLoad={handleImageLoad}
                 src={showImage}
                 alt={props?.templateData?.template_name}
@@ -259,7 +257,6 @@ export default function index(props: { templateData: SingleTempType }) {
                     >
                       <Box className="w-[80px]">
                         <img
-                          crossOrigin="anonymous"
                           src={`/api/image/compress?url=${encodeURIComponent(
                             image
                           )}`}
@@ -473,7 +470,6 @@ export default function index(props: { templateData: SingleTempType }) {
                             }}
                           >
                             <img
-                              crossOrigin="anonymous"
                               src={`/api/image/compress?url=${encodeURIComponent(
                                 templates?.template_thumb
                               )}`}

@@ -107,7 +107,6 @@ export default function index() {
         image={
           <Box sx={{ width: "500px" }}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/calendarBanner.png`}
               alt="calendarBanner"
               style={{

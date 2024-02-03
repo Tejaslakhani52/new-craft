@@ -12,7 +12,6 @@ export default function MainLoader() {
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 flex items-center justify-center  ">
       <img
-        crossOrigin="anonymous"
         className="w-14 h-14 animate-spin"
         src="https://www.svgrepo.com/show/70469/loading.svg"
         alt="Loading icon"

@@ -80,7 +80,7 @@ export default function CustomInvitations() {
                 overflow: "hidden",
               }}
             >
-              <img crossOrigin="anonymous" src={item} alt={item} />
+              <img src={item} alt={item} />
             </Box>
           );
         })}
@@ -113,7 +113,7 @@ export default function CustomInvitations() {
                   overflow: "hidden",
                 }}
               >
-                <img crossOrigin="anonymous" src={item} alt={item} />
+                <img src={item} alt={item} />
               </Box>
             );
           })}

@@ -65,11 +65,7 @@ const DialogModal = (props: DialogModalProps) => {
               props?.setOpen(false);
             }}
           >
-            <img
-              crossOrigin="anonymous"
-              src="/icons/modalClose.png"
-              alt="icon"
-            />
+            <img src="/icons/modalClose.png" alt="icon" />
           </button>
 
           {props?.children}

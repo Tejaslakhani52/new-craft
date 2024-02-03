@@ -125,7 +125,6 @@ export default function PersonalInfo() {
             >
               {imagePreview && (
                 <img
-                  crossOrigin="anonymous"
                   src={imagePreview}
                   alt="Selected file preview"
                   style={{
@@ -140,7 +139,6 @@ export default function PersonalInfo() {
               !removeImage ? (
                 userProfile?.photo_uri.includes("googleusercontent") ? (
                   <img
-                    crossOrigin="anonymous"
                     src={`${userProfile?.photo_uri}`}
                     alt="Selected file preview"
                     style={{
@@ -151,7 +149,6 @@ export default function PersonalInfo() {
                   />
                 ) : (
                   <img
-                    crossOrigin="anonymous"
                     src={`${imageBaseUrl}${userProfile?.photo_uri}`}
                     alt="Selected file preview"
                     style={{

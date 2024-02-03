@@ -29,7 +29,6 @@ export default function LeftImage({
         <Box className="flex-1 flex justify-center ">
           {image ? (
             <img
-              crossOrigin="anonymous"
               src={image}
               alt={alt}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

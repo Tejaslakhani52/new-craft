@@ -82,7 +82,6 @@ const DraftBoxes = ({
 
         <div className=" flex justify-center w-full overflow-hidden cursor-pointer">
           <img
-            crossOrigin="anonymous"
             src={item?.image}
             alt={item?.image}
             className="opacity-0"
@@ -214,7 +213,6 @@ export default function index() {
                 }}
               >
                 <img
-                  crossOrigin="anonymous"
                   src="/images/NoDataFound.svg"
                   alt=""
                   className="w-[250px]"

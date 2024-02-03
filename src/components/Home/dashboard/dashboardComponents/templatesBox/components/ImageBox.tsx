@@ -154,10 +154,10 @@ export default function ImageBox({
                       key={index}
                     >
                       <img
-                        crossOrigin="anonymous"
                         src={`/api/image/compress?url=${encodeURIComponent(
                           image
                         )}`}
+                        crossOrigin="anonymous"
                         alt={image}
                         className={`w-[auto] ${
                           uniqueCat ? "h-[100%]" : ""

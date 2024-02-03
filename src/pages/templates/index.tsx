@@ -161,7 +161,6 @@ export default function index() {
               >
                 <Box sx={{ width: "400px" }}>
                   <img
-                    crossOrigin="anonymous"
                     src={`${assetsUrl}/w_assets/images/categoryBanner.png`}
                     alt=" Latest Free Templates For You"
                     style={{
@@ -237,7 +236,6 @@ export default function index() {
                 >
                   <Box className="md:mt-[-80px] lg:min-h-[300px]">
                     <img
-                      crossOrigin="anonymous"
                       src={`${assetsUrl}/w_assets/images/category/Cinvitation1.png`}
                       alt=" Latest Free Templates For You"
                       className="max-h-[300px] w-auto block mx-auto"
@@ -261,7 +259,6 @@ export default function index() {
                 >
                   <Box className="md:mt-[-80px] lg:min-h-[300px]">
                     <img
-                      crossOrigin="anonymous"
                       src={`${assetsUrl}/w_assets/images/category/Cinvitation2.png`}
                       alt=" Latest Free Templates For You"
                       className="max-h-[300px] w-auto block mx-auto"
@@ -286,7 +283,6 @@ export default function index() {
                 >
                   <Box className="md:mt-[-80px] lg:min-h-[300px]">
                     <img
-                      crossOrigin="anonymous"
                       src={`${assetsUrl}/w_assets/images/category/Cinvitation3.png`}
                       alt=" Latest Free Templates For You"
                       className="max-h-[300px] w-auto block mx-auto"
@@ -341,7 +337,6 @@ export default function index() {
 
                 <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
                   <img
-                    crossOrigin="anonymous"
                     src={`${assetsUrl}/w_assets/images/category/whyChooseInvitation.png`}
                     alt={" Latest Free Templates For You"}
                     className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

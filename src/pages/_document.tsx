@@ -62,7 +62,6 @@ export default function Document() {
 
         <noscript>
           <img
-            crossOrigin="anonymous"
             height="1"
             width="1"
             style={{ display: "none" }}

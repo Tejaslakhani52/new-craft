@@ -183,7 +183,6 @@ const DraftBoxes = ({
                 }}
               >
                 <img
-                  crossOrigin="anonymous"
                   src={image}
                   alt={image}
                   className="opacity-0"
@@ -387,7 +386,6 @@ const DraftBoxesTab2 = ({
           onMouseLeave={handleMouseLeave}
         >
           <img
-            crossOrigin="anonymous"
             src={item?.image}
             alt={item?.image}
             className="opacity-0"
@@ -661,7 +659,6 @@ export default function index() {
                       style={{ height: `${screenHeight - 330}px` }}
                     >
                       <img
-                        crossOrigin="anonymous"
                         src="/images/NoDataFound.svg"
                         alt="NoDataFound"
                         className="w-[250px]"
@@ -713,7 +710,6 @@ export default function index() {
                       style={{ height: `${screenHeight - 330}px` }}
                     >
                       <img
-                        crossOrigin="anonymous"
                         src="/images/NoDataFound.svg"
                         alt="NoDataFound"
                         className="w-[250px]"

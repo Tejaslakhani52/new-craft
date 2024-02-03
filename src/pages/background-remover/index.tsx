@@ -267,23 +267,12 @@ export default function index() {
             >
               {imageUrl ? (
                 imageTab === "after" ? (
-                  <img
-                    crossOrigin="anonymous"
-                    src={imageUrl}
-                    alt="image"
-                    className=" "
-                  />
+                  <img src={imageUrl} alt="image" className=" " />
                 ) : (
-                  <img
-                    crossOrigin="anonymous"
-                    src={imagePreviewUrl}
-                    alt="imagePreview"
-                    className=" "
-                  />
+                  <img src={imagePreviewUrl} alt="imagePreview" className=" " />
                 )
               ) : (
                 <img
-                  crossOrigin="anonymous"
                   src={`${assetsUrl}/w_assets/images/bg_remove.png`}
                   alt="bg remove"
                 />
@@ -489,7 +478,6 @@ export default function index() {
         <Box className=" ">
           <CustomTabPanel value={value} index={0}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/people.png`}
               alt="people"
               className="w-[80%] max-md:w-full mx-auto block"
@@ -497,7 +485,6 @@ export default function index() {
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/graphic.png`}
               alt="graphic"
               className="w-[80%] max-md:w-full mx-auto block"
@@ -505,7 +492,6 @@ export default function index() {
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/car.png`}
               alt="car"
               className="w-[80%] max-md:w-full mx-auto block"
@@ -514,7 +500,6 @@ export default function index() {
 
           <CustomTabPanel value={value} index={3}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/animals.png`}
               alt="animals"
               className="w-[80%] max-md:w-full mx-auto block"
@@ -523,7 +508,6 @@ export default function index() {
 
           <CustomTabPanel value={value} index={4}>
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/product.png`}
               alt="product"
               className="w-[80%] max-md:w-full mx-auto block"
@@ -544,7 +528,6 @@ export default function index() {
           >
             <Box className="mt-[-60px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/bgRemove/uploadImage.png`}
                 alt="uploadImage"
                 className="max-h-[200px] w-auto block mx-auto"
@@ -567,7 +550,6 @@ export default function index() {
           >
             <Box className="mt-[-60px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/bgRemove/rb.png`}
                 alt="rb"
                 className="max-h-[200px] w-auto block mx-auto"
@@ -591,7 +573,6 @@ export default function index() {
           >
             <Box className="mt-[-60px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/bgRemove/download.png`}
                 alt="download"
                 className="max-h-[200px] w-auto block mx-auto"

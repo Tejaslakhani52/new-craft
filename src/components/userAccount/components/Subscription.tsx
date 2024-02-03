@@ -21,7 +21,6 @@ export default function Subscription(props: {
       >
         <Box className="w-[600px] mx-auto flex flex-col items-center justify-center">
           <img
-            crossOrigin="anonymous"
             src={`${assetsUrl}/w_assets/images/subcriptionNote.png`}
             alt="subscriptionNote"
             className="w-[300px] mb-5"

@@ -34,7 +34,6 @@ export default function InvitationStatic() {
           >
             <Box className="md:mt-[-80px] lg:min-h-[300px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cinvitation1.png`}
                 alt="invitation template"
                 className="max-h-[300px] w-auto block mx-auto"
@@ -57,7 +56,6 @@ export default function InvitationStatic() {
           >
             <Box className="md:mt-[-80px] lg:min-h-[300px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cinvitation2.png`}
                 alt="invitation template"
                 className="max-h-[300px] w-auto block mx-auto"
@@ -80,7 +78,6 @@ export default function InvitationStatic() {
           >
             <Box className="md:mt-[-80px] lg:min-h-[300px]">
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cinvitation3.png`}
                 alt="invitation template"
                 className="max-h-[300px] w-auto block mx-auto"
@@ -147,7 +144,6 @@ export default function InvitationStatic() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/category/whyChooseInvitation.png`}
               alt={"invitation template"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -246,7 +242,6 @@ export default function InvitationStatic() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
-              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/InvitationC/img7.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

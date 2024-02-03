@@ -172,7 +172,6 @@ export default function index() {
           >
             <Box sx={{ width: "100%" }}>
               <img
-                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/customizeOrder/bannerSide.png`}
                 alt="resumeBanner"
                 style={{ width: "100%", height: "100%", paddingRight: "0px" }}
