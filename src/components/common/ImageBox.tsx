@@ -10,7 +10,7 @@ interface ImageBoxProps {
   templates: TemplateDataType | any;
   screenWidth: number;
   multiSizeFixSize: number;
-  setIdName: React.Dispatch<React.SetStateAction<string>>;
+  setIdName: React.Dispatch<React.SetStateAction<TemplateDataType>>;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   index?: number;
 }
@@ -80,7 +80,7 @@ export default function ImageBox({
         }}
         onClick={() => {
           setOpenModal(true);
-          setIdName(templates?.id_name);
+          setIdName(templates);
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -93,84 +93,80 @@ export default function ImageBox({
           <Icons.proIcon svgProps={{ width: 27, height: 27 }} />
         </span>
       )}
-      <div>
-        <Link
-          href={`/templates/p/${templates?.id_name}`}
-          // onClick={(e) => {
+      <Link
+        href={`/templates/p/${templates?.id_name}`}
+        // onClick={(e) => {
+        //   if (!isMobile) {
+        //     e.preventDefault();
+        //   }
+        // }}
+      >
+        <div
+          className="w-full h-full p-[8px] relative"
+          // onClick={() => {
           //   if (!isMobile) {
-          //     e.preventDefault();
+          //     setIdName(templates?.id_name);
+          //     setOpenModal(true);
+          //     window.history.replaceState(
+          //       {},
+          //       "",
+          //       `/templates/p/${templates?.id_name}`
+          //     );
           //   }
           // }}
         >
           <div
-            className="w-full h-full p-[8px] relative"
-            // onClick={() => {
-            //   if (!isMobile) {
-            //     setIdName(templates?.id_name);
-            //     setOpenModal(true);
-            //     window.history.replaceState(
-            //       {},
-            //       "",
-            //       `/templates/p/${templates?.id_name}`
-            //     );
-            //   }
-            // }}
+            className="custom-carousel w-full h-full overflow-hidden cursor-pointer rounded-[5px]"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            style={{ border: "1px solid #80808082" }}
           >
             <div
-              className="custom-carousel w-full h-full overflow-hidden cursor-pointer rounded-[5px]"
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
-              style={{ border: "1px solid #80808082" }}
+              className="carousel-slider w-full h-full "
+              style={{
+                transform: `translateX(-${currentIndex * 100}%)`,
+              }}
             >
-              <div
-                className="carousel-slider w-full h-full "
-                style={{
-                  transform: `translateX(-${currentIndex * 100}%)`,
-                }}
-              >
-                {templates?.thumbArray.map((image: string, index: number) => (
-                  <div
-                    className="carousel-slide"
-                    key={index}
-                    style={{ display: "flex", justifyContent: "center" }}
-                  >
-                    <img
-                      src={`/api/image/compress?url=${encodeURIComponent(
-                        image
-                      )}`}
-                      alt={image}
-                      className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
-                      style={{ transition: "0.5s all" }}
-                      onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
-                        e.currentTarget.classList.remove("opacity-0")
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {isHovered && templates?.thumbArray?.length > 1 && (
-              <p
-                className="absolute bottom-[10px] w-[45px] flex justify-center left-[10px] bg-[#11171d99] font-[600] text-[white] text-[10px] py-[1px] px-[4px] rounded-[8px]"
-                style={{ transition: "0.5s all" }}
-              >
-                <span className="w-[9px]"> {currentIndex + 1} </span> OF{" "}
-                {templates?.thumbArray.length}
-              </p>
-            )}
-
-            <div className="pt-2">
-              <p className="text-ellipsis max-sm:text-[14px] w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
-                {templates?.template_name}
-              </p>
-              <p className="text-[#ABB2C7] text-[13px] max-sm:text-[12px] pb-1">
-                {templates?.category_name}
-              </p>
+              {templates?.thumbArray.map((image: string, index: number) => (
+                <div
+                  className="carousel-slide"
+                  key={index}
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <img
+                    src={`/api/image/compress?url=${encodeURIComponent(image)}`}
+                    alt={image}
+                    className={`w-full h-full rounded-[5px] cursor-pointer opacity-0`}
+                    style={{ transition: "0.5s all" }}
+                    onLoad={(e: React.SyntheticEvent<HTMLImageElement>) =>
+                      e.currentTarget.classList.remove("opacity-0")
+                    }
+                  />
+                </div>
+              ))}
             </div>
           </div>
-        </Link>
-      </div>
+
+          {isHovered && templates?.thumbArray?.length > 1 && (
+            <p
+              className="absolute bottom-[10px] w-[45px] flex justify-center left-[10px] bg-[#11171d99] font-[600] text-[white] text-[10px] py-[1px] px-[4px] rounded-[8px]"
+              style={{ transition: "0.5s all" }}
+            >
+              <span className="w-[9px]"> {currentIndex + 1} </span> OF{" "}
+              {templates?.thumbArray.length}
+            </p>
+          )}
+
+          <div className="pt-2">
+            <p className="text-ellipsis max-sm:text-[14px] w-[100%] whitespace-nowrap overflow-hidden text-black font-medium">
+              {templates?.template_name}
+            </p>
+            <p className="text-[#ABB2C7] text-[13px] max-sm:text-[12px] pb-1">
+              {templates?.category_name}
+            </p>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 }

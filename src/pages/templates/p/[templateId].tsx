@@ -75,14 +75,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 };
 
 export default function index(props: { templateData: SingleTempType }) {
-  console.log("templateData: ", props.templateData);
   const containerId = `slider`;
   const router = useRouter();
   const dispatch = useDispatch();
   const [token, setToken] = React.useState<string | null>(null);
   const [anotherData, setAnotherData] = React.useState<TemplateDataType[]>([]);
   const screenWidth = useScreenWidth();
-  const [idName, setIdName] = React.useState<string>("");
+  const [idName, setIdName] = React.useState<TemplateDataType | any>(null);
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [showPrevButton, setShowPrevButton] = React.useState(true);
   const [showNextButton, setShowNextButton] = React.useState(true);
@@ -410,7 +409,7 @@ export default function index(props: { templateData: SingleTempType }) {
                         transition: "0.3s all",
                       }}
                       onClick={() => {
-                        setIdName(templates?.id_name);
+                        setIdName(templates);
                         setOpenModal(true);
                       }}
                       onMouseEnter={() =>
@@ -511,7 +510,7 @@ export default function index(props: { templateData: SingleTempType }) {
 
       <TemplateModal
         open={openModal}
-        id={idName}
+        template={idName}
         setOpen={setOpenModal}
         setId={setIdName}
       />

@@ -9,7 +9,7 @@ import { TemplateDataType } from "@/src/interface/commonType";
 interface TemplatesBoxesProps {
   item: DashboardDataType;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setIdName: React.Dispatch<React.SetStateAction<string>>;
+  setIdName: React.Dispatch<React.SetStateAction<TemplateDataType>>;
   height: number | any;
 }
 

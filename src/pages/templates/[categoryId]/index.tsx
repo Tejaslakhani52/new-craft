@@ -140,7 +140,7 @@ export default function index(props: { jsonString: ServerSideProps }) {
   const [page, setPage] = useState<number>(1);
   const [loadMore, setLoadMore] = useState<boolean>(true);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [idName, setIdName] = useState<string>("");
+  const [idName, setIdName] = useState<TemplateDataType | any>(null);
   const tempIdValue = useSelector((state: RootState) => state.actions.tempId);
 
   useEffect(() => {
@@ -355,7 +355,7 @@ export default function index(props: { jsonString: ServerSideProps }) {
 
       <TemplateModal
         open={openModal}
-        id={idName}
+        template={idName}
         setOpen={setOpenModal}
         setId={setIdName}
       />

@@ -61,28 +61,30 @@ const IconsText = ({ image, text, isLoading }: PropType) => {
 interface TemplateModalPropType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string;
-  setId: React.Dispatch<React.SetStateAction<string>>;
+  template: TemplateDataType;
+  setId: React.Dispatch<React.SetStateAction<TemplateDataType | any>>;
   currentPathname?: string;
 }
 
 export default function TemplateModal({
   open,
   setOpen,
-  id,
+  template,
   setId,
 }: TemplateModalPropType) {
   const router = useRouter();
+  // console.log("template: ", template);
   const containerId = `slider`;
   const dispatch = useDispatch();
   const [token, setToken] = React.useState<string | null>(null);
   const screenWidth = useScreenWidth();
   const screenHeight = useScreenHeight();
   const [anotherData, setAnotherData] = React.useState<SearchTempType[] | any>(
-    []
+    null
   );
+  // console.log("anotherData: ", anotherData);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const [template, setTemplate] = React.useState<SingleTempType | any>({});
+  // const [template, setTemplate] = React.useState<SingleTempType | any>({});
   const [anotherTempLoad, setAnotherTempLoad] = useState<boolean>(true);
   const [showImage, setShowImage] = useState<string>("");
   const [showPremiumBox, setShowPremiumBox] = useState<boolean>(false);
@@ -104,38 +106,25 @@ export default function TemplateModal({
     setShowImage(template?.thumbArray?.[0]);
   }, [template]);
 
+  const searchApi = async (data: TemplateDataType) => {
+    return api
+      .searchTemplate({
+        keywords:
+          data?.tags?.[0] === "Poster" ? data?.tags?.[1] : data?.tags?.[0],
+        page: 1,
+      })
+      .then((res) => {
+        setAnotherData(res);
+        setAnotherTempLoad(false);
+        setIsLoading(false);
+      });
+  };
+
   useEffect(() => {
     setAnotherTempLoad(true);
-    setAnotherData([]);
     setIsLoading(true);
-
-    if (id !== "") {
-      api
-        .getSingleTemplate({
-          id_name: id,
-        })
-        .then((response) => {
-          setIsLoading(false);
-          setTemplate(response);
-
-          api
-            .searchTemplate({
-              keywords:
-                response?.tags?.[0] === "Poster"
-                  ? response?.tags?.[1]
-                  : response?.tags?.[0],
-              page: 1,
-            })
-            .then((res) => {
-              setAnotherData(res);
-              setAnotherTempLoad(false);
-            });
-        })
-        .catch((error) => {
-          consoleLog("getSingleTemplate: ", error);
-        });
-    }
-  }, [id, open]);
+    searchApi(template);
+  }, [template, open]);
 
   const multiSizeFixSize = React.useMemo(() => {
     switch (true) {
@@ -242,9 +231,9 @@ export default function TemplateModal({
             <button
               className="fixed  z-[100] right-[8%] max-muiLG:right-[3%] max-muiLG:top-[3%] bg-white w-[30px] h-[30px] max-sm:w-[35px] max-sm:top-[2%] max-sm:right-[3%] p-[5px] rounded-[50%] max-muiLG:bg-[aliceblue] "
               onClick={() => {
-                setId("");
-                setTemplate({});
-                setAnotherData([]);
+                setId(null);
+                // setTemplate({});
+                setAnotherData(null);
                 setOpen(false);
               }}
             >
@@ -253,220 +242,161 @@ export default function TemplateModal({
           </>
           <DialogContent className="px-[40px] max-sm:px-[20px]">
             <Box className="flex my-[20px] gap-[50px] max-2md:flex-col max-2md:h-auto">
-              {isLoading ? (
-                <>
-                  <Skeleton
-                    variant="rectangular"
-                    width={"66%"}
-                    height={`100%`}
-                    style={{
-                      borderRadius: `5px`,
-                    }}
+              <Box className="w-[66%] mx-auto  max-sm:w-full">
+                <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
+                  <img
+                    src={showImage}
+                    alt={template?.template_name}
+                    className="h-[430px] w-auto max-sm:w-auto max-sm:max-h-[400px] rounded-[4px]"
+                    // style={{ border: "1px solid #80808059" }}
                   />
-                </>
-              ) : (
-                <Box className="w-[66%] mx-auto  max-sm:w-full">
-                  <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
-                    <img
-                      src={showImage}
-                      alt={template?.template_name}
-                      className="h-[430px] w-auto max-sm:w-auto max-sm:max-h-[400px] rounded-[4px]"
-                      // style={{ border: "1px solid #80808059" }}
-                    />
-                  </Box>
+                </Box>
 
+                <Box
+                  className="relative"
+                  sx={{
+                    display:
+                      template?.thumbArray?.length > 1 ? "block" : "none",
+                  }}
+                >
                   <Box
-                    className="relative"
+                    className="flex items-center overflow-auto py-[20px] scroll_none  "
+                    id={containerId}
                     sx={{
-                      display:
-                        template?.thumbArray?.length > 1 ? "block" : "none",
+                      justifyContent: showNextButton ? "start" : "center",
                     }}
                   >
-                    <Box
-                      className="flex items-center overflow-auto py-[20px] scroll_none  "
-                      id={containerId}
-                      sx={{
-                        justifyContent: showNextButton ? "start" : "center",
-                      }}
-                    >
-                      {showPrevButton && (
-                        <Box>
-                          <button
-                            className="pre_button z-[1] left-[0] md:left-[-20px]  flex"
-                            style={{ top: "52%" }}
-                            onClick={handlePrevClick}
-                          >
-                            <Icons.leftArrowIcon svgProps={{ width: 8 }} />
-                          </button>
-                        </Box>
-                      )}
-                      {template?.thumbArray?.map(
-                        (image: string, index: number) => (
-                          <Box
-                            key={index}
-                            className="cursor-pointer rounded-[4px] mx-[5px]"
-                            sx={{
-                              border:
-                                showImage === image
-                                  ? "2px solid #2ec6b8"
-                                  : "2px solid #ffff",
-                            }}
-                            onClick={() => setShowImage(image)}
-                          >
-                            <Box className="w-[80px]">
-                              <img
-                                src={image}
-                                alt={template?.template_name}
-                                className="h-auto rounded-[4px]"
-                              />
-                            </Box>
+                    {showPrevButton && (
+                      <Box>
+                        <button
+                          className="pre_button z-[1] left-[0] md:left-[-20px]  flex"
+                          style={{ top: "52%" }}
+                          onClick={handlePrevClick}
+                        >
+                          <Icons.leftArrowIcon svgProps={{ width: 8 }} />
+                        </button>
+                      </Box>
+                    )}
+                    {template?.thumbArray?.map(
+                      (image: string, index: number) => (
+                        <Box
+                          key={index}
+                          className="cursor-pointer rounded-[4px] mx-[5px]"
+                          sx={{
+                            border:
+                              showImage === image
+                                ? "2px solid #2ec6b8"
+                                : "2px solid #ffff",
+                          }}
+                          onClick={() => setShowImage(image)}
+                        >
+                          <Box className="w-[80px]">
+                            <img
+                              src={image}
+                              alt={template?.template_name}
+                              className="h-auto rounded-[4px]"
+                            />
                           </Box>
-                        )
-                      )}
-                      {showNextButton && (
-                        <Box>
-                          <button
-                            className="next_button right-[0] md:right-[-20px] flex "
-                            style={{ top: "52%" }}
-                            onClick={handleNextClick}
-                          >
-                            <Icons.rightArrowIcon svgProps={{ width: 8 }} />
-                          </button>
                         </Box>
-                      )}
-                    </Box>
+                      )
+                    )}
+                    {showNextButton && (
+                      <Box>
+                        <button
+                          className="next_button right-[0] md:right-[-20px] flex "
+                          style={{ top: "52%" }}
+                          onClick={handleNextClick}
+                        >
+                          <Icons.rightArrowIcon svgProps={{ width: 8 }} />
+                        </button>
+                      </Box>
+                    )}
                   </Box>
                 </Box>
-              )}
+              </Box>
+
               <Box className="w-[33%] max-2md:w-full">
-                {isLoading ? (
-                  <Skeleton
-                    variant="rectangular"
-                    width={"100%"}
-                    height={`20px`}
-                    style={{
-                      borderRadius: `30px`,
-                    }}
-                  />
-                ) : (
-                  <h1 className="text-[#1C3048] text-[24px] font-[500] mb-3">
-                    {template?.template_name}
-                  </h1>
-                )}
+                <h1 className="text-[#1C3048] text-[24px] font-[500] mb-3">
+                  {template?.template_name}
+                </h1>
 
                 <Typography className="text-[#ABB2C7] text-[15px] mb-4">
-                  {isLoading ? (
-                    <Skeleton
-                      variant="rectangular"
-                      width={"35%"}
-                      height={`20px`}
-                      style={{
-                        borderRadius: `30px`,
-                        margin: "10px 0",
-                      }}
-                    />
-                  ) : (
-                    template?.category_size
-                  )}
+                  {template?.category_size}
                 </Typography>
 
-                {isLoading ? (
-                  <Skeleton
-                    variant="rectangular"
-                    width={"100%"}
-                    height={`40px`}
-                    style={{
-                      borderRadius: `4px`,
-                      margin: "10px 0",
+                <Box>
+                  <button
+                    onClick={() => {
+                      if (!token) {
+                        dispatch(openLogin(true));
+                        return;
+                      }
+                      if (
+                        template?.is_premium &&
+                        !userPremiumGet() &&
+                        !isPurchased(purchaseItems, {
+                          id: template?.string_id,
+                          type: 0,
+                        })
+                      ) {
+                        setShowPremiumBox(true);
+                      } else
+                        window.open(
+                          `https://editor.craftyartapp.com/${template?.id_name}`
+                        );
                     }}
-                  />
-                ) : (
-                  <Box>
-                    <button
-                      onClick={() => {
-                        if (!token) {
-                          dispatch(openLogin(true));
-                          return;
-                        }
-                        if (
-                          template?.is_premium &&
-                          !userPremiumGet() &&
-                          !isPurchased(purchaseItems, {
-                            id: template?.string_id,
-                            type: 0,
-                          })
-                        ) {
-                          setShowPremiumBox(true);
-                        } else
-                          window.open(
-                            `https://editor.craftyartapp.com/${template?.id_name}`
-                          );
-                      }}
-                      className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
-                      style={{
-                        background:
-                          "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
-                      }}
-                    >
-                      {template?.is_premium && (
-                        <span className="w-[22px] ml-[8px]">
-                          <Icons.pricingIcon
-                            svgProps={{ width: 22, height: 21 }}
-                          />
-                        </span>
-                      )}
-                      Customize this template
-                    </button>
-                  </Box>
-                )}
+                    className="text-white w-full py-[10px] rounded-[6px] flex items-center cursor-pointer justify-center gap-3"
+                    style={{
+                      background:
+                        "linear-gradient(266deg, #2EC6B8 43.07%, #32E4D4 131.91%)",
+                    }}
+                  >
+                    {template?.is_premium && (
+                      <span className="w-[22px] ml-[8px]">
+                        <Icons.pricingIcon
+                          svgProps={{ width: 22, height: 21 }}
+                        />
+                      </span>
+                    )}
+                    Customize this template
+                  </button>
+                </Box>
 
                 <div className="py-4">
                   <IconsText
                     image={
                       <Icons.tModalCustomizeIcon svgProps={{ width: 20 }} />
                     }
-                    text={`Customize ${template.category_name} with our online editing tool`}
-                    isLoading={isLoading}
+                    text={`Customize ${template?.category_name} with our online editing tool`}
+                    isLoading={false}
                   />
                   <IconsText
                     image={
                       <Icons.tModalSmartphoneIcon svgProps={{ width: 20 }} />
                     }
                     text="Edit and Download"
-                    isLoading={isLoading}
+                    isLoading={false}
                   />
                   <IconsText
                     image={<Icons.tModalPublishIcon svgProps={{ width: 20 }} />}
                     text="Share and publish anywhere"
-                    isLoading={isLoading}
+                    isLoading={false}
                   />
 
                   {template?.is_premium && (
                     <IconsText
                       image={<Icons.premiumIcon svgProps={{ width: 20 }} />}
                       text="This Template contains paid elements"
-                      isLoading={isLoading}
+                      isLoading={false}
                     />
                   )}
                 </div>
               </Box>
             </Box>
 
-            {isLoading ? (
-              <Skeleton
-                variant="rectangular"
-                width={"40%"}
-                height={`20px`}
-                style={{
-                  borderRadius: `30px`,
-                  margin: "40px 0 30px",
-                }}
-              />
-            ) : (
-              <h2 className="text-[#1C3048] text-[23px] font-[500] pt-4 my-3">
-                Templates with the same style and concept
-              </h2>
-            )}
+            <h2 className="text-[#1C3048] text-[23px] font-[500] pt-4 my-3">
+              Templates with the same style and concept
+            </h2>
 
             <Box>
               {anotherTempLoad ? (
@@ -507,10 +437,10 @@ export default function TemplateModal({
                               transition: "0.3s all",
                             }}
                             onClick={() => {
-                              setTemplate({});
-                              setAnotherData([]);
-                              setIsLoading(true);
-                              setId(templates?.id_name);
+                              setId(null);
+                              setAnotherData(null);
+                              setId(templates);
+                              searchApi(templates);
                             }}
                             onMouseEnter={() =>
                               setShowPreviewButton(templates?.id_name)
@@ -531,7 +461,7 @@ export default function TemplateModal({
                           <Link
                             key={index}
                             href={`/templates/p/${templates.id_name}`}
-                            onClick={(e) => setOpen(false)}
+                            onClick={() => setOpen(false)}
                           >
                             <div
                               className=""

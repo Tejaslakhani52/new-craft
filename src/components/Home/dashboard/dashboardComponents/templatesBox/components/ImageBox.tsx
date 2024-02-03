@@ -14,7 +14,7 @@ interface ImageBoxesProps {
   templates: TemplateDataType;
   uniqueCat: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setIdName: React.Dispatch<React.SetStateAction<string>>;
+  setIdName: React.Dispatch<React.SetStateAction<TemplateDataType>>;
   height: number | any;
 }
 
@@ -74,7 +74,7 @@ export default function ImageBox({
         }}
         onClick={() => {
           setOpenModal(true);
-          setIdName(templates?.id_name);
+          setIdName(templates);
         }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
