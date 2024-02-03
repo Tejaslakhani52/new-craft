@@ -28,7 +28,7 @@ export default function searchValue() {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [openModal, setOpenModal] = useState(false);
-  const [idName, setIdName] = useState<string>("");
+  const [idName, setIdName] = useState<TemplateDataType | any>(null);
   const [notFound, setNotFound] = useState<boolean>(false);
 
   const getSearchList = (pages: number) => {
@@ -212,7 +212,7 @@ export default function searchValue() {
 
       <TemplateModal
         open={openModal}
-        id={idName}
+        template={idName}
         setOpen={setOpenModal}
         setId={setIdName}
       />
