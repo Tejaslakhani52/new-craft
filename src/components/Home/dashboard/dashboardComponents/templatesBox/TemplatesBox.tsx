@@ -24,51 +24,82 @@ export default function TemplatesBox() {
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [data, setData] = useState<DashboardDataType[]>();
+  const [data, setData] = useState<DashboardDataType[]>([]);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
   const apiKey = process.env.NEXT_PUBLIC_KEY;
 
   useEffect(() => {
-    axios
-      .post(`${apiUrl}/templates/api/getDashboard`, {
-        key: `${apiKey}`,
-        page: page,
-      })
-      .then((res: any) => {
-        console.log("res: ", res);
-        // const dashboardData = res.data.datas;
-        // console.log("dashboardData: ", dashboardData);
-        // if (dashboardData) {
-        //   dispatch(templatesData(dashboardData));
-        // }
+    const fetchData = async () => {
+      try {
+        const response = await axios.post(
+          `${apiUrl}/templates/api/getDashboard`,
+          {
+            key: `${apiKey}`,
+            page: page,
+          }
+        );
 
-        if (res?.data?.datas) {
+        console.log("res: ", response);
+
+        if (response?.data?.datas) {
           setData((prevData) => [
             ...(prevData || []),
-            ...(Array.isArray(res.data.datas) ? res.data.datas : []),
+            ...(Array.isArray(response.data.datas) ? response.data.datas : []),
           ]);
         }
 
-        setIsLastPage(res?.data?.isLastPage);
+        setIsLastPage(response?.data?.isLastPage);
         setLoading(false);
-      });
-    // api
-    //   .getDashboardData({ page: page })
-    //   .then((res) => {
-    //     const dashboardData = res as DashboardDataType[];
-    //     console.log("dashboardData: ", dashboardData);
-    //     if (dashboardData) {
-    //       dispatch(templatesData(dashboardData));
-    //     }
+      } catch (error) {
+        console.log("Error: ", error);
+        // Handle errors if needed
+      }
+    };
 
-    //     setData((prevData) => [
-    //       ...(prevData || []),
-    //       ...(Array.isArray(dashboardData) ? dashboardData : []),
-    //     ]);
-    //   })
-    //   .catch((err) => consoleLog("err", err));
+    fetchData(); // Call the asynchronous function
   }, [page]);
+
+  // useEffect(() => {
+  //   axios
+  //     .post(`${apiUrl}/templates/api/getDashboard`, {
+  //       key: `${apiKey}`,
+  //       page: page,
+  //     })
+  //     .then((res: any) => {
+  //       console.log("res: ", res);
+  //       // const dashboardData = res.data.datas;
+  //       // console.log("dashboardData: ", dashboardData);
+  //       // if (dashboardData) {
+  //       //   dispatch(templatesData(dashboardData));
+  //       // }
+
+  //       if (res?.data?.datas) {
+  //         setData((prevData) => [
+  //           ...(prevData || []),
+  //           ...(Array.isArray(res.data.datas) ? res.data.datas : []),
+  //         ]);
+  //       }
+
+  //       setIsLastPage(res?.data?.isLastPage);
+  //       setLoading(false);
+  //     });
+  //   // api
+  //   //   .getDashboardData({ page: page })
+  //   //   .then((res) => {
+  //   //     const dashboardData = res as DashboardDataType[];
+  //   //     console.log("dashboardData: ", dashboardData);
+  //   //     if (dashboardData) {
+  //   //       dispatch(templatesData(dashboardData));
+  //   //     }
+
+  //   //     setData((prevData) => [
+  //   //       ...(prevData || []),
+  //   //       ...(Array.isArray(dashboardData) ? dashboardData : []),
+  //   //     ]);
+  //   //   })
+  //   //   .catch((err) => consoleLog("err", err));
+  // }, [page]);
 
   const debouncedHandleScroll = debounce(() => {
     const scrollOffset = 200;
