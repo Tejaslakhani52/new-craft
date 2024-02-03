@@ -1,19 +1,16 @@
 import api from "@/src/clientApi/api";
 import { consoleLog } from "@/src/commonFunction/console";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
-import { DashboardDataType } from "@/src/interface/dashboard";
-import { RootState } from "@/src/redux";
-import { templatesData } from "@/src/redux/reducer/AuthDataReducer";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { DashboardData, DashboardDataType } from "@/src/interface/dashboard";
 import { Box } from "@mui/material";
+import { debounce } from "lodash";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import TemplatesSkelton from "../TemplatesSkelton";
 import TemplatesBoxes from "./components/TemplatesBoxes";
-import { TemplateDataType } from "@/src/interface/commonType";
-import { debounce } from "lodash";
-import axios from "axios";
 
 export default function TemplatesBox() {
   const [openModal, setOpenModal] = React.useState(false);
@@ -24,82 +21,28 @@ export default function TemplatesBox() {
   const [loading, setLoading] = useState<boolean>(true);
   const [page, setPage] = useState<number>(1);
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const [data, setData] = useState<DashboardDataType[]>([]);
-
-  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
-  const apiKey = process.env.NEXT_PUBLIC_KEY;
+  const [data, setData] = useState<DashboardData[]>();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.post(
-          `${apiUrl}/templates/api/getDashboard`,
-          {
-            key: `${apiKey}`,
-            page: page,
-          }
-        );
-
-        console.log("res: ", response);
-
-        if (response?.data?.datas) {
+    api
+      .getDashboardData({ page: page })
+      .then((res) => {
+        console.log("res: ", res);
+        const dashboardData = res as DashboardDataType;
+        console.log("dashboardData: ", dashboardData);
+        if (dashboardData?.datas) {
           setData((prevData) => [
             ...(prevData || []),
-            ...(Array.isArray(response.data.datas) ? response.data.datas : []),
+            ...(Array.isArray(dashboardData?.datas)
+              ? dashboardData?.datas
+              : []),
           ]);
         }
-
-        setIsLastPage(response?.data?.isLastPage);
+        setIsLastPage(dashboardData?.isLastPage);
         setLoading(false);
-      } catch (error) {
-        console.log("Error: ", error);
-        // Handle errors if needed
-      }
-    };
-
-    fetchData(); // Call the asynchronous function
+      })
+      .catch((err) => consoleLog("err", err));
   }, [page]);
-
-  // useEffect(() => {
-  //   axios
-  //     .post(`${apiUrl}/templates/api/getDashboard`, {
-  //       key: `${apiKey}`,
-  //       page: page,
-  //     })
-  //     .then((res: any) => {
-  //       console.log("res: ", res);
-  //       // const dashboardData = res.data.datas;
-  //       // console.log("dashboardData: ", dashboardData);
-  //       // if (dashboardData) {
-  //       //   dispatch(templatesData(dashboardData));
-  //       // }
-
-  //       if (res?.data?.datas) {
-  //         setData((prevData) => [
-  //           ...(prevData || []),
-  //           ...(Array.isArray(res.data.datas) ? res.data.datas : []),
-  //         ]);
-  //       }
-
-  //       setIsLastPage(res?.data?.isLastPage);
-  //       setLoading(false);
-  //     });
-  //   // api
-  //   //   .getDashboardData({ page: page })
-  //   //   .then((res) => {
-  //   //     const dashboardData = res as DashboardDataType[];
-  //   //     console.log("dashboardData: ", dashboardData);
-  //   //     if (dashboardData) {
-  //   //       dispatch(templatesData(dashboardData));
-  //   //     }
-
-  //   //     setData((prevData) => [
-  //   //       ...(prevData || []),
-  //   //       ...(Array.isArray(dashboardData) ? dashboardData : []),
-  //   //     ]);
-  //   //   })
-  //   //   .catch((err) => consoleLog("err", err));
-  // }, [page]);
 
   const debouncedHandleScroll = debounce(() => {
     const scrollOffset = 200;
@@ -124,7 +67,7 @@ export default function TemplatesBox() {
   return (
     <Box className="px-[20px] max-sm:px-[10px] pb-10">
       {data && data?.length > 0 ? (
-        data?.map((item: DashboardDataType, index: number) => (
+        data?.map((item: DashboardData, index: number) => (
           <Box key={index}>
             <TemplatesBoxes
               item={item}

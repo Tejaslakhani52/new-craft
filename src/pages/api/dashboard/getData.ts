@@ -29,7 +29,7 @@ export default async function handler(
       user_id: userId,
     });
 
-    res.status(200).json(encryptData(JSON.stringify(response.data.datas)));
+    res.status(200).json(encryptData(JSON.stringify(response.data)));
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }

@@ -1,5 +1,5 @@
 import Icons from "@/src/assets";
-import { DashboardDataType } from "@/src/interface/dashboard";
+import { DashboardData } from "@/src/interface/dashboard";
 import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -7,7 +7,7 @@ import ImageBox from "./ImageBox";
 import { TemplateDataType } from "@/src/interface/commonType";
 
 interface TemplatesBoxesProps {
-  item: DashboardDataType;
+  item: DashboardData;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setIdName: React.Dispatch<React.SetStateAction<TemplateDataType>>;
   height: number | any;
@@ -23,7 +23,7 @@ export default function TemplatesBoxes({
     item?.category_name === "Latest" ||
     item?.category_name === "Trending" ||
     item?.category_name === "Invitation";
-  const containerId = `carousel-slide-container-${item.category_id}`;
+  const containerId = `carousel-slide-container-${item?.category_id}`;
   const [showPrevButton, setShowPrevButton] = useState(false);
   const [showNextButton, setShowNextButton] = useState(false);
 
