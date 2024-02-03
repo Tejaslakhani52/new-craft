@@ -50,6 +50,7 @@ export default function RightDetail({
       </Box>
       <Box className="flex-1 flex justify-center max-lg:pt-10">
         <img
+          crossOrigin="anonymous"
           src={image}
           alt={alt}
           className="object-contain w-[450px] max-sm:w-[90%]"

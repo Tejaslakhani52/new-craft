@@ -79,6 +79,7 @@ export default function BrandsIconSlider() {
           >
             {brandIcons?.map((item, index: number) => (
               <img
+                crossOrigin="anonymous"
                 key={index}
                 src={item}
                 alt={item}

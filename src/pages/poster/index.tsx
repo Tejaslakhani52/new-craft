@@ -105,6 +105,7 @@ export default function index() {
         image={
           <Box sx={{ width: "500px" }}>
             <img
+              crossOrigin="anonymous"
               src={`/images/posterBanner.png`}
               alt="posterBanner"
               style={{ width: "100%", height: "100%", paddingRight: "80px" }}

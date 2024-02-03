@@ -139,6 +139,7 @@ const DraftBoxes = ({
                   }}
                 >
                   <img
+                    crossOrigin="anonymous"
                     src={image}
                     alt={image}
                     className={`opacity-0`}
@@ -282,6 +283,7 @@ export default function index() {
                 style={{ height: `${screenHeight - 230}px` }}
               >
                 <img
+                  crossOrigin="anonymous"
                   src="/images/NoDataFound.svg"
                   alt="NoDataFound"
                   className="w-[250px]"

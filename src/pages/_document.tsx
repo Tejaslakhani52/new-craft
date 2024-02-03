@@ -62,6 +62,7 @@ export default function Document() {
 
         <noscript>
           <img
+            crossOrigin="anonymous"
             height="1"
             width="1"
             style={{ display: "none" }}
@@ -72,8 +73,6 @@ export default function Document() {
           name="facebook-domain-verification"
           content="3nsioq3kz27llryrgqspeuqvw058e5"
         />
-
-      
       </Head>
       <body>
         <Main />

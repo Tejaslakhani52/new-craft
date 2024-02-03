@@ -85,6 +85,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
     if (hasPhotoUri) {
       return (
         <img
+          crossOrigin="anonymous"
           src={photoUri}
           alt="Selected file preview"
           style={{
@@ -203,6 +204,7 @@ const Account: React.FC<AccountProps> = ({ defaultTab }) => {
                 <Box className="flex w-full">
                   <Box className="w-[40px] max-2md:hidden">
                     <img
+                      crossOrigin="anonymous"
                       src={
                         activeTab === item?.name ? item.activeIcon : item.icons
                       }

@@ -24,6 +24,7 @@ export default function WithCraftyartBanner() {
         <div className="flex justify-center pt-[30px]">
           <Link href="https://play.google.com/store/apps/details?id=com.crafty.art">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/bgRemove/playStore.png`}
               alt="playStore"
               className="w-[180px]"
@@ -35,6 +36,7 @@ export default function WithCraftyartBanner() {
       <div className="flex-1 py-[40px]">
         <div className="mr-[-42px] max-lg:mr-0">
           <img
+            crossOrigin="anonymous"
             src={`${assetsUrl}/w_assets/images/bgRemove/goHead.png`}
             alt=""
           />

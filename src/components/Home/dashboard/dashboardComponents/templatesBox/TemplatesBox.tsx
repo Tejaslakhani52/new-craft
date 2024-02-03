@@ -47,6 +47,8 @@ export default function TemplatesBox() {
           ))
         : true && <TemplatesSkelton />}
 
+      {}
+
       <TemplateModal
         open={openModal}
         template={idName}

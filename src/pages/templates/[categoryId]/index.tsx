@@ -285,6 +285,7 @@ export default function index(props: { jsonString: ServerSideProps }) {
                 >
                   <Box sx={{ height: "100%" }}>
                     <img
+                      crossOrigin="anonymous"
                       src={`${assetsUrl}/w_assets/images/categoryBanner.png`}
                       alt={contentData?.h1_tag}
                       style={{

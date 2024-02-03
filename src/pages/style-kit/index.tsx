@@ -114,6 +114,7 @@ export default function index() {
             className="hidden lg:flex"
           >
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/styleKit/bannerSide.png`}
               alt="Effortless Design: Create Pro Designs with Style Kit!"
               style={{ width: "70%", height: "auto", paddingRight: "0px" }}

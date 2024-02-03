@@ -224,6 +224,7 @@ export default function Footer() {
               <Box className="cursor-pointer">
                 <Link href="https://play.google.com/store/apps/details?id=com.crafty.art">
                   <img
+                    crossOrigin="anonymous"
                     src={`${assetsUrl}/w_assets/images/playstore.png`}
                     alt="playstore"
                   />

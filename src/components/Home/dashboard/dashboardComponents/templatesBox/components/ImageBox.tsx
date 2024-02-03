@@ -154,6 +154,7 @@ export default function ImageBox({
                       key={index}
                     >
                       <img
+                        crossOrigin="anonymous"
                         src={`/api/image/compress?url=${encodeURIComponent(
                           image
                         )}`}

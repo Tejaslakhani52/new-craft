@@ -56,6 +56,7 @@ export default function Profile() {
     if (hasPhotoUri) {
       return (
         <img
+          crossOrigin="anonymous"
           src={photoUri}
           alt="Selected file preview"
           style={{

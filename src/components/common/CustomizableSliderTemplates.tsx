@@ -81,7 +81,12 @@ export default function CustomizableSliderTemplates({ data }: props) {
                 className="w-[270px] h-[320px]  flex justify-center items-center rounded-[10px]"
                 sx={{ backgroundColor: color }}
               >
-                <img src={item?.img} alt={item?.img} className="w-[220px]  " />
+                <img
+                  crossOrigin="anonymous"
+                  src={item?.img}
+                  alt={item?.img}
+                  className="w-[220px]  "
+                />
               </Box>
               <Button
                 className="w-fit mx-auto my-4 text-black normal-case text-[16px] py-1 px-3"

@@ -25,6 +25,7 @@ export default function LeftDetail({
       <Box className="flex py-[50px] px-[20px] xl:px-[7%] w-full xl:w-[92%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
         <Box className="flex-1 flex justify-center">
           <img
+            crossOrigin="anonymous"
             src={image}
             alt={alt}
             className="object-contain w-[450px] max-sm:w-[90%]"

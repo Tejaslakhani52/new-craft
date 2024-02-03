@@ -15,7 +15,12 @@ export const Card = ({ image, heading, text, path }: props) => {
       onClick={() => (window.location.href = path)}
     >
       <Box>
-        <img src={image} alt={image} className="rounded-[10px]" />
+        <img
+          crossOrigin="anonymous"
+          src={image}
+          alt={image}
+          className="rounded-[10px]"
+        />
       </Box>
       <Typography className="text_linear my-3 text-[14px]">
         {heading}

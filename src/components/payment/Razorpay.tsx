@@ -121,6 +121,7 @@ export function RazorpayPage({ setOpen, amount, actionType }: PropsType) {
     <Box>
       <Button onClick={handleSubmit} className="w-[200px] mx-auto block">
         <img
+          crossOrigin="anonymous"
           src={`${assetsUrl}/w_assets/images/plans/razorpay.png`}
           alt="razorpay"
         />

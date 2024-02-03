@@ -163,6 +163,7 @@ export default function Dashboard() {
               </Button>
             </Box>
             <img
+              crossOrigin="anonymous"
               src="/images/getPro.svg"
               alt="pro"
               className="max-fold:hidden"

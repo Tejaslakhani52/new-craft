@@ -82,6 +82,7 @@ export default function ResumeStatic() {
             <Box className="flex max-sm:flex-col gap-4 min-w-full">
               <Box className="bg-[#FFE3E3] rounded-[4px]  flex-1">
                 <img
+                  crossOrigin="anonymous"
                   src={`${assetsUrl}/w_assets/images/category/makeResume1.png`}
                   alt="Resume Portrait Templates"
                 />
@@ -109,6 +110,7 @@ export default function ResumeStatic() {
             <Box className="flex max-sm:flex-col gap-4 min-w-full">
               <Box className="bg-[#FFE3E3] rounded-[4px]  flex-1">
                 <img
+                  crossOrigin="anonymous"
                   src={`${assetsUrl}/w_assets/images/category/makeResume1.png`}
                   alt="Resume Portrait Templates"
                 />
@@ -136,6 +138,7 @@ export default function ResumeStatic() {
             <Box className="flex max-sm:flex-col gap-4 min-w-full">
               <Box className="bg-[#FFE3E3] rounded-[4px]  flex-1">
                 <img
+                  crossOrigin="anonymous"
                   src={`${assetsUrl}/w_assets/images/category/makeResume1.png`}
                   alt="Resume Portrait Templates"
                 />
@@ -163,6 +166,7 @@ export default function ResumeStatic() {
             <Box className="flex max-sm:flex-col gap-4 min-w-full">
               <Box className="bg-[#FFE3E3] rounded-[4px]  flex-1">
                 <img
+                  crossOrigin="anonymous"
                   src={`${assetsUrl}/w_assets/images/category/makeResume1.png`}
                   alt="Resume Portrait Templates"
                 />
@@ -269,6 +273,7 @@ export default function ResumeStatic() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/resumeMakerImage.png`}
               alt={"Resume Portrait Templates"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -281,6 +286,7 @@ export default function ResumeStatic() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/resumeC/img1.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -376,6 +382,7 @@ export default function ResumeStatic() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/resumeC/img3.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

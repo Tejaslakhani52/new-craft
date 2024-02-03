@@ -178,6 +178,7 @@ export default function index() {
             className="hidden lg:flex "
           >
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/brand/bannerSide.png`}
               alt="resumeBanner"
               style={{ width: "70%", height: "auto", paddingRight: "0px" }}

@@ -106,6 +106,7 @@ export default function ExploreTemplates({
                 <Link href={`/templates/p/${templates.id_name}`}>
                   <div className="w-full h-full p-[8px]">
                     <img
+                      crossOrigin="anonymous"
                       src={`/api/image/compress?url=${encodeURIComponent(
                         templates.template_thumb
                       )}`}

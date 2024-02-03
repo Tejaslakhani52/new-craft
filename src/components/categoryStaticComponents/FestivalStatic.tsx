@@ -31,6 +31,7 @@ export default function FestivalBanner() {
           >
             <Box className=" lg:min-h-[200px]">
               <img
+                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cfestival1.png`}
                 alt={"Festival"}
                 className="max-h-[200px] w-auto block mx-auto"
@@ -54,6 +55,7 @@ export default function FestivalBanner() {
           >
             <Box className=" lg:min-h-[200px]">
               <img
+                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cfestival2.png`}
                 alt={"Festival"}
                 className="max-h-[200px] w-auto block mx-auto"
@@ -77,6 +79,7 @@ export default function FestivalBanner() {
           >
             <Box className=" lg:min-h-[200px]">
               <img
+                crossOrigin="anonymous"
                 src={`${assetsUrl}/w_assets/images/category/Cfestival3.png`}
                 alt={"Festival"}
                 className="max-h-[200px] w-auto block mx-auto"
@@ -138,6 +141,7 @@ export default function FestivalBanner() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/category/whyChooseFestival.png`}
               alt={""}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -157,6 +161,7 @@ export default function FestivalBanner() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/festivalC/img1.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -288,6 +293,7 @@ export default function FestivalBanner() {
           </Box>
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/festivalC/img2.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

@@ -5,25 +5,21 @@ import { consoleLog } from "@/src/commonFunction/console";
 import { isPurchased } from "@/src/commonFunction/isPurchased";
 import { useScreenWidth } from "@/src/commonFunction/screenWidthHeight";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
+import { TemplateDataType } from "@/src/interface/commonType";
+import { SingleTempType } from "@/src/interface/getSingleTempType";
+import { RootState } from "@/src/redux";
 import { authCookiesGet, userPremiumGet } from "@/src/redux/action/AuthToken";
-import {
-  modalClosePath,
-  openLogin,
-  tempId,
-} from "@/src/redux/reducer/actionDataReducer";
+import { openLogin, tempId } from "@/src/redux/reducer/actionDataReducer";
 import { Box, Typography } from "@mui/material";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
+import { isMobile, isTablet } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import StackGrid from "react-stack-grid";
-import { isMobile, isTablet } from "react-device-detect";
-import { SingleTempType } from "@/src/interface/getSingleTempType";
-import { TemplateDataType } from "@/src/interface/commonType";
-import { RootState } from "@/src/redux";
-import { GetServerSideProps } from "next";
 
 const CustomHead = dynamic(() => import("@/src/components/common/CustomHead"));
 const ShowPremiumDialog = dynamic(
@@ -202,6 +198,7 @@ export default function index(props: { templateData: SingleTempType }) {
             <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
               {imageLoaded && showImage ? (
                 <img
+                  crossOrigin="anonymous"
                   src={showImage}
                   alt={props?.templateData?.template_name}
                   className=" h-[430px] w-auto max-sm:w-auto  max-sm:h-auto max-sm:max-h-[400px] rounded-[4px]"
@@ -212,6 +209,7 @@ export default function index(props: { templateData: SingleTempType }) {
               )}
 
               <img
+                crossOrigin="anonymous"
                 onLoad={handleImageLoad}
                 src={showImage}
                 alt={props?.templateData?.template_name}
@@ -261,6 +259,7 @@ export default function index(props: { templateData: SingleTempType }) {
                     >
                       <Box className="w-[80px]">
                         <img
+                          crossOrigin="anonymous"
                           src={`/api/image/compress?url=${encodeURIComponent(
                             image
                           )}`}
@@ -474,6 +473,7 @@ export default function index(props: { templateData: SingleTempType }) {
                             }}
                           >
                             <img
+                              crossOrigin="anonymous"
                               src={`/api/image/compress?url=${encodeURIComponent(
                                 templates?.template_thumb
                               )}`}

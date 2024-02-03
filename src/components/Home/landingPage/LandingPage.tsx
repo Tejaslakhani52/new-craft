@@ -24,6 +24,7 @@ export const MarkText = (props: { text: string }) => {
       sx={{ display: "flex", gap: "20px", alignItems: "flex-start", mb: "8px" }}
     >
       <img
+        crossOrigin="anonymous"
         src={"/images/rightMarks.svg"}
         alt="rightMark"
         className="w-[20px] max-sm:w-[15px] mt-[5px]"
@@ -84,6 +85,7 @@ export default function LandingPage() {
 
       <Box className="w-[50%] mx-auto mt-[-180px]  max-lg:mt-[-125px] max-sm:mt-[-67px] max-lg:w-[80%] max-sm:w-[97%] min-h-[500px] max-sm:min-h-[200px]">
         <img
+          crossOrigin="anonymous"
           src="/images/landingPageMainVideo.webp"
           alt="landingPageMainVideo"
         />

@@ -202,6 +202,7 @@ export default function searchValue() {
             sx={{ minHeight: `${screenHeight - 87}px` }}
           >
             <img
+              crossOrigin="anonymous"
               src="/images/NoDataFound.svg"
               alt="NoDataFound"
               className="w-[250px]"

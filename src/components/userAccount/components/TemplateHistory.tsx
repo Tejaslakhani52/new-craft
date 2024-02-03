@@ -77,6 +77,7 @@ export default function TemplateHistory() {
                     <td className="px-4 py-4  whitespace-nowrap">
                       <div className="w-[100px] border h-[100px] flex justify-center items-center p-[5px] bg-white rounded-[5px]">
                         <img
+                          crossOrigin="anonymous"
                           src={`/api/image/compress?url=${encodeURIComponent(
                             item?.product_image
                           )}`}

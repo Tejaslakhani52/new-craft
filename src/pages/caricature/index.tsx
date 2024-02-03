@@ -172,6 +172,7 @@ export default function index() {
             className="hidden lg:flex"
           >
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/caricature/bannerSide.png`}
               alt="resumeBanner"
               style={{ width: "auto", height: "100%", paddingRight: "0px" }}

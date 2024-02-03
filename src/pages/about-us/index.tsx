@@ -301,6 +301,7 @@ export default function index() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/whatCraftyart.png`}
               alt={"whatCraftyart"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -343,6 +344,7 @@ export default function index() {
                 onClick={() => router.push(item?.path)}
               >
                 <img
+                  crossOrigin="anonymous"
                   src={item?.icons}
                   alt={item?.name}
                   className="max-w-[25px] max-h-[25px]"
@@ -362,6 +364,7 @@ export default function index() {
                 onClick={() => router.push(item?.path)}
               >
                 <img
+                  crossOrigin="anonymous"
                   src={item?.icons}
                   alt={item?.name}
                   className="max-w-[25px] max-h-[25px]"
@@ -381,6 +384,7 @@ export default function index() {
                 onClick={() => router.push(item?.path)}
               >
                 <img
+                  crossOrigin="anonymous"
                   src={item?.icons}
                   alt={item?.name}
                   className="max-w-[25px] max-h-[25px]"
@@ -400,6 +404,7 @@ export default function index() {
                 onClick={() => router.push(item?.path)}
               >
                 <img
+                  crossOrigin="anonymous"
                   src={item?.icons}
                   alt={item?.name}
                   className="max-w-[25px] max-h-[25px]"
@@ -419,6 +424,7 @@ export default function index() {
                 onClick={() => router.push(item?.path)}
               >
                 <img
+                  crossOrigin="anonymous"
                   src={item?.icons}
                   alt={item?.name}
                   className="max-w-[25px] max-h-[25px]"
@@ -469,6 +475,7 @@ export default function index() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/ourMission.png`}
               alt={"ourMission"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -497,7 +504,12 @@ export default function index() {
               className="w-full bg-[#F4F7FE] p-[30px] h-full "
               sx={{ boxShadow: "0px 0px 10px rgba(28, 48, 72, 0.20)" }}
             >
-              <img src={item?.icons} alt="icons" className="w-[35px]" />
+              <img
+                crossOrigin="anonymous"
+                src={item?.icons}
+                alt="icons"
+                className="w-[35px]"
+              />
 
               <Typography variant="h3" className="text-[20px] font-medium my-4">
                 {item?.heading}

@@ -46,6 +46,7 @@ export default function QuotesStatic() {
         <Box className="flex gap-5 py-[30px] sm:py-[50px] w-full xl:w-[85%]  mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  max-lg:pb-5 max-lg:order-1 ">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/category/makeQuotes.png`}
               alt={"quotes template"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -115,6 +116,7 @@ export default function QuotesStatic() {
 
           <Box className="flex-1  flex  max-lg:pb-5 max-lg:order-1 justify-end">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/category/whyChooseQuotes.png`}
               alt={"quotes template"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -134,6 +136,7 @@ export default function QuotesStatic() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/quotesC/img1.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -279,6 +282,7 @@ export default function QuotesStatic() {
           </Box>
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/quotesC/img2.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"
@@ -291,6 +295,7 @@ export default function QuotesStatic() {
         <Box className="flex py-[30px] sm:py-[50px] px-[20px] w-full xl:w-[85%] mx-auto max-w-[2400px] items-center lg:flex-row flex-col">
           <Box className="flex-1  flex justify-center max-lg:pb-5 max-lg:order-1">
             <img
+              crossOrigin="anonymous"
               src={`${assetsUrl}/w_assets/images/quotesC/img1.png`}
               alt={"Logo Maker"}
               className="object-contain w-[500px] max-lg:w-[400px] max-sm:w-full"

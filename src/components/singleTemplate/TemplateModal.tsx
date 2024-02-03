@@ -246,6 +246,7 @@ export default function TemplateModal({
                 <Box className="rounded-[4px] h-[450px]  bg-[#F4F7FE] flex justify-center items-center">
                   <img
                     src={showImage}
+                    crossOrigin="anonymous"
                     alt={template?.template_name}
                     className="h-[430px] w-auto max-sm:w-auto max-sm:max-h-[400px] rounded-[4px]"
                     // style={{ border: "1px solid #80808059" }}
@@ -292,6 +293,7 @@ export default function TemplateModal({
                         >
                           <Box className="w-[80px]">
                             <img
+                              crossOrigin="anonymous"
                               src={image}
                               alt={template?.template_name}
                               className="h-auto rounded-[4px]"
@@ -475,6 +477,7 @@ export default function TemplateModal({
                         >
                           <div className="w-full h-full p-[8px] relative">
                             <img
+                              crossOrigin="anonymous"
                               src={`/api/image/compress?url=${encodeURIComponent(
                                 templates?.template_thumb
                               )}`}

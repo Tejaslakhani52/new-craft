@@ -56,6 +56,7 @@ export default function RightImageSection({
         </Box>
         <Box className="flex-1  flex justify-center">
           <img
+            crossOrigin="anonymous"
             src={image}
             alt={alt}
             className="object-contain w-[500px] max-sm:w-[90%] "
