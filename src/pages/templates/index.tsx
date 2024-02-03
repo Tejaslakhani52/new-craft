@@ -24,7 +24,7 @@ export default function index() {
   const assetsUrl = process.env.NEXT_PUBLIC_ASSETS_URL;
   const screenWidth = useScreenWidth();
   const [openModal, setOpenModal] = useState(false);
-  const [idName, setIdName] = useState<string>("");
+  const [idName, setIdName] = useState<TemplateDataType | any>(null);
   const [data, setData] = useState<TemplateDataType[] | null>(null);
   const [page, setPage] = useState<number>(1);
   const [loadMore, setLoadMore] = useState<boolean>(true);
@@ -484,7 +484,7 @@ export default function index() {
 
       <TemplateModal
         open={openModal}
-        id={idName}
+        template={idName}
         setOpen={setOpenModal}
         setId={setIdName}
       />
