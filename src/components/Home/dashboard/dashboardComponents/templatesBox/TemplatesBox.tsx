@@ -13,6 +13,7 @@ import TemplatesSkelton from "../TemplatesSkelton";
 import TemplatesBoxes from "./components/TemplatesBoxes";
 import { TemplateDataType } from "@/src/interface/commonType";
 import { debounce } from "lodash";
+import axios from "axios";
 
 export default function TemplatesBox() {
   const [openModal, setOpenModal] = React.useState(false);
@@ -25,22 +26,48 @@ export default function TemplatesBox() {
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [data, setData] = useState<DashboardDataType[]>();
 
+  const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL_2;
+  const apiKey = process.env.NEXT_PUBLIC_KEY;
+
   useEffect(() => {
-    api
-      .getDashboardData({ page: page })
-      .then((res) => {
-        const dashboardData = res as DashboardDataType[];
-        console.log("dashboardData: ", dashboardData);
-        if (dashboardData) {
-          dispatch(templatesData(dashboardData));
+    axios
+      .post(`${apiUrl}/templates/api/getDashboard`, {
+        key: `${apiKey}`,
+        page: page,
+      })
+      .then((res: any) => {
+        console.log("res: ", res);
+        // const dashboardData = res.data.datas;
+        // console.log("dashboardData: ", dashboardData);
+        // if (dashboardData) {
+        //   dispatch(templatesData(dashboardData));
+        // }
+
+        if (res?.data?.datas) {
+          setData((prevData) => [
+            ...(prevData || []),
+            ...(Array.isArray(res.data.datas) ? res.data.datas : []),
+          ]);
         }
 
-        setData((prevData) => [
-          ...(prevData || []),
-          ...(Array.isArray(dashboardData) ? dashboardData : []),
-        ]);
-      })
-      .catch((err) => consoleLog("err", err));
+        setIsLastPage(res?.data?.isLastPage);
+        setLoading(false);
+      });
+    // api
+    //   .getDashboardData({ page: page })
+    //   .then((res) => {
+    //     const dashboardData = res as DashboardDataType[];
+    //     console.log("dashboardData: ", dashboardData);
+    //     if (dashboardData) {
+    //       dispatch(templatesData(dashboardData));
+    //     }
+
+    //     setData((prevData) => [
+    //       ...(prevData || []),
+    //       ...(Array.isArray(dashboardData) ? dashboardData : []),
+    //     ]);
+    //   })
+    //   .catch((err) => consoleLog("err", err));
   }, [page]);
 
   const debouncedHandleScroll = debounce(() => {
