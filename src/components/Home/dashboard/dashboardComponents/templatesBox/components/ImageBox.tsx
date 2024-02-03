@@ -95,7 +95,7 @@ export default function ImageBox({
               : "p-[7px] max-sm:p-1"
           } rounded-[12px]`}
           key={templates?.id_name}
-          href={`templates/p/${templates?.id_name}`}
+          href={`/test/${templates?.id_name}`}
           scroll={true}
 
           // onClick={(e) => {

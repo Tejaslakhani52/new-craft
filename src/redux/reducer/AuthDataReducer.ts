@@ -1,17 +1,18 @@
-import { DashboardDataType } from "@/src/interface/dashboard";
+import { DashboardData } from "@/src/interface/dashboard";
 import { PurchaseItemProps } from "@/src/interface/payment_props";
 import { StripePaymentMethod } from "@/src/interface/stripePaymentMethod";
 import { User } from "@/src/interface/user";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 interface DataState {
-  templatesData: DashboardDataType[];
+  templatesData: DashboardData[];
   tokenValue: boolean;
   userData: User | null;
   customerId: string;
   serverSideToken: string;
   setPurchaseItems: PurchaseItemProps[];
   saveCardData: StripePaymentMethod[];
+  dashboardPage: number;
 }
 
 const initialState: DataState = {
@@ -22,6 +23,7 @@ const initialState: DataState = {
   serverSideToken: "",
   setPurchaseItems: [],
   saveCardData: [],
+  dashboardPage: 1,
 };
 
 const dataSlice = createSlice({
@@ -40,7 +42,7 @@ const dataSlice = createSlice({
     serverSideToken: (state, action: PayloadAction<string>) => {
       state.serverSideToken = action.payload;
     },
-    templatesData: (state, action: PayloadAction<DashboardDataType[]>) => {
+    templatesData: (state, action: PayloadAction<DashboardData[]>) => {
       state.templatesData = action.payload;
     },
     setPurchaseItems: (state, action: PayloadAction<PurchaseItemProps[]>) => {
@@ -48,6 +50,9 @@ const dataSlice = createSlice({
     },
     saveCardData: (state, action: PayloadAction<StripePaymentMethod[]>) => {
       state.saveCardData = action.payload;
+    },
+    dashboardPage: (state, action: PayloadAction<number>) => {
+      state.dashboardPage = action.payload;
     },
   },
 });
@@ -60,5 +65,6 @@ export const {
   serverSideToken,
   setPurchaseItems,
   saveCardData,
+  dashboardPage,
 } = dataSlice.actions;
 export default dataSlice.reducer;
