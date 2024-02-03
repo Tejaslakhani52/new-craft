@@ -192,32 +192,32 @@ export default function Footer() {
       <Box className="max-w-[2400px] w-[100%] sm:w-[90%] lg:w-[100%] xl:w-[80%] mx-auto pt-[50px] max-sm:pt-[0px]">
         <Box className="grid grid-cols-1  sm:grid-cols-3  gap-5 xl:gap-8 px-4 py-6 lg:py-8 lg:grid-cols-5  xl:grid-cols-5">
           <Box className="hidden sm:block">
-            <Typography className="mb-6 text-[20px] font-medium   text-white">
+            <Typography className="mb-6 text-[20px] font-medium text-white">
               Special(Industry)
             </Typography>
             <Special />
           </Box>
           <Box className="hidden sm:block">
-            <Typography className="mb-6 text-[20px] font-medium   text-white">
+            <Typography className="mb-6 text-[20px] font-medium text-white">
               Company
             </Typography>
             <Company />
           </Box>
           <Box className="hidden sm:block">
-            <Typography className="mb-6 text-[20px] font-medium   text-white">
+            <Typography className="mb-6 text-[20px] font-medium text-white">
               Legal
             </Typography>
             <Legal />
           </Box>
           <Box className="hidden sm:block">
-            <Typography className="mb-6 text-[20px] font-medium   text-white">
+            <Typography className="mb-6 text-[20px] font-medium text-white">
               Discover
             </Typography>
             <Discover />
           </Box>
 
           <Box>
-            <Typography className="mb-6 text-[20px] font-medium   text-white max-sm:text-center">
+            <Typography className="mb-6 text-[20px] font-medium text-white max-sm:text-center">
               Get the free app
             </Typography>
             <Box className="flex flex-col items-start text-white font-normal max-sm:items-center">
@@ -243,7 +243,7 @@ export default function Footer() {
                 </span>
 
                 <span className="cursor-pointer">
-                  <Link href="https://in.pinterest.com/crafty_art_official/">
+                  <Link href="https://in.pinterest.com/craftyart_official">
                     <Icons.pinterestIcon svgProps={{ width: 25, height: 25 }} />
                   </Link>
                 </span>

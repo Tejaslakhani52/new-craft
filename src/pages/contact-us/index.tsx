@@ -202,7 +202,7 @@ export default function index() {
             </li>
 
             <li className="cursor-pointer mb-1">
-              <Link href="https://in.pinterest.com/crafty_art_official/">
+              <Link href="https://in.pinterest.com/craftyart_official">
                 Pinterest
               </Link>
             </li>

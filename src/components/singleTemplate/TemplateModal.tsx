@@ -399,98 +399,97 @@ export default function TemplateModal({
             </h2>
 
             <Box>
-              {anotherTempLoad ? (
-                <Skeleton
-                  variant="rectangular"
-                  width={"100%"}
-                  height={`500px`}
-                  style={{
-                    borderRadius: `4px`,
-                    margin: "10px 0",
+              {anotherTempLoad && (
+                <Box
+                  sx={{
+                    minHeight: "500px",
+                    display: "flex",
+                    justifyContent: "center",
                   }}
-                />
-              ) : (
-                <StackGrid columnWidth={screenWidth / multiSizeFixSize}>
-                  {anotherData?.datas
-                    ?.filter(
-                      (t: TemplateDataType) =>
-                        t.template_id !== template?.template_id
-                    )
-                    ?.map((templates: TemplateDataType, index: number) => (
-                      <div
-                        className="relative"
+                >
+                  <Box className="text_linear font-[700 text-[20px]">
+                    Loading....
+                  </Box>
+                </Box>
+              )}
+              <StackGrid columnWidth={screenWidth / multiSizeFixSize}>
+                {anotherData?.datas
+                  ?.filter(
+                    (t: TemplateDataType) =>
+                      t.template_id !== template?.template_id
+                  )
+                  ?.map((templates: TemplateDataType, index: number) => (
+                    <div
+                      className="relative"
+                      onMouseEnter={() =>
+                        setShowPreviewButton(templates?.id_name)
+                      }
+                      onMouseLeave={() => setShowPreviewButton("")}
+                    >
+                      <span
+                        className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
+                        style={{
+                          right: templates.is_premium ? "47px" : "15px",
+                          opacity:
+                            showPreviewButton === templates.id_name &&
+                            !(isMobile || isTablet)
+                              ? "1"
+                              : "0",
+                          transition: "0.3s all",
+                        }}
+                        onClick={() => {
+                          setId(null);
+                          setAnotherData(null);
+                          setId(templates);
+                          searchApi(templates);
+                        }}
                         onMouseEnter={() =>
                           setShowPreviewButton(templates?.id_name)
                         }
                         onMouseLeave={() => setShowPreviewButton("")}
                       >
-                        <span
-                          className="w-[28px] absolute top-[16px] z-[1] cursor-pointer"
-                          style={{
-                            right: templates.is_premium ? "47px" : "15px",
-                            opacity:
-                              showPreviewButton === templates.id_name &&
-                              !(isMobile || isTablet)
-                                ? "1"
-                                : "0",
-                            transition: "0.3s all",
-                          }}
-                          onClick={() => {
-                            setId(null);
-                            setAnotherData(null);
-                            setId(templates);
-                            searchApi(templates);
-                          }}
-                          onMouseEnter={() =>
-                            setShowPreviewButton(templates?.id_name)
-                          }
-                          onMouseLeave={() => setShowPreviewButton("")}
-                        >
-                          <Icons.PreviewIcon
-                            svgProps={{ width: 27, height: 27 }}
-                          />
+                        <Icons.PreviewIcon
+                          svgProps={{ width: 27, height: 27 }}
+                        />
+                      </span>
+                      {templates.is_premium && (
+                        <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
+                          <Icons.proIcon svgProps={{ width: 27, height: 27 }} />
                         </span>
-                        {templates.is_premium && (
-                          <span className="w-[28px] absolute right-[13px] top-[16px] z-[1]">
-                            <Icons.proIcon
-                              svgProps={{ width: 27, height: 27 }}
-                            />
-                          </span>
-                        )}{" "}
-                        <Link
-                          key={index}
-                          href={`/templates/p/${templates.id_name}`}
-                          onClick={() => setOpen(false)}
+                      )}{" "}
+                      <Link
+                        key={index}
+                        href={`/templates/p/${templates.id_name}`}
+                        onClick={() => setOpen(false)}
+                      >
+                        <div
+                          className=""
+                          style={{
+                            height: `${calculateHeight(
+                              templates?.width,
+                              templates?.height,
+                              screenWidth / multiSizeFixSize
+                            )}px`,
+                            width: `${screenWidth / multiSizeFixSize}px`,
+                          }}
                         >
-                          <div
-                            className=""
-                            style={{
-                              height: `${calculateHeight(
-                                templates?.width,
-                                templates?.height,
-                                screenWidth / multiSizeFixSize
-                              )}px`,
-                              width: `${screenWidth / multiSizeFixSize}px`,
-                            }}
-                          >
-                            <div className="w-full h-full p-[8px] relative">
-                              <img
-                                src={`/api/image/compress?url=${encodeURIComponent(
-                                  templates?.template_thumb
-                                )}`}
-                                alt={templates?.category_name}
-                                className={`w-full h-full rounded-[5px] cursor-pointer `}
-                                style={{
-                                  border: "1px solid #80808082",
-                                }}
-                              />
-                            </div>
+                          <div className="w-full h-full p-[8px] relative">
+                            <img
+                              src={`/api/image/compress?url=${encodeURIComponent(
+                                templates?.template_thumb
+                              )}`}
+                              alt={templates?.category_name}
+                              className={`w-full h-full rounded-[5px] cursor-pointer `}
+                              style={{
+                                border: "1px solid #80808082",
+                              }}
+                            />
                           </div>
-                        </Link>
-                      </div>
-                    ))}
-                </StackGrid>
-              )}
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+              </StackGrid>
             </Box>
           </DialogContent>
         </Box>
