@@ -88,38 +88,30 @@ export default function ImageBox({
         </span>
       )}
       <div>
-        <Box
+        <Link
           className={`h-auto bg-white cursor-pointer block ${
             uniqueCat
               ? "p-3 max-sm:p-1 max-w-[250px] max-sm:max-w-[130px]"
               : "p-[7px] max-sm:p-1"
           } rounded-[12px]`}
           key={templates?.id_name}
-          // href={`/templates/p/${templates?.id_name}`}
+          href={`/templates/p/${templates?.id_name}`}
           // scroll={true}
-
-          // onClick={(e) => {
-          //   if (!isMobile) {
-          //     e.preventDefault();
-          //   }
-          // }}
-
-          onClick={() => {
-            router.push(`/templates/p/${templates?.id_name}`);
+          onClick={(e) => {
+            if (!isMobile) {
+              e.preventDefault();
+            }
           }}
+          // onClick={() => {
+          //   router.push(`/templates/p/${templates?.id_name}`);
+          // }}
         >
           <Box
-          // onClick={() => {
-          //   if (!isMobile) {
-          //     setIdName(templates?.id_name);
-          //     setOpenModal(true);
-          //     window.history.replaceState(
-          //       {},
-          //       "",
-          //       `/templates/p/${templates?.id_name}`
-          //     );
-          //   }
-          // }}
+            onClick={() => {
+              if (!isMobile) {
+                router.push(`/templates/p/${templates?.id_name}`);
+              }
+            }}
           >
             <Box
               className={` ${
@@ -209,7 +201,7 @@ export default function ImageBox({
               {templates?.category_name}
             </Typography>
           </Box>
-        </Box>
+        </Link>
       </div>
     </div>
   );
