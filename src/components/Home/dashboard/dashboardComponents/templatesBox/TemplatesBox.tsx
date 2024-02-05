@@ -16,6 +16,7 @@ import {
   dashboardPage,
   templatesData,
 } from "@/src/redux/reducer/AuthDataReducer";
+import Link from "next/link";
 
 export default function TemplatesBox() {
   const [openModal, setOpenModal] = React.useState(false);
