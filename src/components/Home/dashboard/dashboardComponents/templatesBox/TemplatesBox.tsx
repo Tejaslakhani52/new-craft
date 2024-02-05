@@ -63,7 +63,7 @@ export default function TemplatesBox() {
         setLoading(false);
       })
       .catch((err) => consoleLog("err", err));
-  }, [pages]);
+  }, [page]);
 
   const debouncedHandleScroll = () => {
     // const scrollOffset = 200;
