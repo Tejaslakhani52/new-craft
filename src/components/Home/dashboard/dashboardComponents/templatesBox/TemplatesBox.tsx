@@ -3,20 +3,14 @@ import { consoleLog } from "@/src/commonFunction/console";
 import TemplateModal from "@/src/components/singleTemplate/TemplateModal";
 import { TemplateDataType } from "@/src/interface/commonType";
 import { DashboardData, DashboardDataType } from "@/src/interface/dashboard";
+import { RootState } from "@/src/redux";
 import { Box } from "@mui/material";
-import { debounce } from "lodash";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { useDispatch, useSelector } from "react-redux";
 import TemplatesSkelton from "../TemplatesSkelton";
 import TemplatesBoxes from "./components/TemplatesBoxes";
-import { RootState } from "@/src/redux";
-import {
-  dashboardPage,
-  templatesData,
-} from "@/src/redux/reducer/AuthDataReducer";
-import Link from "next/link";
 
 export default function TemplatesBox() {
   const [openModal, setOpenModal] = React.useState(false);
